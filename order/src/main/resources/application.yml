@@ -1,2 +1,17 @@
 server:
   port: 8010
+
+spring:
+  application:
+    name: order-service
+  cloud:
+    # loadbalancer只是为了后面的测试，没有啥用可以不要
+    loadbalancer:
+      nacos:
+        enabled: true
+    nacos:
+      server-addr: 192.168.43.128:8848
+      discovery:
+        username: nacos
+        password: nacos
+        namespace: public
