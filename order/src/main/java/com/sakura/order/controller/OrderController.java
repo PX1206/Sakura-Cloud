@@ -1,9 +1,10 @@
 package com.sakura.order.controller;
 
+import com.sakura.order.feign.ProductFeignService;
+import com.sakura.order.feign.StockFeignService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
 
 /**
  * @author Sakura
@@ -14,13 +15,16 @@ import org.springframework.web.client.RestTemplate;
 public class OrderController {
 
     @Autowired
-    RestTemplate restTemplate;
+    StockFeignService stockFeignService;
+    @Autowired
+    ProductFeignService productFeignService;
 
     @RequestMapping("/add")
     public String add(){
         System.out.println("下单成功");
-        String msg = restTemplate.getForObject("http://stock-service/stock/reduct", String.class);
-        return "下单成功" + msg;
+        String msg = stockFeignService.reduct();
+        String productMsg = productFeignService.get(1);
+        return "下单成功" + msg + "-" + productMsg;
     }
 
 }

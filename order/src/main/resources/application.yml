@@ -15,3 +15,17 @@ spring:
         username: nacos
         password: nacos
         namespace: public
+
+logging:
+  level:
+    com.sakura.order.feign: debug # 这里我们可以单独配置feign的日志级别
+
+feign:
+  client:
+    config:
+      product-service:
+        logger-level: basic
+        connect-timeout: 5000 # 连接超时时间，默认2s
+        read-timeout: 3000 #请求处理超时时间，默认5s
+        request-interceptors:
+          - com.sakura.order.interceptor.feign.CustomFeignInterceptor # 开启自定义拦截器
