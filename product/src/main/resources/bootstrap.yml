@@ -1,4 +1,6 @@
 spring:
+  application:
+    name: product-service
   cloud:
     nacos:
       discovery:
@@ -19,7 +21,7 @@ spring:
         # 临时实例，默认true，false永久实例，即使宕机也不会从nacos服务中删除,可应对雪崩保护，避免服务被删除
         ephemeral: true
         # 权重 1-100 数值越大权重越大分配的流量就越大，通常结合权重负载均衡策略
-        weight: 100
+        # weight: 100
       config:
         server-addr: ${spring.cloud.nacos.discovery.server-addr}
         username: ${spring.cloud.nacos.discovery.username}

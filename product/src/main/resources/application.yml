@@ -2,5 +2,5 @@ server:
   port: 8030
 
 spring:
-  application:
-    name: product-service
+  profiles:
+    active: dev

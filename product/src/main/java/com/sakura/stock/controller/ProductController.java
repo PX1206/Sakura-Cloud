@@ -19,7 +19,7 @@ public class ProductController {
     @RequestMapping("/get/{id}")
     public String get(@PathVariable("id") Integer id) throws Exception {
         System.out.println("查询商品信息" + id);
-        Thread.sleep(5000);
+        // Thread.sleep(5000);
         return "查询商品信息" + id + "-" + port;
     }
 

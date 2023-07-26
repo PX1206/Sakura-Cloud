@@ -5,6 +5,10 @@ logging:
   level:
     com.sakura.order.feign: debug # 这里我们可以单独配置feign的日志级别
 
+spring:
+  profiles:
+    active: dev
+
 feign:
   client:
     config:
