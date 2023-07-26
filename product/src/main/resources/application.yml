@@ -4,10 +4,3 @@ server:
 spring:
   application:
     name: product-service
-  cloud:
-    nacos:
-      server-addr: 192.168.43.128:8848
-      discovery:
-        username: nacos
-        password: nacos
-        namespace: public
