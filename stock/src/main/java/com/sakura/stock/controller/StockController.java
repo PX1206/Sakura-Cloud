@@ -17,6 +17,8 @@ public class StockController {
 
     @RequestMapping("/reduct")
     public String reduct(){
+        // 抛异常测试openfeign整合sentinel熔断降级
+        int a = 1/0;
         System.out.println("扣减库存");
         return "扣减库存" + port;
     }

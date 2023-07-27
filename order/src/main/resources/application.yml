@@ -8,8 +8,14 @@ logging:
 spring:
   profiles:
     active: dev
+  cloud:
+    sentinel:
+      transport:
+        dashboard: 192.168.43.128:9100
 
 feign:
+  sentinel:
+    enabled: true # 开启openfeign中的sentinel
   client:
     config:
       product-service:

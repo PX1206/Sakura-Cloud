@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @author: Sakura
  * @date: 2023/7/20 14:38
  */
-@FeignClient(name = "stock-service", path = "/stock")
+@FeignClient(name = "stock-service", path = "/stock", fallback = StockFeignServiceFallback.class)
 public interface StockFeignService {
 
     @RequestMapping("/reduct")
