@@ -12,4 +12,4 @@ Seata 分布式事务
 Gateway 网关控制  
 SkyWalking 服务监控/链路追踪  
 
-想学习一下搭建过程的可以移步到https://editor.csdn.net/md/?articleId=131802760  
+想学习一下搭建过程的可以移步到https://blog.csdn.net/cl617287/article/details/131802760  
