@@ -4,10 +4,15 @@ import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.sakura.order.feign.ProductFeignService;
 import com.sakura.order.feign.StockFeignService;
+import com.sakura.order.param.AddOrderParam;
+import com.sakura.order.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -32,6 +37,9 @@ public class OrderController {
 
     @Value("${user.sex}")
     private String userSex;
+
+    @Autowired
+    OrderService orderService;
 
     @RequestMapping("/add")
     public String add(){
@@ -58,6 +66,12 @@ public class OrderController {
     public String flow() throws Exception {
         Thread.sleep(3000);
         return "正常访问";
+    }
+
+    @RequestMapping("/addOrder")
+    @ResponseBody
+    public String addOrder(@Validated @RequestBody AddOrderParam addOrderParam){
+        return orderService.addOrder(addOrderParam);
     }
 
 }

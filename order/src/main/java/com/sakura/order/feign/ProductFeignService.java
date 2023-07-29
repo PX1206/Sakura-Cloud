@@ -1,6 +1,7 @@
 package com.sakura.order.feign;
 
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -13,5 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public interface ProductFeignService {
 
     @RequestMapping("/get/{id}")
-    public String get(@PathVariable("id") Integer id);
+    String get(@PathVariable("id") Integer id);
+
+    @GetMapping("/getUnitPrice/{productNo}")
+    Integer getUnitPrice(@PathVariable("productNo") String productNo);
 }
