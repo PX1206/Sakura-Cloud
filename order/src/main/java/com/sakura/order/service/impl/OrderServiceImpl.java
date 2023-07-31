@@ -6,6 +6,8 @@ import com.sakura.order.feign.StockFeignService;
 import com.sakura.order.mapper.OrderMapper;
 import com.sakura.order.param.AddOrderParam;
 import com.sakura.order.service.OrderService;
+import io.seata.spring.annotation.GlobalLock;
+import io.seata.spring.annotation.GlobalTransactional;
 import lombok.extern.java.Log;
 import org.apache.http.client.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +31,13 @@ public class OrderServiceImpl implements OrderService {
     StockFeignService stockFeignService;
 
     @Override
+    @GlobalLock
+    @GlobalTransactional
     public String addOrder(AddOrderParam addOrderParam) {
+
+        Order order1 = new Order();
+        order1.setOrderNo("6341341");
+        orderMapper.insert(order1);
 
         // 先去查询商品库存信息
         Integer num = stockFeignService.getProductNum(addOrderParam.getProductNo());

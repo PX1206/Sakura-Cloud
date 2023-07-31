@@ -28,6 +28,10 @@ public class StockServiceImpl implements StockService {
         if (stock == null || stock.getProductNum() == null) {
             return 0;
         }
+        // 修改库存
+        stock.setProductNum(stock.getProductNum() -1);
+        stockMapper.updateById(stock);
+
         return stock.getProductNum();
     }
 }

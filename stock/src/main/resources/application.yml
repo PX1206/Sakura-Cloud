@@ -42,6 +42,28 @@ spring:
       transport:
         dashboard: 192.168.43.128:9100
 
+seata:
+  tx-service-group: stock-tx-group
+  service:
+    vgroupMapping:
+      stock-tx-group: default
+  config:
+    type: nacos
+    nacos:
+      server-addr: ${spring.cloud.nacos.discovery.server-addr}
+      namespace: f6758f0e-1bbe-484f-9247-e9e6d1df5a25
+      group: SEATA_GROUP
+      username: ${spring.cloud.nacos.config.username}
+      password: ${spring.cloud.nacos.config.password}
+  registry:
+    type: nacos
+    nacos:
+      server-addr: ${spring.cloud.nacos.discovery.server-addr}
+      namespace: f6758f0e-1bbe-484f-9247-e9e6d1df5a25
+      group: SEATA_GROUP
+      username: ${spring.cloud.nacos.discovery.username}
+      password: ${spring.cloud.nacos.discovery.password}
+
 mybatis-plus:
   configuration:
     map-underscore-to-camel-case: true # 虽然默认为 true ，但是还是显示去指定下。
