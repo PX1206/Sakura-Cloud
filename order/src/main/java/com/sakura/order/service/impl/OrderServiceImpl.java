@@ -10,6 +10,9 @@ import io.seata.spring.annotation.GlobalLock;
 import io.seata.spring.annotation.GlobalTransactional;
 import lombok.extern.java.Log;
 import org.apache.http.client.utils.DateUtils;
+import org.apache.skywalking.apm.toolkit.trace.Tag;
+import org.apache.skywalking.apm.toolkit.trace.Tags;
+import org.apache.skywalking.apm.toolkit.trace.Trace;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,6 +36,11 @@ public class OrderServiceImpl implements OrderService {
     @Override
     @GlobalLock
     @GlobalTransactional
+    @Trace
+    @Tags({
+            @Tag(key = "addOrder", value = "returnedObj"),
+            @Tag(key = "addOrder", value = "arg[0]")
+    })
     public String addOrder(AddOrderParam addOrderParam) {
 
         Order order1 = new Order();

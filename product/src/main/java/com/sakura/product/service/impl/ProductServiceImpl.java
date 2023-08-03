@@ -31,7 +31,7 @@ public class ProductServiceImpl implements ProductService {
             return -1;
         }
 
-        int a = 1/0;
+        //int a = 1/0;
 
         return product.getUnitPrice();
     }
