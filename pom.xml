@@ -4,44 +4,29 @@
     <modelVersion>4.0.0</modelVersion>
 
 
-    <groupId>com.sakura.springcloud</groupId>
-    <artifactId>springcloudalibaba</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>springcloudalibaba</name>
-    <description>springcloudalibaba</description>
-
-    <modules>
-        <module>order</module>
-        <module>stock</module>
-        <module>product</module>
-        <module>gateway</module>
-    </modules>
+    <groupId>com.sakura</groupId>
+    <artifactId>Sakura-Cloud</artifactId>
+    <version>1.0.0</version>
 
     <packaging>pom</packaging>
 
+    <modules>
+        <module>sakura-gateway</module>
+        <module>sakura-service</module>
+        <module>sakura-common</module>
+    </modules>
+
     <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
+        <sakura-project.version>1.0.0</sakura-project.version>
         <spring-boot.version>2.6.13</spring-boot.version>
         <spring-cloud.version>2021.0.5</spring-cloud.version>
         <spring-cloud-alibaba.version>2021.0.5.0</spring-cloud-alibaba.version>
         <mysql.version>5.1.47</mysql.version>
         <mybatis-plus.version>3.5.2</mybatis-plus.version>
-        <druid.version>1.2.11</druid.version>
+        <druid.version>1.2.5</druid.version>
     </properties>
-    <dependencies>
-        <!--springboot基本场景启动器-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
-        </dependency>
-
-        <!--springboot测试场景启动器-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
 
     <dependencyManagement>
         <dependencies>
