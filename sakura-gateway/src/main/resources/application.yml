@@ -1,0 +1,43 @@
+server:
+  port: 8000
+
+spring:
+  profiles:
+    active: dev
+  cloud:
+    sentinel:
+      transport:
+        dashboard: 192.168.43.128:9100
+    gateway:
+      # 全局跨域配置
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedMethods:
+              - GET
+              - POST
+              - DELETE
+              - PUT
+              - OPTION
+      # 路由规则配置
+      routes:
+        - id: order-route # 规则ID
+          uri: lb://order-service # lb表示启用loadbalancer负载均衡器
+          predicates:
+            - Path=/api-order/** # 页面请求gateway的ip+端口/api-order就会进入这个断言规则里面，然后转发到上面的order-service服务
+          filters:
+            - StripPrefix=1 # 这里是去掉上面路径中的/api-order这一层，完整的转发路径是127.0.0.1:8000/api-order/add/order
+        - id: product-route
+          uri: lb://product-service
+          predicates:
+            - Path=/api-product/**
+          filters:
+            - StripPrefix=1
+        - id: stock-route
+          uri: lb://stock-service
+          predicates:
+            - Path=/api-stock/**
+          filters:
+            - StripPrefix=1
+
