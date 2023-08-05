@@ -1,6 +1,6 @@
 package com.sakura.order.service.impl;
 
-import com.sakura.order.entify.Order;
+import com.sakura.order.entity.Order;
 import com.sakura.order.feign.ProductFeignService;
 import com.sakura.order.feign.StockFeignService;
 import com.sakura.order.mapper.OrderMapper;

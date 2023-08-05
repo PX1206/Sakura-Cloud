@@ -1,7 +1,7 @@
 package com.sakura.product.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.sakura.product.entify.Product;
+import com.sakura.product.entity.Product;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

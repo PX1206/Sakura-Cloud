@@ -2,7 +2,6 @@ package com.sakura.common.tool;
 
 import com.sakura.common.constant.StringPool;
 import com.sakura.common.entity.ConcurrentDateFormat;
-import com.sakura.common.exception.Exceptions;
 import lombok.experimental.UtilityClass;
 import org.springframework.util.Assert;
 
@@ -379,7 +378,7 @@ public class DateUtil {
         try {
             return format.parse(dateStr);
         } catch (ParseException e) {
-            throw Exceptions.unchecked(e);
+            throw new RuntimeException(e);
         }
     }
 
@@ -394,7 +393,7 @@ public class DateUtil {
         try {
             return format.parse(dateStr);
         } catch (ParseException e) {
-            throw Exceptions.unchecked(e);
+            throw new RuntimeException(e);
         }
     }
 
@@ -599,9 +598,8 @@ public class DateUtil {
      *
      * @return返回字符串格式 yyyyMMddHHmmss
      */
-    public static String getStringAllDate()
-    {
-        String dateString = format(new Date(),"yyyyMMddHHmmssSSS");
+    public static String getStringAllDate() {
+        String dateString = format(new Date(), "yyyyMMddHHmmssSSS");
         return dateString;
     }
 

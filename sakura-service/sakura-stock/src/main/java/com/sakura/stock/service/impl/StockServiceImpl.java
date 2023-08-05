@@ -1,7 +1,7 @@
 package com.sakura.stock.service.impl;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.sakura.stock.entify.Stock;
+import com.sakura.stock.entity.Stock;
 import com.sakura.stock.mapper.StockMapper;
 import com.sakura.stock.service.StockService;
 import lombok.extern.java.Log;

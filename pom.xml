@@ -14,6 +14,7 @@
         <module>sakura-gateway</module>
         <module>sakura-service</module>
         <module>sakura-common</module>
+        <module>sakura-generator</module>
     </modules>
 
     <properties>

@@ -1,14 +1,12 @@
 package com.sakura.product.service.impl;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.sakura.product.entify.Product;
+import com.sakura.product.entity.Product;
 import com.sakura.product.mapper.ProductMapper;
 import com.sakura.product.service.ProductService;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.Date;
 
 /**
  * @author Sakura

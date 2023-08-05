@@ -1,7 +1,7 @@
 package com.sakura.order.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.sakura.order.entify.Order;
+import com.sakura.order.entity.Order;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

@@ -1,7 +1,7 @@
 package com.sakura.stock.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.sakura.stock.entify.Stock;
+import com.sakura.stock.entity.Stock;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

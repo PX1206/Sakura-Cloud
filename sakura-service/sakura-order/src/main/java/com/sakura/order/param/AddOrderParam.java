@@ -1,6 +1,6 @@
 package com.sakura.order.param;
 
-import com.sakura.common.entity.BaseEntity;
+import com.sakura.common.base.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -8,7 +8,6 @@ import lombok.experimental.Accessors;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 
 /**
  * 订单详情表

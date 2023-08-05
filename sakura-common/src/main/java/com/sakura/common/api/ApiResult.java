@@ -1,9 +1,8 @@
-package com.sakura.common.entity;
+package com.sakura.common.api;
 
-import com.alibaba.csp.sentinel.util.StringUtil;
 import com.alibaba.fastjson.annotation.JSONField;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.sakura.common.enums.ApiCode;
+import com.sakura.common.tool.StringUtil;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,11 +13,15 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * <p>
+ * REST API 返回结果
+ * </p>
+ */
 @Data
 @Accessors(chain = true)
 @Builder
 @AllArgsConstructor
-@SuppressWarnings("unchecked")
 public class ApiResult<T> implements Serializable {
 	private static final long serialVersionUID = 8004487252556526569L;
 

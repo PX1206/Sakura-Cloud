@@ -1,9 +1,9 @@
-package com.sakura.stock.entify;
+package com.sakura.order.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.sakura.common.entity.BaseEntity;
+import com.sakura.common.base.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -17,8 +17,8 @@ import java.util.Date;
 @Data
 @Accessors(chain = true)
 @EqualsAndHashCode(callSuper = true)
-@TableName("t_stock")
-public class Stock extends BaseEntity {
+@TableName("t_order")
+public class Order extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
@@ -29,14 +29,25 @@ public class Stock extends BaseEntity {
     private Long id;
 
     /**
+     * 订单号
+     */
+    private String orderNo;
+
+    /**
      * 商品编号
      */
     private String productNo;
 
     /**
-     * 商品数量
+     * 数量
      */
-    private Integer productNum;
+    private Integer num;
+
+
+    /**
+     * 总价格
+     */
+    private Integer totalPrice;
 
     /**
      * 创建日期
