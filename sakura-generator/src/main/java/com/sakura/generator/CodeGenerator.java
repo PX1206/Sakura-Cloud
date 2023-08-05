@@ -8,8 +8,8 @@ import com.baomidou.mybatisplus.generator.config.*;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.sakura.generator.config.*;
-import com.sakura.generator.config.query.SpringBootPlusMySqlQuery;
-import com.sakura.generator.config.query.SpringBootPlusSqlServerQuery;
+import com.sakura.generator.config.query.SakuraMySqlQuery;
+import com.sakura.generator.config.query.SakuraSqlServerQuery;
 import com.sakura.generator.constant.GeneratorConstant;
 import com.sakura.generator.exception.GeneratorException;
 import com.sakura.generator.properties.GeneratorProperties;
@@ -145,10 +145,10 @@ public class CodeGenerator {
         DbType dbType = dataSourceConfig.getDbType();
         if (DbType.MYSQL == dbType) {
             // 设置MySQL元数据自定义查询
-            dataSourceConfig.setDbQuery(new SpringBootPlusMySqlQuery());
+            dataSourceConfig.setDbQuery(new SakuraMySqlQuery());
         } else if (DbType.SQL_SERVER2005 == dbType || DbType.SQL_SERVER == dbType) {
             // 设置SQLServer元数据自定义查询
-            dataSourceConfig.setDbQuery(new SpringBootPlusSqlServerQuery());
+            dataSourceConfig.setDbQuery(new SakuraSqlServerQuery());
         }
 
         // 设置数据源

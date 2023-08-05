@@ -2,7 +2,7 @@ package com.sakura.generator.config.query;
 
 import com.baomidou.mybatisplus.generator.config.querys.MySqlQuery;
 
-public class SpringBootPlusMySqlQuery extends MySqlQuery {
+public class SakuraMySqlQuery extends MySqlQuery {
 
     @Override
     public String[] fieldCustom() {

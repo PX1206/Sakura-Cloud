@@ -2,7 +2,7 @@ package com.sakura.generator.config.query;
 
 import com.baomidou.mybatisplus.generator.config.querys.SqlServerQuery;
 
-public class SpringBootPlusSqlServerQuery extends SqlServerQuery {
+public class SakuraSqlServerQuery extends SqlServerQuery {
 
     /**
      * fix mybatisplus3.3.1 SQLServer SQL过滤表，TABLE_NAME报错问题

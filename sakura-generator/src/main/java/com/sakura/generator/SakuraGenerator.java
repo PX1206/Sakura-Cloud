@@ -23,8 +23,7 @@ public class SakuraGenerator {
 
         // 设置基本信息
         generatorProperties
-                // 目前建议单独生产一个模块然后把生成文件复制到项目中
-                .setMavenModuleName("generator-demo")
+                .setMavenModuleName("sakura-service/sakura-stock") // 注意这里的项目目录层级
                 .setParentPackage("com.sakura")
                 .setModuleName("stock")
                 .setAuthor("Sakura")

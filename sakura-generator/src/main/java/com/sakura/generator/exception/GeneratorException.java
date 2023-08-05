@@ -1,6 +1,6 @@
 package com.sakura.generator.exception;
 
-public class GeneratorException extends SpringBootPlusException {
+public class GeneratorException extends SakuraException {
 	private static final long serialVersionUID = 2556853577480934761L;
 
 	public GeneratorException(String message) {
