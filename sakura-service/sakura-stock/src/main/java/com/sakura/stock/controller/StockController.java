@@ -1,38 +1,104 @@
 package com.sakura.stock.controller;
 
+import com.sakura.stock.entity.Stock;
 import com.sakura.stock.service.StockService;
+import lombok.extern.slf4j.Slf4j;
+import com.sakura.stock.param.StockPageParam;
+import com.sakura.common.base.BaseController;
+import com.sakura.common.api.ApiResult;
+import com.sakura.common.pagination.Paging;
+import com.sakura.common.api.IdParam;
+import com.sakura.common.log.Module;
+import com.sakura.common.log.OperationLog;
+import com.sakura.common.enums.OperationLogType;
+import com.sakura.common.api.Add;
+import com.sakura.common.api.Update;
+import org.springframework.validation.annotation.Validated;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
+ * 库存表 控制器
+ *
  * @author Sakura
- * @date 2023/7/19 11:35
+ * @since 2023-08-08
  */
+@Slf4j
 @RestController
 @RequestMapping("/stock")
-public class StockController {
-
-    @Value("${server.port}")
-    String port;
+@Module("stock")
+@Api(value = "库存表API", tags = {"库存表"})
+public class StockController extends BaseController {
 
     @Autowired
-    StockService stockService;
+    private StockService stockService;
 
-    @RequestMapping("/reduct")
-    public String reduct(){
-        // 抛异常测试openfeign整合sentinel熔断降级
-        //int a = 1/0;
-        System.out.println("扣减库存");
-        return "扣减库存" + port;
+    /**
+     * 添加库存表
+     */
+    @PostMapping("/add")
+    @OperationLog(name = "添加库存表", type = OperationLogType.ADD)
+    @ApiOperation(value = "添加库存表", response = ApiResult.class)
+    public ApiResult<Boolean> addStock(@Validated(Add.class) @RequestBody Stock stock) throws Exception {
+        boolean flag = stockService.saveStock(stock);
+        return ApiResult.result(flag);
     }
 
+    /**
+     * 修改库存表
+     */
+    @PostMapping("/update")
+    @OperationLog(name = "修改库存表", type = OperationLogType.UPDATE)
+    @ApiOperation(value = "修改库存表", response = ApiResult.class)
+    public ApiResult<Boolean> updateStock(@Validated(Update.class) @RequestBody Stock stock) throws Exception {
+        boolean flag = stockService.updateStock(stock);
+        return ApiResult.result(flag);
+    }
+
+    /**
+     * 删除库存表
+     */
+    @PostMapping("/delete/{id}")
+    @OperationLog(name = "删除库存表", type = OperationLogType.DELETE)
+    @ApiOperation(value = "删除库存表", response = ApiResult.class)
+    public ApiResult<Boolean> deleteStock(@PathVariable("id") Long id) throws Exception {
+        boolean flag = stockService.deleteStock(id);
+        return ApiResult.result(flag);
+    }
+
+    /**
+     * 获取库存表详情
+     */
+    @GetMapping("/info/{id}")
+    @OperationLog(name = "库存表详情", type = OperationLogType.INFO)
+    @ApiOperation(value = "库存表详情", response = Stock.class)
+    public ApiResult<Stock> getStock(@PathVariable("id") Long id) throws Exception {
+        Stock stock = stockService.getById(id);
+        return ApiResult.ok(stock);
+    }
+
+    /**
+     * 库存表分页列表
+     */
+    @PostMapping("/getPageList")
+    @OperationLog(name = "库存表分页列表", type = OperationLogType.PAGE)
+    @ApiOperation(value = "库存表分页列表", response = Stock.class)
+    public ApiResult<Paging<Stock>> getStockPageList(@Validated @RequestBody StockPageParam stockPageParam) throws Exception {
+        Paging<Stock> paging = stockService.getStockPageList(stockPageParam);
+        return ApiResult.ok(paging);
+    }
+
+    /**
+     * 获取商品库存数量
+     */
     @GetMapping("/getProductNum/{productNo}")
-    public Integer getProductNum(@PathVariable("productNo") String productNo){
-        return stockService.getProductNum(productNo);
+    @OperationLog(name = "获取商品库存数量", type = OperationLogType.query)
+    @ApiOperation(value = "获取商品库存数量", response = ApiResult.class)
+    public ApiResult<Integer> getProductNum(@PathVariable("productNo") String productNo) throws Exception {
+        Integer num = stockService.getProductNum(productNo);
+        return ApiResult.ok(num);
     }
-
 }
+

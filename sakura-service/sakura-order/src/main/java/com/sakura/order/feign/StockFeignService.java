@@ -1,5 +1,6 @@
 package com.sakura.order.feign;
 
+import com.sakura.common.api.ApiResult;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,9 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @FeignClient(name = "stock-service", path = "/stock", fallback = StockFeignServiceFallback.class)
 public interface StockFeignService {
 
-    @RequestMapping("/reduct")
-    String reduct();
-
     @GetMapping("/getProductNum/{productNo}")
-    Integer getProductNum(@PathVariable("productNo") String productNo);
+    ApiResult<Integer> getProductNum(@PathVariable("productNo") String productNo);
 }

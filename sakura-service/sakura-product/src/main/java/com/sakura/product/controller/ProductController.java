@@ -1,44 +1,105 @@
 package com.sakura.product.controller;
 
+import com.sakura.product.entity.Product;
 import com.sakura.product.service.ProductService;
+import lombok.extern.slf4j.Slf4j;
+import com.sakura.product.param.ProductPageParam;
+import com.sakura.common.base.BaseController;
+import com.sakura.common.api.ApiResult;
+import com.sakura.common.pagination.Paging;
+import com.sakura.common.api.IdParam;
+import com.sakura.common.log.Module;
+import com.sakura.common.log.OperationLog;
+import com.sakura.common.enums.OperationLogType;
+import com.sakura.common.api.Add;
+import com.sakura.common.api.Update;
+import org.springframework.validation.annotation.Validated;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
+ * 商品表 控制器
+ *
  * @author Sakura
- * @date 2023/7/19 11:35
+ * @since 2023-08-08
  */
+@Slf4j
 @RestController
 @RequestMapping("/product")
-public class ProductController {
-
-    @Value("${server.port}")
-    String port;
+@Module("product")
+@Api(value = "商品表API", tags = {"商品表"})
+public class ProductController extends BaseController {
 
     @Autowired
     private ProductService productService;
 
-    @RequestMapping("/get/{id}")
-    public String get(@PathVariable("id") Integer id) throws Exception {
-        System.out.println("查询商品信息" + id);
-        // Thread.sleep(5000);
-        return "查询商品信息" + id + "-" + port;
+    /**
+     * 添加商品表
+     */
+    @PostMapping("/add")
+    @OperationLog(name = "添加商品表", type = OperationLogType.ADD)
+    @ApiOperation(value = "添加商品表", response = ApiResult.class)
+    public ApiResult<Boolean> addProduct(@Validated(Add.class) @RequestBody Product product) throws Exception {
+        boolean flag = productService.saveProduct(product);
+        return ApiResult.result(flag);
     }
 
     /**
-     * @description: 获取商品单价
-     * @param productNo
-     * @return [java.lang.String]
-     * @author: Sakura
-     * @date: 2023/7/28 16:51
+     * 修改商品表
+     */
+    @PostMapping("/update")
+    @OperationLog(name = "修改商品表", type = OperationLogType.UPDATE)
+    @ApiOperation(value = "修改商品表", response = ApiResult.class)
+    public ApiResult<Boolean> updateProduct(@Validated(Update.class) @RequestBody Product product) throws Exception {
+        boolean flag = productService.updateProduct(product);
+        return ApiResult.result(flag);
+    }
+
+    /**
+     * 删除商品表
+     */
+    @PostMapping("/delete/{id}")
+    @OperationLog(name = "删除商品表", type = OperationLogType.DELETE)
+    @ApiOperation(value = "删除商品表", response = ApiResult.class)
+    public ApiResult<Boolean> deleteProduct(@PathVariable("id") Long id) throws Exception {
+        boolean flag = productService.deleteProduct(id);
+        return ApiResult.result(flag);
+    }
+
+    /**
+     * 获取商品表详情
+     */
+    @GetMapping("/info/{id}")
+    @OperationLog(name = "商品表详情", type = OperationLogType.INFO)
+    @ApiOperation(value = "商品表详情", response = Product.class)
+    public ApiResult<Product> getProduct(@PathVariable("id") Long id) throws Exception {
+        Product product = productService.getById(id);
+        return ApiResult.ok(product);
+    }
+
+    /**
+     * 商品表分页列表
+     */
+    @PostMapping("/getPageList")
+    @OperationLog(name = "商品表分页列表", type = OperationLogType.PAGE)
+    @ApiOperation(value = "商品表分页列表", response = Product.class)
+    public ApiResult<Paging<Product>> getProductPageList(@Validated @RequestBody ProductPageParam productPageParam) throws Exception {
+        Paging<Product> paging = productService.getProductPageList(productPageParam);
+        return ApiResult.ok(paging);
+    }
+
+    /**
+     * 商品表分页列表
      */
     @GetMapping("/getUnitPrice/{productNo}")
-    public Integer getUnitPrice(@PathVariable("productNo") String productNo) throws Exception {
-        return productService.getUnitPrice(productNo);
+    @OperationLog(name = "获取商品单价", type = OperationLogType.query)
+    @ApiOperation(value = "获取商品单价", response = ApiResult.class)
+    public ApiResult<Integer> getUnitPrice(@PathVariable("productNo") String productNo) throws Exception {
+        Integer unitPrice = productService.getUnitPrice(productNo);
+        return ApiResult.ok(unitPrice);
     }
 
 }
+

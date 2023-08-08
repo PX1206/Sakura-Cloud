@@ -23,14 +23,14 @@ public class SakuraGenerator {
 
         // 设置基本信息
         generatorProperties
-                .setMavenModuleName("sakura-service/sakura-order") // 注意这里的项目目录层级
+                .setMavenModuleName("sakura-service/sakura-product") // 注意这里的项目目录层级
                 .setParentPackage("com.sakura")
-                .setModuleName("order")
+                .setModuleName("product")
                 .setAuthor("Sakura")
                 .setFileOverride(true);
 
         // 设置表信息
-        generatorProperties.addTable("t_order","id");
+        generatorProperties.addTable("t_product","id");
         // 设置表前缀
         generatorProperties.setTablePrefix(Arrays.asList("t_"));
 
@@ -40,7 +40,7 @@ public class SakuraGenerator {
                 .setUsername("root")
                 .setPassword("px123456")
                 .setDriverName("com.mysql.jdbc.Driver")
-                .setUrl("jdbc:mysql://192.168.43.128:3306/order?useUnicode=true&characterEncoding=UTF-8&useSSL=false");
+                .setUrl("jdbc:mysql://192.168.43.128:3306/product?useUnicode=true&characterEncoding=UTF-8&useSSL=false");
 
         // 生成配置
         generatorProperties.getGeneratorConfig()

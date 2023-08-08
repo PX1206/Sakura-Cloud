@@ -1,6 +1,7 @@
 package com.sakura.order.service.impl;
 
 import com.sakura.common.api.ApiCode;
+import com.sakura.common.api.ApiResult;
 import com.sakura.common.exception.BusinessException;
 import com.sakura.order.entity.Order;
 import com.sakura.order.feign.ProductFeignService;
@@ -16,7 +17,12 @@ import com.sakura.common.pagination.PageInfo;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import io.seata.spring.annotation.GlobalLock;
+import io.seata.spring.annotation.GlobalTransactional;
 import org.apache.http.client.utils.DateUtils;
+import org.apache.skywalking.apm.toolkit.trace.Tag;
+import org.apache.skywalking.apm.toolkit.trace.Tags;
+import org.apache.skywalking.apm.toolkit.trace.Trace;
 import org.springframework.transaction.annotation.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -44,11 +50,18 @@ public class OrderServiceImpl extends BaseServiceImpl<OrderMapper, Order> implem
 
     @Transactional(rollbackFor = Exception.class)
     @Override
+    @GlobalLock
+    @GlobalTransactional
+    @Trace
+    @Tags({
+            @Tag(key = "addOrder", value = "returnedObj"),
+            @Tag(key = "addOrder", value = "arg[0]")
+    })
     public boolean saveOrder(AddOrderParam addOrderParam) throws Exception {
         // 先去查询商品库存信息
-        Integer num = stockFeignService.getProductNum(addOrderParam.getProductNo());
-        log.info("商品库存数量：" + num);
-        if (num == null || num < 1 || num < addOrderParam.getNum()) {
+        ApiResult<Integer> apiResultNum = stockFeignService.getProductNum(addOrderParam.getProductNo());
+        log.info("商品库存数量：" + apiResultNum.toString());
+        if (apiResultNum.getCode() != 200 || apiResultNum.getData() < 1 || apiResultNum.getData() < addOrderParam.getNum()) {
             throw new BusinessException(500, "商品库存不足");
         }
         Order order = new Order();
@@ -58,12 +71,12 @@ public class OrderServiceImpl extends BaseServiceImpl<OrderMapper, Order> implem
         order.setProductNo(addOrderParam.getProductNo());
         order.setNum(addOrderParam.getNum());
         // 去商品服务获取商品单价
-        Integer unitPrice = productFeignService.getUnitPrice(addOrderParam.getProductNo());
-        log.info("商品单价：" + unitPrice);
-        if (unitPrice == null || unitPrice < 0) {
+        ApiResult<Integer> apiResultUnitPrice = productFeignService.getUnitPrice(addOrderParam.getProductNo());
+        log.info("商品单价：" + apiResultUnitPrice.toString());
+        if (apiResultUnitPrice.getCode() != 200 || apiResultUnitPrice.getData() < 0) {
             throw new BusinessException(500, "商品价格异常");
         }
-        order.setTotalPrice(addOrderParam.getNum() * unitPrice);
+        order.setTotalPrice(addOrderParam.getNum() * apiResultUnitPrice.getData());
         order.setStatus(1);
         orderMapper.insert(order);
 

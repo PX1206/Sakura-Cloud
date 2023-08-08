@@ -62,7 +62,7 @@ public interface ${table.serviceName} extends ${superServiceClass}<${entity}> {
     /**
      * 获取分页对象
      *
-     * @param ${cfg.entityObjectName}QueryParam
+     * @param ${cfg.entityObjectName}PageParam
      * @return
      * @throws Exception
      */
