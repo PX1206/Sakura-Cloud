@@ -88,23 +88,3 @@ feign:
         read-timeout: 6000 #请求处理超时时间，默认5s
         request-interceptors:
           - com.sakura.order.interceptor.feign.CustomFeignInterceptor # 开启自定义拦截器
-
-swagger:
-  title: payment-api
-  description: "支付服务"
-  version: 1.0
-  license: "www"
-  licenseUrl: http://baidu.com
-  terms-of-service-url: http://baidu.com
-  contact:
-    name: liu
-    email: 11111
-    url: http://baidu.com
-  authorization:
-    name:  OAuth
-    auth-regex: ^.*$
-    authorization-scope-list:
-      - scope: server
-        description: server all
-    token-url-list:
-      - http://${GATEWAY_HOST:localhost}:${GATEWAY-PORT:5000}/auth/oauth/token

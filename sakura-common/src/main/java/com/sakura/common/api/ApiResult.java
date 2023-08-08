@@ -56,6 +56,12 @@ public class ApiResult<T> implements Serializable {
         time  = new Date();
     }
 
+    public ApiResult(Integer code, String message) {
+        this.time = new Date();
+        this.code = code;
+        this.message = message;
+    }
+
     public static ApiResult<Boolean> result(boolean flag){
         if (flag){
             return ok();

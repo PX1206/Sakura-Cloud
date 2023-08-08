@@ -15,9 +15,6 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * 根据lambda表达式获取数据库列名
- *
- * @author geekidea
- * @date 2019/12/22
  **/
 public class LambdaColumn<T> {
 

@@ -1,4 +1,4 @@
-package com.sakura.order.config;
+package com.sakura.common.config;
 
 import feign.Logger;
 import org.springframework.context.annotation.Bean;

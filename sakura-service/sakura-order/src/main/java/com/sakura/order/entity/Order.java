@@ -1,67 +1,58 @@
 package com.sakura.order.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.sakura.common.base.BaseEntity;
+import java.util.Date;
+import com.baomidou.mybatisplus.annotation.Version;
+import com.baomidou.mybatisplus.annotation.TableId;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
-
-import java.util.Date;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import com.sakura.common.api.Update;
 
 /**
+ * 订单表
+ *
  * @author Sakura
- * @date 2023/7/28 15:13
+ * @since 2023-08-07
  */
 @Data
 @Accessors(chain = true)
 @EqualsAndHashCode(callSuper = true)
 @TableName("t_order")
+@ApiModel(value = "Order对象")
 public class Order extends BaseEntity {
-
     private static final long serialVersionUID = 1L;
 
-    /**
-     * 自增id
-     */
+    @NotNull(message = "id不能为空", groups = {Update.class})
+    @ApiModelProperty("id,自增")
     @TableId(value = "id", type = IdType.AUTO)
-    private Long id;
+    private Integer id;
 
-    /**
-     * 订单号
-     */
+    @ApiModelProperty("订单号")
     private String orderNo;
 
-    /**
-     * 商品编号
-     */
+    @ApiModelProperty("商品编号")
     private String productNo;
 
-    /**
-     * 数量
-     */
+    @ApiModelProperty("数量")
     private Integer num;
 
-
-    /**
-     * 总价格
-     */
+    @ApiModelProperty("总价格，单位为分")
     private Integer totalPrice;
 
-    /**
-     * 创建日期
-     */
+    @ApiModelProperty("创建日期")
     private Date createDt;
 
-    /**
-     * 修改日期
-     */
+    @ApiModelProperty("修改日期")
     private Date updateDt;
 
-    /**
-     * 状态：1正常 0删除
-     */
+    @ApiModelProperty("状态：1正常 0删除")
     private Integer status;
 
 }

@@ -1,77 +1,95 @@
 package com.sakura.order.controller;
 
-import com.alibaba.csp.sentinel.annotation.SentinelResource;
-import com.alibaba.csp.sentinel.slots.block.BlockException;
-import com.sakura.order.feign.ProductFeignService;
-import com.sakura.order.feign.StockFeignService;
+import com.sakura.order.entity.Order;
 import com.sakura.order.param.AddOrderParam;
 import com.sakura.order.service.OrderService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cloud.context.config.annotation.RefreshScope;
+import lombok.extern.slf4j.Slf4j;
+import com.sakura.order.param.OrderPageParam;
+import com.sakura.common.base.BaseController;
+import com.sakura.common.api.ApiResult;
+import com.sakura.common.pagination.Paging;
+import com.sakura.common.api.IdParam;
+import com.sakura.common.log.Module;
+import com.sakura.common.log.OperationLog;
+import com.sakura.common.enums.OperationLogType;
+import com.sakura.common.api.Add;
+import com.sakura.common.api.Update;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 /**
+ * 订单表 控制器
+ *
  * @author Sakura
- * @date 2023/7/19 11:25
+ * @since 2023-08-07
  */
+@Slf4j
 @RestController
 @RequestMapping("/order")
-@RefreshScope
-public class OrderController {
+@Module("order")
+@Api(value = "订单表API", tags = {"订单表"})
+public class OrderController extends BaseController {
 
     @Autowired
-    StockFeignService stockFeignService;
-    @Autowired
-    ProductFeignService productFeignService;
+    private OrderService orderService;
 
-    @Value("${user.name}")
-    private String userName;
-
-    @Value("${user.age}")
-    private String userAge;
-
-    @Value("${user.sex}")
-    private String userSex;
-
-    @Autowired
-    OrderService orderService;
-
-    @RequestMapping("/add")
-    public String add(){
-        System.out.println("下单成功");
-        String msg = stockFeignService.reduct();
-        String productMsg = productFeignService.get(1);
-        return userName + userAge + userSex +  "下单成功" + msg + "-" + productMsg;
+    /**
+     * 添加订单表
+     */
+    @PostMapping("/add")
+    @OperationLog(name = "添加订单表", type = OperationLogType.ADD)
+    @ApiOperation(value = "添加订单表", response = ApiResult.class)
+    public ApiResult<Boolean> addOrder(@Validated(Add.class) @RequestBody AddOrderParam addOrderParam) throws Exception {
+        boolean flag = orderService.saveOrder(addOrderParam);
+        return ApiResult.result(flag);
     }
 
-    @RequestMapping("/get")
-    @SentinelResource(value = "get", blockHandler = "getBlockHandler")
-    public String get(){
-        return "获取订单成功";
+    /**
+     * 修改订单表
+     */
+    @PostMapping("/update")
+    @OperationLog(name = "修改订单表", type = OperationLogType.UPDATE)
+    @ApiOperation(value = "修改订单表", response = ApiResult.class)
+    public ApiResult<Boolean> updateOrder(@Validated(Update.class) @RequestBody Order order) throws Exception {
+        boolean flag = orderService.updateOrder(order);
+        return ApiResult.result(flag);
     }
 
-    // 流控方法必须和原方法类型一致参数一致
-    // 一定要加上BlockException
-    public String getBlockHandler(BlockException blockException){
-        // 我们可以在这个方法里面处理流控后的业务逻辑
-        return "get接口被流控";
+    /**
+     * 删除订单表
+     */
+    @PostMapping("/delete/{id}")
+    @OperationLog(name = "删除订单表", type = OperationLogType.DELETE)
+    @ApiOperation(value = "删除订单表", response = ApiResult.class)
+    public ApiResult<Boolean> deleteOrder(@PathVariable("id") Long id) throws Exception {
+        boolean flag = orderService.deleteOrder(id);
+        return ApiResult.result(flag);
     }
 
-    @RequestMapping("/flow")
-    public String flow() throws Exception {
-        Thread.sleep(3000);
-        return "正常访问";
+    /**
+     * 获取订单表详情
+     */
+    @GetMapping("/info/{id}")
+    @OperationLog(name = "订单表详情", type = OperationLogType.INFO)
+    @ApiOperation(value = "订单表详情", response = Order.class)
+    public ApiResult<Order> getOrder(@PathVariable("id") Long id) throws Exception {
+        Order order = orderService.getById(id);
+        return ApiResult.ok(order);
     }
 
-    @RequestMapping("/addOrder")
-    @ResponseBody
-    public String addOrder(@Validated @RequestBody AddOrderParam addOrderParam){
-        return orderService.addOrder(addOrderParam);
+    /**
+     * 订单表分页列表
+     */
+    @PostMapping("/getPageList")
+    @OperationLog(name = "订单表分页列表", type = OperationLogType.PAGE)
+    @ApiOperation(value = "订单表分页列表", response = Order.class)
+    public ApiResult<Paging<Order>> getOrderPageList(@Validated @RequestBody OrderPageParam orderPageParam) throws Exception {
+        Paging<Order> paging = orderService.getOrderPageList(orderPageParam);
+        return ApiResult.ok(paging);
     }
 
 }
+
