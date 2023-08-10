@@ -68,7 +68,7 @@
 
     <!-- 定义测试环境日志级别 -->
     <springProfile name="dev">
-        <logger name="com.sakura.cms" level="DEBUG"/>
+        <logger name="com.sakura.stock" level="DEBUG"/>
         <root>
             <level value="INFO" />
             <appender-ref ref="CONSOLE" />
@@ -78,7 +78,7 @@
 
     <!--  定义线上环境日志级别  -->
     <springProfile name="pro">
-        <logger name="com.sakura.cms" level="DEBUG"/>
+        <logger name="com.sakura.stock" level="DEBUG"/>
         <root>
             <level value="INFO" />
             <appender-ref ref="CONSOLE" />

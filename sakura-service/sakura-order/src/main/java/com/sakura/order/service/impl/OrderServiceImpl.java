@@ -48,7 +48,6 @@ public class OrderServiceImpl extends BaseServiceImpl<OrderMapper, Order> implem
     @Autowired
     StockFeignService stockFeignService;
 
-    @Transactional(rollbackFor = Exception.class)
     @Override
     @GlobalLock
     @GlobalTransactional

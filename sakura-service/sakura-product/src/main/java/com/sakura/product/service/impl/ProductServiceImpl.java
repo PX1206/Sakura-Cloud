@@ -66,7 +66,7 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductMapper, Product> 
             return -1;
         }
 
-        int a = 1/0;
+        //int a = 1/0;
 
         return product.getUnitPrice();
     }
