@@ -2,8 +2,10 @@ server:
   port: 8010
 
 logging:
+  config: classpath:logback-spring.xml
   level:
     com.sakura.order.feign: debug # 这里我们可以单独配置feign的日志级别
+    com.sakura.order.mapper: debug # 使用logging方式打印SQL日志，方便查看logid
 
 spring:
   profiles:
@@ -68,7 +70,7 @@ seata:
 mybatis-plus:
   configuration:
     map-underscore-to-camel-case: true # 虽然默认为 true ，但是还是显示去指定下。
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    #log-impl: org.apache.ibatis.logging.stdout.StdOutImpl # 关闭这个日志打印，使用上面的logging日志打印方式
   global-config:
     db-config:
       id-type: AUTO
@@ -82,6 +84,9 @@ feign:
     enabled: true # 开启openfeign中的sentinel
   client:
     config:
+      default:
+        request-interceptors:
+          - com.sakura.common.interceptor.feign.LogIdFeignInterceptor # 开启全局自定义logID拦截器
       product-service:
         logger-level: basic
         connect-timeout: 5000 # 连接超时时间，默认2s

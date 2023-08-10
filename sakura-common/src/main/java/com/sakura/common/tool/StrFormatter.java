@@ -6,7 +6,6 @@ import org.springframework.util.ObjectUtils;
 /**
  * 字符串格式化
  *
- * @author Chill
  */
 public class StrFormatter {
 

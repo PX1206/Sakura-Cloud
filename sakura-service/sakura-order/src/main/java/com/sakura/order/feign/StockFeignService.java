@@ -1,10 +1,10 @@
 package com.sakura.order.feign;
 
 import com.sakura.common.api.ApiResult;
+import com.sakura.order.feign.fallback.StockFeignServiceFallback;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * @description: stock服务接口

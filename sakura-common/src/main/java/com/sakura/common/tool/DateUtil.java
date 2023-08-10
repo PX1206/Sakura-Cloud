@@ -6,6 +6,7 @@ import lombok.experimental.UtilityClass;
 import org.springframework.util.Assert;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.Temporal;
@@ -603,4 +604,12 @@ public class DateUtil {
         return dateString;
     }
 
+    public static String getDateTimeString(Date date){
+        if (date == null){
+            return null;
+        }
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String dateString = simpleDateFormat.format(date);
+        return dateString;
+    }
 }

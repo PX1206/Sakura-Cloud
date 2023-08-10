@@ -31,6 +31,11 @@ public interface CommonConstant {
     String PAGE_INDEX_NAME = "pageIndex";
 
     /**
+     * 请求ID
+     */
+    String REQUEST_ID = "requestId";
+
+    /**
      * 分页当前页大小名称
      */
     String PAGE_SIZE_NAME = "pageSize";
