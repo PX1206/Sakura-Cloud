@@ -43,6 +43,10 @@ spring:
     sentinel:
       transport:
         dashboard: 192.168.43.128:9100
+  redis:
+    host: 192.168.43.118
+    port: 6379
+    password: px123456
 
 seata:
   tx-service-group: order-tx-group

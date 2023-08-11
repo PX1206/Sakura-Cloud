@@ -3,6 +3,7 @@ package com.sakura.order.service.impl;
 import com.sakura.common.api.ApiCode;
 import com.sakura.common.api.ApiResult;
 import com.sakura.common.exception.BusinessException;
+import com.sakura.common.redis.RedisUtil;
 import com.sakura.order.entity.Order;
 import com.sakura.order.feign.ProductFeignService;
 import com.sakura.order.feign.StockFeignService;
@@ -42,6 +43,8 @@ public class OrderServiceImpl extends BaseServiceImpl<OrderMapper, Order> implem
 
     @Autowired
     private OrderMapper orderMapper;
+    @Autowired
+    private RedisUtil redisUtil;
 
     @Autowired
     ProductFeignService productFeignService;
@@ -57,6 +60,11 @@ public class OrderServiceImpl extends BaseServiceImpl<OrderMapper, Order> implem
             @Tag(key = "addOrder", value = "arg[0]")
     })
     public boolean saveOrder(AddOrderParam addOrderParam) throws Exception {
+        // 通过redis防止重复提交
+        if (redisUtil.sHasKey("order-add", "10001")) {
+            throw new BusinessException(500, "重复提交");
+        }
+        redisUtil.sSetAndTime("order-add", 3, "10001");
         // 先去查询商品库存信息
         ApiResult<Integer> apiResultNum = stockFeignService.getProductNum(addOrderParam.getProductNo());
         log.info("商品库存数量：" + apiResultNum.toString());
