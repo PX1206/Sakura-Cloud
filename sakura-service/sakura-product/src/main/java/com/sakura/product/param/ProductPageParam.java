@@ -1,0 +1,23 @@
+package com.sakura.product.param;
+
+import io.swagger.annotations.ApiModel;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.experimental.Accessors;
+import com.sakura.common.pagination.BasePageOrderParam;
+
+/**
+ * <pre>
+ * 商品表 分页参数对象
+ * </pre>
+ *
+ * @author Sakura
+ * @date 2023-08-09
+ */
+@Data
+@Accessors(chain = true)
+@EqualsAndHashCode(callSuper = true)
+@ApiModel(value = "商品表分页参数")
+public class ProductPageParam extends BasePageOrderParam {
+    private static final long serialVersionUID = 1L;
+}

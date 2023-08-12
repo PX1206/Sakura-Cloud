@@ -1,0 +1,283 @@
+[2023-08-11 14:24:49,599] [logId] [WARN] [main] NacosPropertySourceBuilder[87] - Ignore the empty nacos configuration and get it based on dataId[stock-service] & group[DEFAULT_GROUP]
+[2023-08-11 14:24:49,609] [logId] [WARN] [main] NacosPropertySourceBuilder[87] - Ignore the empty nacos configuration and get it based on dataId[stock-service.yaml] & group[DEFAULT_GROUP]
+[2023-08-11 14:24:49,614] [logId] [WARN] [main] NacosPropertySourceBuilder[87] - Ignore the empty nacos configuration and get it based on dataId[stock-service-dev.yaml] & group[DEFAULT_GROUP]
+[2023-08-11 14:24:49,615] [logId] [INFO] [main] PropertySourceBootstrapConfiguration[109] - Located property source: [BootstrapPropertySource {name='bootstrapProperties-stock-service-dev.yaml,DEFAULT_GROUP'}, BootstrapPropertySource {name='bootstrapProperties-stock-service.yaml,DEFAULT_GROUP'}, BootstrapPropertySource {name='bootstrapProperties-stock-service,DEFAULT_GROUP'}, BootstrapPropertySource {name='bootstrapProperties-sakura.yaml,DEFAULT_GROUP'}]
+[2023-08-11 14:24:49,637] [logId] [INFO] [main] StockApplication[651] - The following 1 profile is active: "dev"
+[2023-08-11 14:24:50,359] [logId] [INFO] [main] RepositoryConfigurationDelegate[262] - Multiple Spring Data modules found, entering strict repository configuration mode
+[2023-08-11 14:24:50,360] [logId] [INFO] [main] RepositoryConfigurationDelegate[132] - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+[2023-08-11 14:24:50,380] [logId] [INFO] [main] RepositoryConfigurationDelegate[201] - Finished Spring Data repository scanning in 7 ms. Found 0 Redis repository interfaces.
+[2023-08-11 14:24:50,595] [logId] [INFO] [main] GenericScope[283] - BeanFactory id=04aa504f-e1f5-3d33-87c4-4e2121655358
+[2023-08-11 14:24:50,668] [logId] [INFO] [main] PostProcessorRegistrationDelegate$BeanPostProcessorChecker[376] - Bean 'io.seata.spring.boot.autoconfigure.SeataCoreAutoConfiguration' of type [io.seata.spring.boot.autoconfigure.SeataCoreAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2023-08-11 14:24:50,668] [logId] [INFO] [main] PostProcessorRegistrationDelegate$BeanPostProcessorChecker[376] - Bean 'springApplicationContextProvider' of type [io.seata.spring.boot.autoconfigure.provider.SpringApplicationContextProvider] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2023-08-11 14:24:50,669] [logId] [INFO] [main] PostProcessorRegistrationDelegate$BeanPostProcessorChecker[376] - Bean 'io.seata.spring.boot.autoconfigure.SeataAutoConfiguration' of type [io.seata.spring.boot.autoconfigure.SeataAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2023-08-11 14:24:50,695] [logId] [INFO] [main] PostProcessorRegistrationDelegate$BeanPostProcessorChecker[376] - Bean 'failureHandler' of type [io.seata.tm.api.DefaultFailureHandlerImpl] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2023-08-11 14:24:50,699] [logId] [INFO] [main] PostProcessorRegistrationDelegate$BeanPostProcessorChecker[376] - Bean 'org.springframework.cloud.commons.config.CommonsConfigAutoConfiguration' of type [org.springframework.cloud.commons.config.CommonsConfigAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2023-08-11 14:24:50,701] [logId] [INFO] [main] PostProcessorRegistrationDelegate$BeanPostProcessorChecker[376] - Bean 'org.springframework.cloud.client.loadbalancer.LoadBalancerDefaultMappingsProviderAutoConfiguration' of type [org.springframework.cloud.client.loadbalancer.LoadBalancerDefaultMappingsProviderAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2023-08-11 14:24:50,702] [logId] [INFO] [main] PostProcessorRegistrationDelegate$BeanPostProcessorChecker[376] - Bean 'loadBalancerClientsDefaultsMappingsProvider' of type [org.springframework.cloud.client.loadbalancer.LoadBalancerDefaultMappingsProviderAutoConfiguration$$Lambda$476/494842224] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2023-08-11 14:24:50,703] [logId] [INFO] [main] PostProcessorRegistrationDelegate$BeanPostProcessorChecker[376] - Bean 'defaultsBindHandlerAdvisor' of type [org.springframework.cloud.commons.config.DefaultsBindHandlerAdvisor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2023-08-11 14:24:50,705] [logId] [INFO] [main] PostProcessorRegistrationDelegate$BeanPostProcessorChecker[376] - Bean 'springCloudAlibabaConfiguration' of type [io.seata.spring.boot.autoconfigure.properties.SpringCloudAlibabaConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2023-08-11 14:24:50,706] [logId] [INFO] [main] PostProcessorRegistrationDelegate$BeanPostProcessorChecker[376] - Bean 'seataProperties' of type [io.seata.spring.boot.autoconfigure.properties.SeataProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2023-08-11 14:24:50,708] [logId] [INFO] [main] SeataAutoConfiguration[63] - Automatically configure Seata
+[2023-08-11 14:24:50,767] [logId] [INFO] [main] ConfigurationFactory[69] - load Configuration from :Spring Configuration
+[2023-08-11 14:24:50,773] [logId] [INFO] [main] NacosConfiguration[233] - Nacos check auth with userName/password.
+[2023-08-11 14:24:50,781] [logId] [INFO] [main] ClientAuthPluginManager[56] - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.impl.NacosClientAuthServiceImpl success.
+[2023-08-11 14:24:50,781] [logId] [INFO] [main] ClientAuthPluginManager[56] - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.ram.RamClientAuthServiceImpl success.
+[2023-08-11 14:24:51,234] [logId] [INFO] [main] GlobalTransactionScanner[208] - Initializing Global Transaction Clients ... 
+[2023-08-11 14:24:51,419] [logId] [INFO] [main] NettyClientBootstrap[147] - NettyClientBootstrap has started
+[2023-08-11 14:24:51,462] [logId] [INFO] [main] ClientAuthPluginManager[56] - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.impl.NacosClientAuthServiceImpl success.
+[2023-08-11 14:24:51,462] [logId] [INFO] [main] ClientAuthPluginManager[56] - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.ram.RamClientAuthServiceImpl success.
+[2023-08-11 14:24:51,693] [logId] [INFO] [main] NettyClientChannelManager[108] - will connect to 192.168.43.128:8091
+[2023-08-11 14:24:52,025] [logId] [INFO] [main] NettyPoolableFactory[56] - NettyPool create channel to transactionRole:TMROLE,address:192.168.43.128:8091,msg:< RegisterTMRequest{applicationId='stock-service', transactionServiceGroup='stock-tx-group'} >
+[2023-08-11 14:24:52,956] [logId] [INFO] [main] TmNettyRemotingClient[224] - register TM success. client version:1.6.1, server version:1.6.1,channel:[id: 0x1b3758b0, L:/192.168.43.8:57863 - R:/192.168.43.128:8091]
+[2023-08-11 14:24:52,962] [logId] [INFO] [main] NettyPoolableFactory[81] - register success, cost 64 ms, version:1.6.1,role:TMROLE,channel:[id: 0x1b3758b0, L:/192.168.43.8:57863 - R:/192.168.43.128:8091]
+[2023-08-11 14:24:52,963] [logId] [INFO] [main] GlobalTransactionScanner[222] - Transaction Manager Client is initialized. applicationId[stock-service] txServiceGroup[stock-tx-group]
+[2023-08-11 14:24:52,989] [logId] [INFO] [main] AsyncWorker[73] - Async Commit Buffer Limit: 10000
+[2023-08-11 14:24:52,990] [logId] [INFO] [main] ResourceManagerXA[59] - ResourceManagerXA init ...
+[2023-08-11 14:24:52,995] [logId] [INFO] [main] NettyClientBootstrap[147] - NettyClientBootstrap has started
+[2023-08-11 14:24:52,995] [logId] [INFO] [main] GlobalTransactionScanner[227] - Resource Manager is initialized. applicationId[stock-service] txServiceGroup[stock-tx-group]
+[2023-08-11 14:24:52,995] [logId] [INFO] [main] GlobalTransactionScanner[231] - Global Transaction Clients are initialized. 
+[2023-08-11 14:24:53,339] [logId] [INFO] [main] TomcatWebServer[108] - Tomcat initialized with port(s): 8020 (http)
+[2023-08-11 14:24:53,347] [logId] [INFO] [main] Http11NioProtocol[173] - Initializing ProtocolHandler ["http-nio-8020"]
+[2023-08-11 14:24:53,348] [logId] [INFO] [main] StandardService[173] - Starting service [Tomcat]
+[2023-08-11 14:24:53,348] [logId] [INFO] [main] StandardEngine[173] - Starting Servlet engine: [Apache Tomcat/9.0.68]
+[2023-08-11 14:24:53,492] [logId] [INFO] [main] [/][173] - Initializing Spring embedded WebApplicationContext
+[2023-08-11 14:24:53,493] [logId] [INFO] [main] ServletWebServerApplicationContext[290] - Root WebApplicationContext: initialization completed in 3843 ms
+[2023-08-11 14:24:53,765] [logId] [INFO] [main] DruidDataSourceAutoConfigure[56] - Init DruidDataSource
+[2023-08-11 14:24:54,000] [logId] [INFO] [main] DruidDataSource[990] - {dataSource-1} inited
+[2023-08-11 14:24:54,120] [logId] [INFO] [main] NettyClientChannelManager[108] - will connect to 192.168.43.128:8091
+[2023-08-11 14:24:54,121] [logId] [INFO] [main] RmNettyRemotingClient[276] - RM will register :jdbc:mysql://192.168.43.128:3306/stock
+[2023-08-11 14:24:54,122] [logId] [INFO] [main] NettyPoolableFactory[56] - NettyPool create channel to transactionRole:RMROLE,address:192.168.43.128:8091,msg:< RegisterRMRequest{resourceIds='jdbc:mysql://192.168.43.128:3306/stock', applicationId='stock-service', transactionServiceGroup='stock-tx-group'} >
+[2023-08-11 14:24:54,128] [logId] [INFO] [main] RmNettyRemotingClient[177] - register RM success. client version:1.6.1, server version:1.6.1,channel:[id: 0x34ca1274, L:/192.168.43.8:57876 - R:/192.168.43.128:8091]
+[2023-08-11 14:24:54,128] [logId] [INFO] [main] NettyPoolableFactory[81] - register success, cost 4 ms, version:1.6.1,role:RMROLE,channel:[id: 0x34ca1274, L:/192.168.43.8:57876 - R:/192.168.43.128:8091]
+[2023-08-11 14:24:55,095] [logId] [INFO] [main] GlobalTransactionScanner[305] - Bean[com.sakura.stock.service.impl.StockServiceImpl$$EnhancerBySpringCGLIB$$79feabd7] with name [stockServiceImpl] would use interceptor [io.seata.spring.annotation.GlobalTransactionalInterceptor]
+[2023-08-11 14:24:55,448] [logId] [INFO] [main] PropertySourcedRequestMappingHandlerMapping[69] - Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+[2023-08-11 14:24:57,316] [logId] [INFO] [main] Http11NioProtocol[173] - Starting ProtocolHandler ["http-nio-8020"]
+[2023-08-11 14:24:57,326] [logId] [INFO] [main] TomcatWebServer[220] - Tomcat started on port(s): 8020 (http) with context path ''
+[2023-08-11 14:24:57,329] [logId] [INFO] [main] ClientAuthPluginManager[56] - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.impl.NacosClientAuthServiceImpl success.
+[2023-08-11 14:24:57,329] [logId] [INFO] [main] ClientAuthPluginManager[56] - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.ram.RamClientAuthServiceImpl success.
+[2023-08-11 14:24:57,523] [logId] [INFO] [main] NacosServiceRegistry[76] - nacos registry, DEFAULT_GROUP stock-service 26.26.26.1:8020 register finished
+[2023-08-11 14:24:57,894] [logId] [INFO] [main] DocumentationPluginsBootstrapper[160] - Context refreshed
+[2023-08-11 14:24:57,906] [logId] [INFO] [main] DocumentationPluginsBootstrapper[163] - Found 1 custom documentation plugin(s)
+[2023-08-11 14:24:57,920] [logId] [INFO] [main] ApiListingReferenceScanner[41] - Scanning for api listing references
+[2023-08-11 14:24:58,021] [logId] [INFO] [main] StockApplication[61] - Started StockApplication in 15.956 seconds (JVM running for 17.697)
+[2023-08-11 14:24:58,024] [logId] [INFO] [main] NacosContextRefresher[129] - [Nacos Config] Listening config: dataId=stock-service-dev.yaml, group=DEFAULT_GROUP
+[2023-08-11 14:24:58,025] [logId] [INFO] [main] NacosContextRefresher[129] - [Nacos Config] Listening config: dataId=stock-service, group=DEFAULT_GROUP
+[2023-08-11 14:24:58,025] [logId] [INFO] [main] NacosContextRefresher[129] - [Nacos Config] Listening config: dataId=stock-service.yaml, group=DEFAULT_GROUP
+[2023-08-11 14:26:28,278] [logId] [INFO] [rpcDispatch_RMROLE_1_1_32] RmUndoLogProcessor[49] - rm handle undo log process:UndoLogDeleteRequest{resourceId='jdbc:mysql://192.168.43.128:3306/stock', saveDays=7, branchType=AT}
+[2023-08-11 14:28:48,474] [logId] [WARN] [Thread-12] NotifyCenter[136] - [NotifyCenter] Start destroying Publisher
+[2023-08-11 14:28:48,474] [logId] [WARN] [Thread-5] HttpClientBeanHolder[102] - [HttpClientBeanHolder] Start destroying common HttpClient
+[2023-08-11 14:28:48,475] [logId] [WARN] [Thread-12] NotifyCenter[153] - [NotifyCenter] Destruction of the end
+[2023-08-11 14:28:48,475] [logId] [WARN] [Thread-5] HttpClientBeanHolder[111] - [HttpClientBeanHolder] Destruction of the end
+[2023-08-11 14:28:49,040] [logId] [INFO] [SpringContextShutdownHook] NacosServiceRegistry[95] - De-registering from Nacos Server now...
+[2023-08-11 14:28:49,055] [logId] [INFO] [SpringContextShutdownHook] NacosServiceRegistry[115] - De-registration finished.
+[2023-08-11 14:28:49,067] [logId] [INFO] [SpringContextShutdownHook] DruidDataSource[2043] - {dataSource-1} closing ...
+[2023-08-11 14:28:49,070] [logId] [INFO] [SpringContextShutdownHook] DruidDataSource[2116] - {dataSource-1} closed
+[2023-08-11 14:28:49,073] [logId] [INFO] [NettyClientSelector_TMROLE_1_1] AbstractNettyRemotingClient[438] - channel inactive: [id: 0x1b3758b0, L:/192.168.43.8:57863 ! R:/192.168.43.128:8091]
+[2023-08-11 14:28:49,074] [logId] [INFO] [NettyClientSelector_TMROLE_1_1] NettyClientChannelManager[133] - return to pool, rm channel:[id: 0x1b3758b0, L:/192.168.43.8:57863 ! R:/192.168.43.128:8091]
+[2023-08-11 14:28:49,073] [logId] [INFO] [NettyClientSelector_RMROLE_1_1] AbstractNettyRemotingClient[438] - channel inactive: [id: 0x34ca1274, L:/192.168.43.8:57876 ! R:/192.168.43.128:8091]
+[2023-08-11 14:28:49,074] [logId] [INFO] [NettyClientSelector_RMROLE_1_1] NettyClientChannelManager[133] - return to pool, rm channel:[id: 0x34ca1274, L:/192.168.43.8:57876 ! R:/192.168.43.128:8091]
+[2023-08-11 14:28:49,074] [logId] [INFO] [NettyClientSelector_TMROLE_1_1] NettyPoolableFactory[133] - channel valid false,channel:[id: 0x1b3758b0, L:/192.168.43.8:57863 ! R:/192.168.43.128:8091]
+[2023-08-11 14:28:49,074] [logId] [INFO] [NettyClientSelector_RMROLE_1_1] NettyPoolableFactory[133] - channel valid false,channel:[id: 0x34ca1274, L:/192.168.43.8:57876 ! R:/192.168.43.128:8091]
+[2023-08-11 14:28:49,076] [logId] [INFO] [NettyClientSelector_TMROLE_1_1] NettyPoolableFactory[120] - will destroy channel:[id: 0x1b3758b0, L:/192.168.43.8:57863 ! R:/192.168.43.128:8091]
+[2023-08-11 14:28:49,076] [logId] [INFO] [NettyClientSelector_RMROLE_1_1] NettyPoolableFactory[120] - will destroy channel:[id: 0x34ca1274, L:/192.168.43.8:57876 ! R:/192.168.43.128:8091]
+[2023-08-11 14:28:49,076] [logId] [INFO] [NettyClientSelector_TMROLE_1_1] AbstractNettyRemotingClient[488] - ChannelHandlerContext(AbstractNettyRemotingClient$ClientHandler#0, [id: 0x1b3758b0, L:/192.168.43.8:57863 ! R:/192.168.43.128:8091]) will closed
+[2023-08-11 14:28:49,076] [logId] [INFO] [NettyClientSelector_RMROLE_1_1] AbstractNettyRemotingClient[488] - ChannelHandlerContext(AbstractNettyRemotingClient$ClientHandler#0, [id: 0x34ca1274, L:/192.168.43.8:57876 ! R:/192.168.43.128:8091]) will closed
+[2023-08-11 14:28:49,076] [logId] [INFO] [NettyClientSelector_TMROLE_1_1] AbstractNettyRemotingClient[488] - ChannelHandlerContext(AbstractNettyRemotingClient$ClientHandler#0, [id: 0x1b3758b0, L:/192.168.43.8:57863 ! R:/192.168.43.128:8091]) will closed
+[2023-08-11 14:28:49,076] [logId] [INFO] [NettyClientSelector_RMROLE_1_1] AbstractNettyRemotingClient[488] - ChannelHandlerContext(AbstractNettyRemotingClient$ClientHandler#0, [id: 0x34ca1274, L:/192.168.43.8:57876 ! R:/192.168.43.128:8091]) will closed
+[2023-08-11 14:57:33,380] [logId] [WARN] [main] NacosPropertySourceBuilder[87] - Ignore the empty nacos configuration and get it based on dataId[stock-service] & group[DEFAULT_GROUP]
+[2023-08-11 14:57:33,386] [logId] [WARN] [main] NacosPropertySourceBuilder[87] - Ignore the empty nacos configuration and get it based on dataId[stock-service.yaml] & group[DEFAULT_GROUP]
+[2023-08-11 14:57:33,390] [logId] [WARN] [main] NacosPropertySourceBuilder[87] - Ignore the empty nacos configuration and get it based on dataId[stock-service-dev.yaml] & group[DEFAULT_GROUP]
+[2023-08-11 14:57:33,390] [logId] [INFO] [main] PropertySourceBootstrapConfiguration[109] - Located property source: [BootstrapPropertySource {name='bootstrapProperties-stock-service-dev.yaml,DEFAULT_GROUP'}, BootstrapPropertySource {name='bootstrapProperties-stock-service.yaml,DEFAULT_GROUP'}, BootstrapPropertySource {name='bootstrapProperties-stock-service,DEFAULT_GROUP'}, BootstrapPropertySource {name='bootstrapProperties-sakura.yaml,DEFAULT_GROUP'}]
+[2023-08-11 14:57:33,409] [logId] [INFO] [main] StockApplication[651] - The following 1 profile is active: "dev"
+[2023-08-11 14:57:34,162] [logId] [INFO] [main] RepositoryConfigurationDelegate[262] - Multiple Spring Data modules found, entering strict repository configuration mode
+[2023-08-11 14:57:34,164] [logId] [INFO] [main] RepositoryConfigurationDelegate[132] - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+[2023-08-11 14:57:34,180] [logId] [INFO] [main] RepositoryConfigurationDelegate[201] - Finished Spring Data repository scanning in 5 ms. Found 0 Redis repository interfaces.
+[2023-08-11 14:57:34,350] [logId] [INFO] [main] GenericScope[283] - BeanFactory id=c4ea3fcb-9a8a-3fe0-9d52-a522926f6aca
+[2023-08-11 14:57:34,434] [logId] [INFO] [main] PostProcessorRegistrationDelegate$BeanPostProcessorChecker[376] - Bean 'io.seata.spring.boot.autoconfigure.SeataCoreAutoConfiguration' of type [io.seata.spring.boot.autoconfigure.SeataCoreAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2023-08-11 14:57:34,435] [logId] [INFO] [main] PostProcessorRegistrationDelegate$BeanPostProcessorChecker[376] - Bean 'springApplicationContextProvider' of type [io.seata.spring.boot.autoconfigure.provider.SpringApplicationContextProvider] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2023-08-11 14:57:34,435] [logId] [INFO] [main] PostProcessorRegistrationDelegate$BeanPostProcessorChecker[376] - Bean 'io.seata.spring.boot.autoconfigure.SeataAutoConfiguration' of type [io.seata.spring.boot.autoconfigure.SeataAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2023-08-11 14:57:34,459] [logId] [INFO] [main] PostProcessorRegistrationDelegate$BeanPostProcessorChecker[376] - Bean 'failureHandler' of type [io.seata.tm.api.DefaultFailureHandlerImpl] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2023-08-11 14:57:34,462] [logId] [INFO] [main] PostProcessorRegistrationDelegate$BeanPostProcessorChecker[376] - Bean 'org.springframework.cloud.commons.config.CommonsConfigAutoConfiguration' of type [org.springframework.cloud.commons.config.CommonsConfigAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2023-08-11 14:57:34,464] [logId] [INFO] [main] PostProcessorRegistrationDelegate$BeanPostProcessorChecker[376] - Bean 'org.springframework.cloud.client.loadbalancer.LoadBalancerDefaultMappingsProviderAutoConfiguration' of type [org.springframework.cloud.client.loadbalancer.LoadBalancerDefaultMappingsProviderAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2023-08-11 14:57:34,464] [logId] [INFO] [main] PostProcessorRegistrationDelegate$BeanPostProcessorChecker[376] - Bean 'loadBalancerClientsDefaultsMappingsProvider' of type [org.springframework.cloud.client.loadbalancer.LoadBalancerDefaultMappingsProviderAutoConfiguration$$Lambda$481/1545131732] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2023-08-11 14:57:34,464] [logId] [INFO] [main] PostProcessorRegistrationDelegate$BeanPostProcessorChecker[376] - Bean 'defaultsBindHandlerAdvisor' of type [org.springframework.cloud.commons.config.DefaultsBindHandlerAdvisor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2023-08-11 14:57:34,467] [logId] [INFO] [main] PostProcessorRegistrationDelegate$BeanPostProcessorChecker[376] - Bean 'springCloudAlibabaConfiguration' of type [io.seata.spring.boot.autoconfigure.properties.SpringCloudAlibabaConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2023-08-11 14:57:34,469] [logId] [INFO] [main] PostProcessorRegistrationDelegate$BeanPostProcessorChecker[376] - Bean 'seataProperties' of type [io.seata.spring.boot.autoconfigure.properties.SeataProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2023-08-11 14:57:34,470] [logId] [INFO] [main] SeataAutoConfiguration[63] - Automatically configure Seata
+[2023-08-11 14:57:34,518] [logId] [INFO] [main] ConfigurationFactory[69] - load Configuration from :Spring Configuration
+[2023-08-11 14:57:34,526] [logId] [INFO] [main] NacosConfiguration[233] - Nacos check auth with userName/password.
+[2023-08-11 14:57:34,532] [logId] [INFO] [main] ClientAuthPluginManager[56] - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.impl.NacosClientAuthServiceImpl success.
+[2023-08-11 14:57:34,533] [logId] [INFO] [main] ClientAuthPluginManager[56] - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.ram.RamClientAuthServiceImpl success.
+[2023-08-11 14:57:34,949] [logId] [INFO] [main] GlobalTransactionScanner[208] - Initializing Global Transaction Clients ... 
+[2023-08-11 14:57:35,083] [logId] [INFO] [main] NettyClientBootstrap[147] - NettyClientBootstrap has started
+[2023-08-11 14:57:35,108] [logId] [INFO] [main] ClientAuthPluginManager[56] - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.impl.NacosClientAuthServiceImpl success.
+[2023-08-11 14:57:35,108] [logId] [INFO] [main] ClientAuthPluginManager[56] - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.ram.RamClientAuthServiceImpl success.
+[2023-08-11 14:57:35,322] [logId] [INFO] [main] NettyClientChannelManager[108] - will connect to 192.168.43.128:8091
+[2023-08-11 14:57:35,743] [logId] [INFO] [main] NettyPoolableFactory[56] - NettyPool create channel to transactionRole:TMROLE,address:192.168.43.128:8091,msg:< RegisterTMRequest{applicationId='stock-service', transactionServiceGroup='stock-tx-group'} >
+[2023-08-11 14:57:36,622] [logId] [INFO] [main] TmNettyRemotingClient[224] - register TM success. client version:1.6.1, server version:1.6.1,channel:[id: 0xbf59b77d, L:/192.168.43.8:59444 - R:/192.168.43.128:8091]
+[2023-08-11 14:57:36,627] [logId] [INFO] [main] NettyPoolableFactory[81] - register success, cost 49 ms, version:1.6.1,role:TMROLE,channel:[id: 0xbf59b77d, L:/192.168.43.8:59444 - R:/192.168.43.128:8091]
+[2023-08-11 14:57:36,628] [logId] [INFO] [main] GlobalTransactionScanner[222] - Transaction Manager Client is initialized. applicationId[stock-service] txServiceGroup[stock-tx-group]
+[2023-08-11 14:57:36,647] [logId] [INFO] [main] AsyncWorker[73] - Async Commit Buffer Limit: 10000
+[2023-08-11 14:57:36,648] [logId] [INFO] [main] ResourceManagerXA[59] - ResourceManagerXA init ...
+[2023-08-11 14:57:36,653] [logId] [INFO] [main] NettyClientBootstrap[147] - NettyClientBootstrap has started
+[2023-08-11 14:57:36,653] [logId] [INFO] [main] GlobalTransactionScanner[227] - Resource Manager is initialized. applicationId[stock-service] txServiceGroup[stock-tx-group]
+[2023-08-11 14:57:36,653] [logId] [INFO] [main] GlobalTransactionScanner[231] - Global Transaction Clients are initialized. 
+[2023-08-11 14:57:36,961] [logId] [INFO] [main] TomcatWebServer[108] - Tomcat initialized with port(s): 8020 (http)
+[2023-08-11 14:57:36,969] [logId] [INFO] [main] Http11NioProtocol[173] - Initializing ProtocolHandler ["http-nio-8020"]
+[2023-08-11 14:57:36,969] [logId] [INFO] [main] StandardService[173] - Starting service [Tomcat]
+[2023-08-11 14:57:36,969] [logId] [INFO] [main] StandardEngine[173] - Starting Servlet engine: [Apache Tomcat/9.0.68]
+[2023-08-11 14:57:37,082] [logId] [INFO] [main] [/][173] - Initializing Spring embedded WebApplicationContext
+[2023-08-11 14:57:37,084] [logId] [INFO] [main] ServletWebServerApplicationContext[290] - Root WebApplicationContext: initialization completed in 3665 ms
+[2023-08-11 14:57:37,338] [logId] [INFO] [main] DruidDataSourceAutoConfigure[56] - Init DruidDataSource
+[2023-08-11 14:57:37,557] [logId] [INFO] [main] DruidDataSource[990] - {dataSource-1} inited
+[2023-08-11 14:57:37,673] [logId] [INFO] [main] NettyClientChannelManager[108] - will connect to 192.168.43.128:8091
+[2023-08-11 14:57:37,673] [logId] [INFO] [main] RmNettyRemotingClient[276] - RM will register :jdbc:mysql://192.168.43.128:3306/stock
+[2023-08-11 14:57:37,674] [logId] [INFO] [main] NettyPoolableFactory[56] - NettyPool create channel to transactionRole:RMROLE,address:192.168.43.128:8091,msg:< RegisterRMRequest{resourceIds='jdbc:mysql://192.168.43.128:3306/stock', applicationId='stock-service', transactionServiceGroup='stock-tx-group'} >
+[2023-08-11 14:57:37,683] [logId] [INFO] [main] RmNettyRemotingClient[177] - register RM success. client version:1.6.1, server version:1.6.1,channel:[id: 0x9287a9f7, L:/192.168.43.8:59456 - R:/192.168.43.128:8091]
+[2023-08-11 14:57:37,684] [logId] [INFO] [main] NettyPoolableFactory[81] - register success, cost 5 ms, version:1.6.1,role:RMROLE,channel:[id: 0x9287a9f7, L:/192.168.43.8:59456 - R:/192.168.43.128:8091]
+[2023-08-11 14:57:38,730] [logId] [INFO] [main] GlobalTransactionScanner[305] - Bean[com.sakura.stock.service.impl.StockServiceImpl$$EnhancerBySpringCGLIB$$223d7fe] with name [stockServiceImpl] would use interceptor [io.seata.spring.annotation.GlobalTransactionalInterceptor]
+[2023-08-11 14:57:40,022] [logId] [INFO] [main] PropertySourcedRequestMappingHandlerMapping[69] - Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+[2023-08-11 14:57:42,753] [logId] [INFO] [main] Http11NioProtocol[173] - Starting ProtocolHandler ["http-nio-8020"]
+[2023-08-11 14:57:42,761] [logId] [INFO] [main] TomcatWebServer[220] - Tomcat started on port(s): 8020 (http) with context path ''
+[2023-08-11 14:57:42,763] [logId] [INFO] [main] ClientAuthPluginManager[56] - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.impl.NacosClientAuthServiceImpl success.
+[2023-08-11 14:57:42,763] [logId] [INFO] [main] ClientAuthPluginManager[56] - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.ram.RamClientAuthServiceImpl success.
+[2023-08-11 14:57:42,954] [logId] [INFO] [main] NacosServiceRegistry[76] - nacos registry, DEFAULT_GROUP stock-service 26.26.26.1:8020 register finished
+[2023-08-11 14:57:43,289] [logId] [INFO] [main] DocumentationPluginsBootstrapper[160] - Context refreshed
+[2023-08-11 14:57:43,298] [logId] [INFO] [main] DocumentationPluginsBootstrapper[163] - Found 1 custom documentation plugin(s)
+[2023-08-11 14:57:43,310] [logId] [INFO] [main] ApiListingReferenceScanner[41] - Scanning for api listing references
+[2023-08-11 14:57:43,405] [logId] [INFO] [main] StockApplication[61] - Started StockApplication in 14.96 seconds (JVM running for 16.499)
+[2023-08-11 14:57:43,407] [logId] [INFO] [main] NacosContextRefresher[129] - [Nacos Config] Listening config: dataId=stock-service-dev.yaml, group=DEFAULT_GROUP
+[2023-08-11 14:57:43,408] [logId] [INFO] [main] NacosContextRefresher[129] - [Nacos Config] Listening config: dataId=stock-service, group=DEFAULT_GROUP
+[2023-08-11 14:57:43,409] [logId] [INFO] [main] NacosContextRefresher[129] - [Nacos Config] Listening config: dataId=stock-service.yaml, group=DEFAULT_GROUP
+[2023-08-11 14:58:59,598] [logId] [INFO] [http-nio-8020-exec-1] [/][173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[2023-08-11 14:58:59,598] [logId] [INFO] [http-nio-8020-exec-1] DispatcherServlet[525] - Initializing Servlet 'dispatcherServlet'
+[2023-08-11 14:58:59,600] [logId] [INFO] [http-nio-8020-exec-1] DispatcherServlet[547] - Completed initialization in 2 ms
+[2023-08-11 14:58:59,630] [logId] [INFO] [http-nio-8020-exec-1] LogUtil[60] - requestId：37d80daaf6a1446297e2d7b71c1c51a4
+[2023-08-11 14:58:59,681] [37d80daaf6a1446297e2d7b71c1c51a4] [INFO] [http-nio-8020-exec-1] LogUtil[69] - 请求参数：{"ip":"26.26.26.1","path":"/stock/getProductNum/10001","requestBody":false,"requestMethod":"GET","time":"2023-08-11 14:58:59"}
+[2023-08-11 14:58:59,759] [37d80daaf6a1446297e2d7b71c1c51a4] [DEBUG] [http-nio-8020-exec-1] selectOne[143] - ==>  Preparing: SELECT id,product_no,product_num,create_dt,update_dt,status FROM t_stock WHERE (product_no = ? AND status = ?) 
+[2023-08-11 14:58:59,767] [37d80daaf6a1446297e2d7b71c1c51a4] [DEBUG] [http-nio-8020-exec-1] selectOne[143] - ==> Parameters: 10001(String), 1(Integer)
+[2023-08-11 14:58:59,821] [37d80daaf6a1446297e2d7b71c1c51a4] [DEBUG] [http-nio-8020-exec-1] selectOne[143] - <==      Total: 1
+[2023-08-11 14:58:59,824] [37d80daaf6a1446297e2d7b71c1c51a4] [DEBUG] [http-nio-8020-exec-1] updateById[143] - ==>  Preparing: UPDATE t_stock SET product_no=?, product_num=?, create_dt=?, update_dt=?, status=? WHERE id=? 
+[2023-08-11 14:58:59,824] [37d80daaf6a1446297e2d7b71c1c51a4] [DEBUG] [http-nio-8020-exec-1] updateById[143] - ==> Parameters: 10001(String), 17(Integer), 2023-07-28 17:41:00.0(Timestamp), 2023-07-28 17:41:00.0(Timestamp), 1(Integer), 1(Integer)
+[2023-08-11 14:58:59,958] [37d80daaf6a1446297e2d7b71c1c51a4] [DEBUG] [http-nio-8020-exec-1] updateById[143] - <==    Updates: 1
+[2023-08-11 14:58:59,963] [37d80daaf6a1446297e2d7b71c1c51a4] [INFO] [http-nio-8020-exec-1] LogUtil[47] - 返回参数：{"code":200,"data":17,"message":"操作成功","success":true,"time":"2023-08-11 14:58:59"}
+[2023-08-11 14:58:59,976] [37d80daaf6a1446297e2d7b71c1c51a4] [INFO] [Feh_Optimize_1] LogUtil[278] - 日志信息：{"className":"com.sakura.stock.controller.StockController","code":200,"ip":"26.26.26.1","message":"操作成功","methodName":"getProductNum","module":"stock","name":"获取商品库存数量","param":"null","path":"/stock/getProductNum/10001","remark":"","requestBody":false,"requestId":"37d80daaf6a1446297e2d7b71c1c51a4","requestMethod":"GET","success":true,"type":4}
+[2023-08-11 15:03:00,188] [logId] [INFO] [http-nio-8020-exec-3] LogUtil[60] - requestId：ba855d5ef26d42c3a82b38b459c42392
+[2023-08-11 15:03:00,188] [ba855d5ef26d42c3a82b38b459c42392] [INFO] [http-nio-8020-exec-3] LogUtil[69] - 请求参数：{"ip":"26.26.26.1","path":"/stock/getProductNum/10001","requestBody":false,"requestMethod":"GET","time":"2023-08-11 15:03:00"}
+[2023-08-11 15:03:00,189] [ba855d5ef26d42c3a82b38b459c42392] [DEBUG] [http-nio-8020-exec-3] selectOne[143] - ==>  Preparing: SELECT id,product_no,product_num,create_dt,update_dt,status FROM t_stock WHERE (product_no = ? AND status = ?) 
+[2023-08-11 15:03:00,189] [ba855d5ef26d42c3a82b38b459c42392] [DEBUG] [http-nio-8020-exec-3] selectOne[143] - ==> Parameters: 10001(String), 1(Integer)
+[2023-08-11 15:03:00,191] [ba855d5ef26d42c3a82b38b459c42392] [DEBUG] [http-nio-8020-exec-3] selectOne[143] - <==      Total: 1
+[2023-08-11 15:03:00,192] [ba855d5ef26d42c3a82b38b459c42392] [DEBUG] [http-nio-8020-exec-3] updateById[143] - ==>  Preparing: UPDATE t_stock SET product_no=?, product_num=?, create_dt=?, update_dt=?, status=? WHERE id=? 
+[2023-08-11 15:03:00,192] [ba855d5ef26d42c3a82b38b459c42392] [DEBUG] [http-nio-8020-exec-3] updateById[143] - ==> Parameters: 10001(String), 16(Integer), 2023-07-28 17:41:00.0(Timestamp), 2023-07-28 17:41:00.0(Timestamp), 1(Integer), 1(Integer)
+[2023-08-11 15:03:00,202] [ba855d5ef26d42c3a82b38b459c42392] [DEBUG] [http-nio-8020-exec-3] updateById[143] - <==    Updates: 1
+[2023-08-11 15:03:00,202] [ba855d5ef26d42c3a82b38b459c42392] [INFO] [http-nio-8020-exec-3] LogUtil[47] - 返回参数：{"code":200,"data":16,"message":"操作成功","success":true,"time":"2023-08-11 15:03:00"}
+[2023-08-11 15:03:00,202] [ba855d5ef26d42c3a82b38b459c42392] [INFO] [Feh_Optimize_2] LogUtil[278] - 日志信息：{"className":"com.sakura.stock.controller.StockController","code":200,"ip":"26.26.26.1","message":"操作成功","methodName":"getProductNum","module":"stock","name":"获取商品库存数量","param":"null","path":"/stock/getProductNum/10001","remark":"","requestBody":false,"requestId":"ba855d5ef26d42c3a82b38b459c42392","requestMethod":"GET","success":true,"type":4}
+[2023-08-11 15:03:57,853] [logId] [INFO] [http-nio-8020-exec-5] LogUtil[60] - requestId：7c2f90ab614a4a46995ad2e0029d0919
+[2023-08-11 15:03:57,853] [7c2f90ab614a4a46995ad2e0029d0919] [INFO] [http-nio-8020-exec-5] LogUtil[69] - 请求参数：{"ip":"26.26.26.1","path":"/stock/getProductNum/10001","requestBody":false,"requestMethod":"GET","time":"2023-08-11 15:03:57"}
+[2023-08-11 15:03:57,856] [7c2f90ab614a4a46995ad2e0029d0919] [DEBUG] [http-nio-8020-exec-5] selectOne[143] - ==>  Preparing: SELECT id,product_no,product_num,create_dt,update_dt,status FROM t_stock WHERE (product_no = ? AND status = ?) 
+[2023-08-11 15:03:57,857] [7c2f90ab614a4a46995ad2e0029d0919] [DEBUG] [http-nio-8020-exec-5] selectOne[143] - ==> Parameters: 10001(String), 1(Integer)
+[2023-08-11 15:03:57,860] [7c2f90ab614a4a46995ad2e0029d0919] [DEBUG] [http-nio-8020-exec-5] selectOne[143] - <==      Total: 1
+[2023-08-11 15:03:57,864] [7c2f90ab614a4a46995ad2e0029d0919] [DEBUG] [http-nio-8020-exec-5] updateById[143] - ==>  Preparing: UPDATE t_stock SET product_no=?, product_num=?, create_dt=?, update_dt=?, status=? WHERE id=? 
+[2023-08-11 15:03:57,865] [7c2f90ab614a4a46995ad2e0029d0919] [DEBUG] [http-nio-8020-exec-5] updateById[143] - ==> Parameters: 10001(String), 15(Integer), 2023-07-28 17:41:00.0(Timestamp), 2023-07-28 17:41:00.0(Timestamp), 1(Integer), 1(Integer)
+[2023-08-11 15:03:57,879] [7c2f90ab614a4a46995ad2e0029d0919] [DEBUG] [http-nio-8020-exec-5] updateById[143] - <==    Updates: 1
+[2023-08-11 15:03:57,880] [7c2f90ab614a4a46995ad2e0029d0919] [INFO] [http-nio-8020-exec-5] LogUtil[47] - 返回参数：{"code":200,"data":15,"message":"操作成功","success":true,"time":"2023-08-11 15:03:57"}
+[2023-08-11 15:03:57,880] [7c2f90ab614a4a46995ad2e0029d0919] [INFO] [Feh_Optimize_3] LogUtil[278] - 日志信息：{"className":"com.sakura.stock.controller.StockController","code":200,"ip":"26.26.26.1","message":"操作成功","methodName":"getProductNum","module":"stock","name":"获取商品库存数量","param":"null","path":"/stock/getProductNum/10001","remark":"","requestBody":false,"requestId":"7c2f90ab614a4a46995ad2e0029d0919","requestMethod":"GET","success":true,"type":4}
+[2023-08-11 15:07:55,048] [logId] [WARN] [Thread-4] HttpClientBeanHolder[102] - [HttpClientBeanHolder] Start destroying common HttpClient
+[2023-08-11 15:07:55,048] [logId] [WARN] [Thread-12] NotifyCenter[136] - [NotifyCenter] Start destroying Publisher
+[2023-08-11 15:07:55,048] [logId] [WARN] [Thread-12] NotifyCenter[153] - [NotifyCenter] Destruction of the end
+[2023-08-11 15:07:55,049] [logId] [WARN] [Thread-4] HttpClientBeanHolder[111] - [HttpClientBeanHolder] Destruction of the end
+[2023-08-11 15:07:55,502] [logId] [INFO] [SpringContextShutdownHook] NacosServiceRegistry[95] - De-registering from Nacos Server now...
+[2023-08-11 15:07:55,505] [logId] [INFO] [SpringContextShutdownHook] NacosServiceRegistry[115] - De-registration finished.
+[2023-08-11 15:07:55,525] [logId] [INFO] [SpringContextShutdownHook] DruidDataSource[2043] - {dataSource-1} closing ...
+[2023-08-11 15:07:55,528] [logId] [INFO] [SpringContextShutdownHook] DruidDataSource[2116] - {dataSource-1} closed
+[2023-08-11 15:07:55,529] [logId] [INFO] [NettyClientSelector_TMROLE_1_1] AbstractNettyRemotingClient[438] - channel inactive: [id: 0xbf59b77d, L:/192.168.43.8:59444 ! R:/192.168.43.128:8091]
+[2023-08-11 15:07:55,529] [logId] [INFO] [NettyClientSelector_TMROLE_1_1] NettyClientChannelManager[133] - return to pool, rm channel:[id: 0xbf59b77d, L:/192.168.43.8:59444 ! R:/192.168.43.128:8091]
+[2023-08-11 15:07:55,529] [logId] [INFO] [NettyClientSelector_TMROLE_1_1] NettyPoolableFactory[133] - channel valid false,channel:[id: 0xbf59b77d, L:/192.168.43.8:59444 ! R:/192.168.43.128:8091]
+[2023-08-11 15:07:55,529] [logId] [INFO] [NettyClientSelector_RMROLE_1_1] AbstractNettyRemotingClient[438] - channel inactive: [id: 0x9287a9f7, L:/192.168.43.8:59456 ! R:/192.168.43.128:8091]
+[2023-08-11 15:07:55,529] [logId] [INFO] [NettyClientSelector_RMROLE_1_1] NettyClientChannelManager[133] - return to pool, rm channel:[id: 0x9287a9f7, L:/192.168.43.8:59456 ! R:/192.168.43.128:8091]
+[2023-08-11 15:07:55,530] [logId] [INFO] [NettyClientSelector_TMROLE_1_1] NettyPoolableFactory[120] - will destroy channel:[id: 0xbf59b77d, L:/192.168.43.8:59444 ! R:/192.168.43.128:8091]
+[2023-08-11 15:07:55,530] [logId] [INFO] [NettyClientSelector_RMROLE_1_1] NettyPoolableFactory[133] - channel valid false,channel:[id: 0x9287a9f7, L:/192.168.43.8:59456 ! R:/192.168.43.128:8091]
+[2023-08-11 15:07:55,530] [logId] [INFO] [NettyClientSelector_RMROLE_1_1] NettyPoolableFactory[120] - will destroy channel:[id: 0x9287a9f7, L:/192.168.43.8:59456 ! R:/192.168.43.128:8091]
+[2023-08-11 15:07:55,530] [logId] [INFO] [NettyClientSelector_TMROLE_1_1] AbstractNettyRemotingClient[488] - ChannelHandlerContext(AbstractNettyRemotingClient$ClientHandler#0, [id: 0xbf59b77d, L:/192.168.43.8:59444 ! R:/192.168.43.128:8091]) will closed
+[2023-08-11 15:07:55,530] [logId] [INFO] [NettyClientSelector_RMROLE_1_1] AbstractNettyRemotingClient[488] - ChannelHandlerContext(AbstractNettyRemotingClient$ClientHandler#0, [id: 0x9287a9f7, L:/192.168.43.8:59456 ! R:/192.168.43.128:8091]) will closed
+[2023-08-11 15:07:55,530] [logId] [INFO] [NettyClientSelector_TMROLE_1_1] AbstractNettyRemotingClient[488] - ChannelHandlerContext(AbstractNettyRemotingClient$ClientHandler#0, [id: 0xbf59b77d, L:/192.168.43.8:59444 ! R:/192.168.43.128:8091]) will closed
+[2023-08-11 15:07:55,530] [logId] [INFO] [NettyClientSelector_RMROLE_1_1] AbstractNettyRemotingClient[488] - ChannelHandlerContext(AbstractNettyRemotingClient$ClientHandler#0, [id: 0x9287a9f7, L:/192.168.43.8:59456 ! R:/192.168.43.128:8091]) will closed
+[2023-08-11 15:08:01,136] [logId] [WARN] [main] NacosPropertySourceBuilder[87] - Ignore the empty nacos configuration and get it based on dataId[stock-service] & group[DEFAULT_GROUP]
+[2023-08-11 15:08:01,144] [logId] [WARN] [main] NacosPropertySourceBuilder[87] - Ignore the empty nacos configuration and get it based on dataId[stock-service.yaml] & group[DEFAULT_GROUP]
+[2023-08-11 15:08:01,153] [logId] [WARN] [main] NacosPropertySourceBuilder[87] - Ignore the empty nacos configuration and get it based on dataId[stock-service-dev.yaml] & group[DEFAULT_GROUP]
+[2023-08-11 15:08:01,154] [logId] [INFO] [main] PropertySourceBootstrapConfiguration[109] - Located property source: [BootstrapPropertySource {name='bootstrapProperties-stock-service-dev.yaml,DEFAULT_GROUP'}, BootstrapPropertySource {name='bootstrapProperties-stock-service.yaml,DEFAULT_GROUP'}, BootstrapPropertySource {name='bootstrapProperties-stock-service,DEFAULT_GROUP'}, BootstrapPropertySource {name='bootstrapProperties-sakura.yaml,DEFAULT_GROUP'}]
+[2023-08-11 15:08:01,182] [logId] [INFO] [main] StockApplication[651] - The following 1 profile is active: "dev"
+[2023-08-11 15:08:02,041] [logId] [INFO] [main] RepositoryConfigurationDelegate[262] - Multiple Spring Data modules found, entering strict repository configuration mode
+[2023-08-11 15:08:02,044] [logId] [INFO] [main] RepositoryConfigurationDelegate[132] - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+[2023-08-11 15:08:02,063] [logId] [INFO] [main] RepositoryConfigurationDelegate[201] - Finished Spring Data repository scanning in 6 ms. Found 0 Redis repository interfaces.
+[2023-08-11 15:08:02,292] [logId] [INFO] [main] GenericScope[283] - BeanFactory id=c4ea3fcb-9a8a-3fe0-9d52-a522926f6aca
+[2023-08-11 15:08:02,398] [logId] [INFO] [main] PostProcessorRegistrationDelegate$BeanPostProcessorChecker[376] - Bean 'io.seata.spring.boot.autoconfigure.SeataCoreAutoConfiguration' of type [io.seata.spring.boot.autoconfigure.SeataCoreAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2023-08-11 15:08:02,398] [logId] [INFO] [main] PostProcessorRegistrationDelegate$BeanPostProcessorChecker[376] - Bean 'springApplicationContextProvider' of type [io.seata.spring.boot.autoconfigure.provider.SpringApplicationContextProvider] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2023-08-11 15:08:02,399] [logId] [INFO] [main] PostProcessorRegistrationDelegate$BeanPostProcessorChecker[376] - Bean 'io.seata.spring.boot.autoconfigure.SeataAutoConfiguration' of type [io.seata.spring.boot.autoconfigure.SeataAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2023-08-11 15:08:02,429] [logId] [INFO] [main] PostProcessorRegistrationDelegate$BeanPostProcessorChecker[376] - Bean 'failureHandler' of type [io.seata.tm.api.DefaultFailureHandlerImpl] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2023-08-11 15:08:02,434] [logId] [INFO] [main] PostProcessorRegistrationDelegate$BeanPostProcessorChecker[376] - Bean 'org.springframework.cloud.commons.config.CommonsConfigAutoConfiguration' of type [org.springframework.cloud.commons.config.CommonsConfigAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2023-08-11 15:08:02,435] [logId] [INFO] [main] PostProcessorRegistrationDelegate$BeanPostProcessorChecker[376] - Bean 'org.springframework.cloud.client.loadbalancer.LoadBalancerDefaultMappingsProviderAutoConfiguration' of type [org.springframework.cloud.client.loadbalancer.LoadBalancerDefaultMappingsProviderAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2023-08-11 15:08:02,436] [logId] [INFO] [main] PostProcessorRegistrationDelegate$BeanPostProcessorChecker[376] - Bean 'loadBalancerClientsDefaultsMappingsProvider' of type [org.springframework.cloud.client.loadbalancer.LoadBalancerDefaultMappingsProviderAutoConfiguration$$Lambda$481/1706985646] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2023-08-11 15:08:02,437] [logId] [INFO] [main] PostProcessorRegistrationDelegate$BeanPostProcessorChecker[376] - Bean 'defaultsBindHandlerAdvisor' of type [org.springframework.cloud.commons.config.DefaultsBindHandlerAdvisor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2023-08-11 15:08:02,440] [logId] [INFO] [main] PostProcessorRegistrationDelegate$BeanPostProcessorChecker[376] - Bean 'springCloudAlibabaConfiguration' of type [io.seata.spring.boot.autoconfigure.properties.SpringCloudAlibabaConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2023-08-11 15:08:02,442] [logId] [INFO] [main] PostProcessorRegistrationDelegate$BeanPostProcessorChecker[376] - Bean 'seataProperties' of type [io.seata.spring.boot.autoconfigure.properties.SeataProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2023-08-11 15:08:02,445] [logId] [INFO] [main] SeataAutoConfiguration[63] - Automatically configure Seata
+[2023-08-11 15:08:02,503] [logId] [INFO] [main] ConfigurationFactory[69] - load Configuration from :Spring Configuration
+[2023-08-11 15:08:02,511] [logId] [INFO] [main] NacosConfiguration[233] - Nacos check auth with userName/password.
+[2023-08-11 15:08:02,518] [logId] [INFO] [main] ClientAuthPluginManager[56] - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.impl.NacosClientAuthServiceImpl success.
+[2023-08-11 15:08:02,518] [logId] [INFO] [main] ClientAuthPluginManager[56] - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.ram.RamClientAuthServiceImpl success.
+[2023-08-11 15:08:02,982] [logId] [INFO] [main] GlobalTransactionScanner[208] - Initializing Global Transaction Clients ... 
+[2023-08-11 15:08:03,134] [logId] [INFO] [main] NettyClientBootstrap[147] - NettyClientBootstrap has started
+[2023-08-11 15:08:03,168] [logId] [INFO] [main] ClientAuthPluginManager[56] - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.impl.NacosClientAuthServiceImpl success.
+[2023-08-11 15:08:03,168] [logId] [INFO] [main] ClientAuthPluginManager[56] - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.ram.RamClientAuthServiceImpl success.
+[2023-08-11 15:08:03,418] [logId] [INFO] [main] NettyClientChannelManager[108] - will connect to 192.168.43.128:8091
+[2023-08-11 15:08:04,328] [logId] [INFO] [main] NettyPoolableFactory[56] - NettyPool create channel to transactionRole:TMROLE,address:192.168.43.128:8091,msg:< RegisterTMRequest{applicationId='stock-service', transactionServiceGroup='stock-tx-group'} >
+[2023-08-11 15:08:06,064] [logId] [INFO] [main] TmNettyRemotingClient[224] - register TM success. client version:1.6.1, server version:1.6.1,channel:[id: 0x14f2b1c2, L:/192.168.43.8:60562 - R:/192.168.43.128:8091]
+[2023-08-11 15:08:06,072] [logId] [INFO] [main] NettyPoolableFactory[81] - register success, cost 63 ms, version:1.6.1,role:TMROLE,channel:[id: 0x14f2b1c2, L:/192.168.43.8:60562 - R:/192.168.43.128:8091]
+[2023-08-11 15:08:06,074] [logId] [INFO] [main] GlobalTransactionScanner[222] - Transaction Manager Client is initialized. applicationId[stock-service] txServiceGroup[stock-tx-group]
+[2023-08-11 15:08:06,109] [logId] [INFO] [main] AsyncWorker[73] - Async Commit Buffer Limit: 10000
+[2023-08-11 15:08:06,110] [logId] [INFO] [main] ResourceManagerXA[59] - ResourceManagerXA init ...
+[2023-08-11 15:08:06,116] [logId] [INFO] [main] NettyClientBootstrap[147] - NettyClientBootstrap has started
+[2023-08-11 15:08:06,117] [logId] [INFO] [main] GlobalTransactionScanner[227] - Resource Manager is initialized. applicationId[stock-service] txServiceGroup[stock-tx-group]
+[2023-08-11 15:08:06,117] [logId] [INFO] [main] GlobalTransactionScanner[231] - Global Transaction Clients are initialized. 
+[2023-08-11 15:08:06,610] [logId] [INFO] [main] TomcatWebServer[108] - Tomcat initialized with port(s): 8020 (http)
+[2023-08-11 15:08:06,621] [logId] [INFO] [main] Http11NioProtocol[173] - Initializing ProtocolHandler ["http-nio-8020"]
+[2023-08-11 15:08:06,622] [logId] [INFO] [main] StandardService[173] - Starting service [Tomcat]
+[2023-08-11 15:08:06,622] [logId] [INFO] [main] StandardEngine[173] - Starting Servlet engine: [Apache Tomcat/9.0.68]
+[2023-08-11 15:08:06,821] [logId] [INFO] [main] [/][173] - Initializing Spring embedded WebApplicationContext
+[2023-08-11 15:08:06,822] [logId] [INFO] [main] ServletWebServerApplicationContext[290] - Root WebApplicationContext: initialization completed in 5626 ms
+[2023-08-11 15:08:07,182] [logId] [INFO] [main] DruidDataSourceAutoConfigure[56] - Init DruidDataSource
+[2023-08-11 15:08:07,467] [logId] [INFO] [main] DruidDataSource[990] - {dataSource-1} inited
+[2023-08-11 15:08:07,599] [logId] [INFO] [main] NettyClientChannelManager[108] - will connect to 192.168.43.128:8091
+[2023-08-11 15:08:07,600] [logId] [INFO] [main] RmNettyRemotingClient[276] - RM will register :jdbc:mysql://192.168.43.128:3306/stock
+[2023-08-11 15:08:07,600] [logId] [INFO] [main] NettyPoolableFactory[56] - NettyPool create channel to transactionRole:RMROLE,address:192.168.43.128:8091,msg:< RegisterRMRequest{resourceIds='jdbc:mysql://192.168.43.128:3306/stock', applicationId='stock-service', transactionServiceGroup='stock-tx-group'} >
+[2023-08-11 15:08:07,607] [logId] [INFO] [main] RmNettyRemotingClient[177] - register RM success. client version:1.6.1, server version:1.6.1,channel:[id: 0x8d5eddb9, L:/192.168.43.8:60574 - R:/192.168.43.128:8091]
+[2023-08-11 15:08:07,607] [logId] [INFO] [main] NettyPoolableFactory[81] - register success, cost 3 ms, version:1.6.1,role:RMROLE,channel:[id: 0x8d5eddb9, L:/192.168.43.8:60574 - R:/192.168.43.128:8091]
+[2023-08-11 15:08:08,751] [logId] [INFO] [main] GlobalTransactionScanner[305] - Bean[com.sakura.stock.service.impl.StockServiceImpl$$EnhancerBySpringCGLIB$$570d3f9c] with name [stockServiceImpl] would use interceptor [io.seata.spring.annotation.GlobalTransactionalInterceptor]
+[2023-08-11 15:08:09,889] [logId] [INFO] [main] PropertySourcedRequestMappingHandlerMapping[69] - Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+[2023-08-11 15:08:13,199] [logId] [INFO] [main] Http11NioProtocol[173] - Starting ProtocolHandler ["http-nio-8020"]
+[2023-08-11 15:08:13,208] [logId] [INFO] [main] TomcatWebServer[220] - Tomcat started on port(s): 8020 (http) with context path ''
+[2023-08-11 15:08:13,211] [logId] [INFO] [main] ClientAuthPluginManager[56] - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.impl.NacosClientAuthServiceImpl success.
+[2023-08-11 15:08:13,211] [logId] [INFO] [main] ClientAuthPluginManager[56] - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.ram.RamClientAuthServiceImpl success.
+[2023-08-11 15:08:13,415] [logId] [INFO] [main] NacosServiceRegistry[76] - nacos registry, DEFAULT_GROUP stock-service 26.26.26.1:8020 register finished
+[2023-08-11 15:08:14,151] [logId] [INFO] [main] DocumentationPluginsBootstrapper[160] - Context refreshed
+[2023-08-11 15:08:14,159] [logId] [INFO] [main] DocumentationPluginsBootstrapper[163] - Found 1 custom documentation plugin(s)
+[2023-08-11 15:08:14,174] [logId] [INFO] [main] ApiListingReferenceScanner[41] - Scanning for api listing references
+[2023-08-11 15:08:14,278] [logId] [INFO] [main] StockApplication[61] - Started StockApplication in 16.709 seconds (JVM running for 17.506)
+[2023-08-11 15:08:14,282] [logId] [INFO] [main] NacosContextRefresher[129] - [Nacos Config] Listening config: dataId=stock-service-dev.yaml, group=DEFAULT_GROUP
+[2023-08-11 15:08:14,283] [logId] [INFO] [main] NacosContextRefresher[129] - [Nacos Config] Listening config: dataId=stock-service, group=DEFAULT_GROUP
+[2023-08-11 15:08:14,284] [logId] [INFO] [main] NacosContextRefresher[129] - [Nacos Config] Listening config: dataId=stock-service.yaml, group=DEFAULT_GROUP
+[2023-08-11 17:40:57,111] [logId] [WARN] [Thread-11] NotifyCenter[136] - [NotifyCenter] Start destroying Publisher
+[2023-08-11 17:40:57,111] [logId] [WARN] [Thread-3] HttpClientBeanHolder[102] - [HttpClientBeanHolder] Start destroying common HttpClient
+[2023-08-11 17:40:57,112] [logId] [WARN] [Thread-11] NotifyCenter[153] - [NotifyCenter] Destruction of the end
+[2023-08-11 17:40:57,112] [logId] [WARN] [Thread-3] HttpClientBeanHolder[111] - [HttpClientBeanHolder] Destruction of the end
+[2023-08-11 17:40:57,790] [logId] [INFO] [SpringContextShutdownHook] NacosServiceRegistry[95] - De-registering from Nacos Server now...
+[2023-08-11 17:40:57,793] [logId] [INFO] [SpringContextShutdownHook] NacosServiceRegistry[115] - De-registration finished.
+[2023-08-11 17:40:57,817] [logId] [INFO] [SpringContextShutdownHook] DruidDataSource[2043] - {dataSource-1} closing ...
+[2023-08-11 17:40:57,820] [logId] [INFO] [SpringContextShutdownHook] DruidDataSource[2116] - {dataSource-1} closed
+[2023-08-11 17:40:57,823] [logId] [INFO] [NettyClientSelector_RMROLE_1_1] AbstractNettyRemotingClient[438] - channel inactive: [id: 0x8d5eddb9, L:/192.168.43.8:60574 ! R:/192.168.43.128:8091]
+[2023-08-11 17:40:57,823] [logId] [INFO] [NettyClientSelector_RMROLE_1_1] NettyClientChannelManager[133] - return to pool, rm channel:[id: 0x8d5eddb9, L:/192.168.43.8:60574 ! R:/192.168.43.128:8091]
+[2023-08-11 17:40:57,824] [logId] [INFO] [NettyClientSelector_RMROLE_1_1] NettyPoolableFactory[133] - channel valid false,channel:[id: 0x8d5eddb9, L:/192.168.43.8:60574 ! R:/192.168.43.128:8091]
+[2023-08-11 17:40:57,824] [logId] [INFO] [NettyClientSelector_RMROLE_1_1] NettyPoolableFactory[120] - will destroy channel:[id: 0x8d5eddb9, L:/192.168.43.8:60574 ! R:/192.168.43.128:8091]
+[2023-08-11 17:40:57,824] [logId] [INFO] [NettyClientSelector_RMROLE_1_1] AbstractNettyRemotingClient[488] - ChannelHandlerContext(AbstractNettyRemotingClient$ClientHandler#0, [id: 0x8d5eddb9, L:/192.168.43.8:60574 ! R:/192.168.43.128:8091]) will closed
+[2023-08-11 17:40:57,825] [logId] [INFO] [NettyClientSelector_RMROLE_1_1] AbstractNettyRemotingClient[488] - ChannelHandlerContext(AbstractNettyRemotingClient$ClientHandler#0, [id: 0x8d5eddb9, L:/192.168.43.8:60574 ! R:/192.168.43.128:8091]) will closed

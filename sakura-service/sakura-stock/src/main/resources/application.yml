@@ -48,6 +48,9 @@ spring:
     port: 6379
     password: px123456
 
+rocketmq:
+  name-server: 192.168.43.118:9876
+
 seata:
   tx-service-group: stock-tx-group
   service:

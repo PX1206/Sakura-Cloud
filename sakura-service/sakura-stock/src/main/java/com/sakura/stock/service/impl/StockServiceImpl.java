@@ -18,6 +18,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.math.BigInteger;
+
 /**
  * 库存表 服务实现类
  *
@@ -63,13 +65,11 @@ public class StockServiceImpl extends BaseServiceImpl<StockMapper, Stock> implem
         Stock stock = stockMapper.selectOne(
                 Wrappers.<Stock>lambdaQuery()
                         .eq(Stock::getProductNo, productNo)
-                        .eq(Stock::getStatus, 1));
+                        .eq(Stock::getStatus, 1)
+                        .last("for update"));
         if (stock == null || stock.getProductNum() == null) {
             return 0;
         }
-        // 修改库存
-        stock.setProductNum(stock.getProductNum() -1);
-        stockMapper.updateById(stock);
 
         return stock.getProductNum();
     }
