@@ -306,7 +306,8 @@ public class CodeGenerator {
                 @Override
                 public String outputFile(TableInfo tableInfo) {
                     // 指定Mapper XML文件路径
-                    return finalMapperXmlOutputDir + finalModulePath + File.separator
+                    // 20230814 px1206 处理生成的mapper.xml多了一层路径问题
+                    return finalMapperXmlOutputDir /*+ finalModulePath*/ + File.separator
                             + tableInfo.getEntityName() + GeneratorConstant.MAPPER + StringPool.DOT_XML;
                 }
             });
