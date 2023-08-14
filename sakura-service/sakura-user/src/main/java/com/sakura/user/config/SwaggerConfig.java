@@ -30,8 +30,8 @@ public class SwaggerConfig {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("库存服务")//文档主标题
-                .description("库存管理")//文档描述
+                .title("用户管理")//文档主标题
+                .description("用户管理")//文档描述
                 .version("1.0.0")//API的版本
                 .build();
     }

@@ -1,6 +1,7 @@
 package com.sakura.user.controller;
 
 import com.sakura.user.entity.User;
+import com.sakura.user.param.UserRegisterParam;
 import com.sakura.user.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import com.sakura.user.param.UserPageParam;
@@ -29,11 +30,22 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/user")
 @Module("user")
-@Api(value = "用户表API", tags = {"用户表"})
+@Api(value = "用户管理", tags = {"用户管理"})
 public class UserController extends BaseController {
 
     @Autowired
     private UserService userService;
+
+    /**
+     * 添加用户表
+     */
+    @PostMapping("/register")
+    @OperationLog(name = "用户注册", type = OperationLogType.ADD)
+    @ApiOperation(value = "用户注册", response = ApiResult.class)
+    public ApiResult<Boolean> register(@Validated(Add.class) @RequestBody UserRegisterParam userRegisterParam) throws Exception {
+        boolean flag = userService.register(userRegisterParam);
+        return ApiResult.result(flag);
+    }
 
     /**
      * 添加用户表

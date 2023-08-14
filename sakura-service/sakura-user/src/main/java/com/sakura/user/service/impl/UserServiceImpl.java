@@ -2,6 +2,7 @@ package com.sakura.user.service.impl;
 
 import com.sakura.user.entity.User;
 import com.sakura.user.mapper.UserMapper;
+import com.sakura.user.param.UserRegisterParam;
 import com.sakura.user.service.UserService;
 import com.sakura.user.param.UserPageParam;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -28,6 +29,12 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
 
     @Autowired
     private UserMapper userMapper;
+
+    @Override
+    public boolean register(UserRegisterParam userRegisterParam) throws Exception {
+        // 先校验短信验证码是否正确
+        return false;
+    }
 
     @Transactional(rollbackFor = Exception.class)
     @Override

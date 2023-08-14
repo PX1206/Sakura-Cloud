@@ -612,4 +612,24 @@ public class DateUtil {
         String dateString = simpleDateFormat.format(date);
         return dateString;
     }
+
+    /**
+     * @description: 获取当前日期到晚上23.59.59中间还有多少秒
+     * @author: Sakura
+     * @date: 2023/8/14 15:53
+     */
+    public static long timeToMidnight() {
+        // 获取当前时间
+        LocalTime currentTime = LocalTime.now();
+
+        // 设置晚上23.59.59
+        LocalTime midnight = LocalTime.of(23, 59, 59);
+
+        // 计算当前时间到晚上之间的时长
+        Duration durationUntilMidnight = Duration.between(currentTime, midnight);
+
+        long seconds = durationUntilMidnight.getSeconds();
+
+        return seconds;
+    }
 }

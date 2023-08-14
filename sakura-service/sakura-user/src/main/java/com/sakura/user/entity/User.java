@@ -46,11 +46,20 @@ public class User extends BaseEntity {
     @ApiModelProperty("年龄")
     private Integer age;
 
+    @ApiModelProperty("生日")
+    private Date birthday;
+
     @ApiModelProperty("手机号")
     private String mobile;
 
     @ApiModelProperty("地址")
     private String address;
+
+    @ApiModelProperty("密码")
+    private String password;
+
+    @ApiModelProperty("盐")
+    private String salt;
 
     @ApiModelProperty("创建日期")
     private Date createDt;

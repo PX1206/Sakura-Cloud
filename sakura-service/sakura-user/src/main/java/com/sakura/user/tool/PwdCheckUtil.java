@@ -1,4 +1,6 @@
-package com.sakura.common.tool;
+package com.sakura.user.tool;
+
+import com.sakura.common.tool.StringUtil;
 
 /**
  *

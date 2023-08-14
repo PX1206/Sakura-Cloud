@@ -99,3 +99,16 @@ feign:
         read-timeout: 6000 #请求处理超时时间，默认5s
         request-interceptors:
           - com.sakura.user.interceptor.feign.CustomFeignInterceptor # 开启自定义拦截器
+
+aliyun:
+  sms: # 阿里云短信服务参数，申请开通的时候有
+    access-key-id: LTde4GJggqwQ4hvzrP8feyAf
+    secret: ivseKA8iHAtsVderlmL31s54fe78QA
+    region-id: cn-hangzhou
+    sys-domain: dysmsapi.aliyuncs.com
+    sys-action: SendSms
+    sys-version: 2017-05-25
+    send-max-num: 5
+    register: # 用户认证信息模版
+      sign-name: Sakura-Cloud
+      template-code: SMS_202320123

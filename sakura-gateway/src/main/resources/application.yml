@@ -69,4 +69,10 @@ spring:
             - Path=/api-stock/**
           filters:
             - StripPrefix=1
+        - id: user-service
+          uri: lb://user-service
+          predicates:
+            - Path=/api-user/**
+          filters:
+            - StripPrefix=1
 
