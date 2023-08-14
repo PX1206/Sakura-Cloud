@@ -77,7 +77,7 @@ public class CaptchaServiceImpl implements CaptchaService {
         // 发送短信验证码
         String smsCode = String.valueOf((int) ((Math.random() * 9 + 1) * 100000)); // 生成一个6位数验证码
         JSONObject jsonParam = new JSONObject();
-        jsonParam.put("expired_date", smsCode);
+        jsonParam.put("code", smsCode);
         boolean sendStatus = aliyunSmsUtils.sendSms(smsCodeParam.getMobile(), jsonParam.toJSONString(),
                 ALIYUN_SMS_REGISTER_SIGN_NAME, ALIYUN_SMS_REGISTER_TEMPLATE_CODE);
         if (!sendStatus) {
@@ -85,7 +85,7 @@ public class CaptchaServiceImpl implements CaptchaService {
             throw new BusinessException(500, "短信发送失败，请联系管理员");
         }
         // 将短信验证码放入Redis,有效期5分钟
-        redisUtil.sSetAndTime("sms_code_" + smsCodeParam.getMobile(), 60 * 5, smsCode);
+        redisUtil.set("sms_code_" + smsCodeParam.getMobile(), smsCode, 60 * 5);
 
         return "验证码已发送至手机号：" + smsCodeParam.getMobile() + ",5分钟内有效！";
     }
