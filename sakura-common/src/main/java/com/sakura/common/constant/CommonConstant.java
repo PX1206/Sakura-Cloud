@@ -144,4 +144,14 @@ public interface CommonConstant {
      * 局域网名称
      */
     String LAN_IP_NAME = "局域网";
+
+    /**
+     * Redis短信验证码key
+     */
+    String SMS_CODE = "sms_code_";
+
+    /**
+     * Redis短信验证码发送次数key
+     */
+    String SMS_SEND_NUM = "sms-send-num_";
 }

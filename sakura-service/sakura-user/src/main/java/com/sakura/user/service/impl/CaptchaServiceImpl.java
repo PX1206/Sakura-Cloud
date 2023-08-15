@@ -1,6 +1,7 @@
 package com.sakura.user.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
+import com.sakura.common.constant.CommonConstant;
 import com.sakura.common.exception.BusinessException;
 import com.sakura.common.redis.RedisUtil;
 import com.sakura.common.tool.DateUtil;
@@ -34,6 +35,9 @@ public class CaptchaServiceImpl implements CaptchaService {
     @Value("${aliyun.sms.register.template-code}")
     String ALIYUN_SMS_REGISTER_TEMPLATE_CODE;
 
+    @Value("${aliyun.sms.register.template-param}")
+    String ALIYUN_SMS_REGISTER_TEMPLATE_PARAM;
+
     @Autowired
     private RedisUtil redisUtil;
     @Autowired
@@ -61,10 +65,15 @@ public class CaptchaServiceImpl implements CaptchaService {
     @Override
     public String getSMSCode(SMSCodeParam smsCodeParam) throws Exception {
         // 校验图片验证码是否正确，防止脚本刷短信
+        if (!redisUtil.hasKey(smsCodeParam.getKey())) {
+            throw new BusinessException(500, "图片验证码已过期");
+        }
         String verCode = redisUtil.get(smsCodeParam.getKey()).toString();
         if (StringUtil.isEmpty(verCode) || !verCode.equals(smsCodeParam.getPictureCode())) {
             throw new BusinessException(500, "图片验证码已过期");
         }
+        // 验证码使用后就删除
+        redisUtil.del(smsCodeParam.getKey());
 
         // 用户每天发送短信不得超过最大限制数
         long smsNum = redisUtil.incr("sms-send-num" + smsCodeParam.getMobile(), 1);
@@ -72,20 +81,21 @@ public class CaptchaServiceImpl implements CaptchaService {
             throw new BusinessException(500, "当天短信发送数量已达最大");
         }
         // 设置当前短信记录发送有效期,当前日期到晚上23：59:59
-        redisUtil.expire("sms-send-num" + smsCodeParam.getMobile(), DateUtil.timeToMidnight());
+        redisUtil.expire(CommonConstant.SMS_SEND_NUM + smsCodeParam.getMobile(), DateUtil.timeToMidnight());
 
         // 发送短信验证码
         String smsCode = String.valueOf((int) ((Math.random() * 9 + 1) * 100000)); // 生成一个6位数验证码
+        log.info(smsCode); // 测试用，建议删除
         JSONObject jsonParam = new JSONObject();
-        jsonParam.put("code", smsCode);
+        jsonParam.put(ALIYUN_SMS_REGISTER_TEMPLATE_PARAM, smsCode);
         boolean sendStatus = aliyunSmsUtils.sendSms(smsCodeParam.getMobile(), jsonParam.toJSONString(),
                 ALIYUN_SMS_REGISTER_SIGN_NAME, ALIYUN_SMS_REGISTER_TEMPLATE_CODE);
         if (!sendStatus) {
-            redisUtil.decr("sms-send-num" + smsCodeParam.getMobile(), 1); // 短信发送失败不计算次数
+            redisUtil.decr(CommonConstant.SMS_SEND_NUM + smsCodeParam.getMobile(), 1); // 短信发送失败不计算次数
             throw new BusinessException(500, "短信发送失败，请联系管理员");
         }
         // 将短信验证码放入Redis,有效期5分钟
-        redisUtil.set("sms_code_" + smsCodeParam.getMobile(), smsCode, 60 * 5);
+        redisUtil.set(CommonConstant.SMS_CODE + smsCodeParam.getMobile(), smsCode, 60 * 5);
 
         return "验证码已发送至手机号：" + smsCodeParam.getMobile() + ",5分钟内有效！";
     }

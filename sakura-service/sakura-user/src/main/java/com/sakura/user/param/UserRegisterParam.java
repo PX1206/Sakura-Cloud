@@ -53,7 +53,7 @@ public class UserRegisterParam extends BaseEntity {
     private String address;
 
     @ApiModelProperty("密码")
-    @NotBlank(message = "密码不能为空，密码必须由字母和数字组成且不得少于8位")
+    @NotBlank(message = "密码不能为空，密码必须由字母和数字组成且不得少于8位，建议前端使用SHA256加密传输")
     private String password;
 
 }
