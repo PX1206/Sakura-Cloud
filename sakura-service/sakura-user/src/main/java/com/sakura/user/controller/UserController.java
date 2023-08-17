@@ -1,8 +1,10 @@
 package com.sakura.user.controller;
 
 import com.sakura.user.entity.User;
+import com.sakura.user.param.LoginParam;
 import com.sakura.user.param.UserRegisterParam;
 import com.sakura.user.service.UserService;
+import com.sakura.user.vo.UserInfoVo;
 import lombok.extern.slf4j.Slf4j;
 import com.sakura.user.param.UserPageParam;
 import com.sakura.common.base.BaseController;
@@ -37,7 +39,7 @@ public class UserController extends BaseController {
     private UserService userService;
 
     /**
-     * 添加用户表
+     * 用户注册
      */
     @PostMapping("/register")
     @OperationLog(name = "用户注册", type = OperationLogType.ADD)
@@ -45,6 +47,17 @@ public class UserController extends BaseController {
     public ApiResult<Boolean> register(@Validated(Add.class) @RequestBody UserRegisterParam userRegisterParam) throws Exception {
         boolean flag = userService.register(userRegisterParam);
         return ApiResult.result(flag);
+    }
+
+    /**
+     * 用户登录
+     */
+    @PostMapping("/login")
+    @OperationLog(name = "用户登录", type = OperationLogType.ADD)
+    @ApiOperation(value = "用户登录", response = ApiResult.class)
+    public ApiResult<UserInfoVo> login(@Validated @RequestBody LoginParam loginParam) throws Exception {
+        UserInfoVo userInfoVo = userService.login(loginParam);
+        return ApiResult.ok(userInfoVo);
     }
 
     /**

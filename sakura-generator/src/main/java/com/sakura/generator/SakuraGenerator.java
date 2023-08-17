@@ -30,7 +30,7 @@ public class SakuraGenerator {
                 .setFileOverride(true);
 
         // 设置表信息
-        generatorProperties.addTable("t_user","id");
+        generatorProperties.addTable("t_user_role","id");
         // 设置表前缀
         generatorProperties.setTablePrefix(Arrays.asList("t_"));
 

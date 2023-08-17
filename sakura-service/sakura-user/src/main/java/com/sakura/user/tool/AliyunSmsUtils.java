@@ -22,16 +22,16 @@ public class AliyunSmsUtils {
     String ALIYUN_SMS_SECRET;
 
     @Value("${aliyun.sms.region-id}")
-    String ALIYUN_SMS_REGION_ID = "cn-hangzhou";
+    String ALIYUN_SMS_REGION_ID;
 
     @Value("${aliyun.sms.sys-domain}")
-    String ALIYUN_SMS_SYS_DOMAIN = "dysmsapi.aliyuncs.com";
+    String ALIYUN_SMS_SYS_DOMAIN;
 
     @Value("${aliyun.sms.sys-action}")
-    String ALIYUN_SMS_SYS_ACTION = "SendSms";
+    String ALIYUN_SMS_SYS_ACTION;
 
     @Value("${aliyun.sms.sys-version}")
-    String ALIYUN_SMS_SYS_VERSION = "2017-05-25";
+    String ALIYUN_SMS_SYS_VERSION;
 
     public boolean sendSms(String phone, String paramJson, String signName, String templateCode) {
         DefaultProfile profile = DefaultProfile.getProfile(ALIYUN_SMS_REGION_ID, ALIYUN_SMS_ACCESS_KEY_ID, ALIYUN_SMS_SECRET);

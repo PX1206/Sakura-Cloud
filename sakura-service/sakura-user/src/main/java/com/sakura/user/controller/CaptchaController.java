@@ -7,6 +7,7 @@ import com.sakura.common.log.OperationLog;
 import com.sakura.user.param.SMSCodeParam;
 import com.sakura.user.service.CaptchaService;
 import com.sakura.user.vo.PictureCodeVo;
+import com.sakura.user.vo.SaltVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -26,7 +27,7 @@ import org.springframework.web.bind.annotation.*;
 public class CaptchaController {
 
     @Autowired
-    private CaptchaService codeService;
+    private CaptchaService captchaService;
 
     /**
      * 图片验证码
@@ -35,8 +36,20 @@ public class CaptchaController {
     @OperationLog(name = "获取图片验证码", type = OperationLogType.INFO)
     @ApiOperation(value = "获取图片验证码")
     public ApiResult<PictureCodeVo> getPictureCode() throws Exception {
-        PictureCodeVo pictureCodeVo = codeService.getPictureCode();
+        PictureCodeVo pictureCodeVo = captchaService.getPictureCode();
         return ApiResult.ok(pictureCodeVo);
+    }
+
+    /**
+     * 获取加密盐
+     * 前端传输特殊信息时用该盐进行AES加密，后端拿到值后再进行解密
+     */
+    @GetMapping("getSalt")
+    @OperationLog(name = "获取加密盐", type = OperationLogType.INFO)
+    @ApiOperation(value = "获取加密盐，用于用户密码等信息加密传输")
+    public ApiResult<SaltVo> getSalt() throws Exception {
+        SaltVo saltVo = captchaService.getSalt();
+        return ApiResult.ok(saltVo);
     }
 
     /**
@@ -46,7 +59,7 @@ public class CaptchaController {
     @OperationLog(name = "获取短信验证码", type = OperationLogType.INFO)
     @ApiOperation(value = "获取短信验证码")
     public ApiResult<String> getSMSCode(@Validated @RequestBody SMSCodeParam smsCodeParam) throws Exception {
-        String msg = codeService.getSMSCode(smsCodeParam);
+        String msg = captchaService.getSMSCode(smsCodeParam);
         return ApiResult.ok(msg);
     }
 }

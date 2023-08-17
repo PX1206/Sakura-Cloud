@@ -11,6 +11,8 @@ import java.io.StringWriter;
 import java.text.MessageFormat;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class StringUtil {
 
@@ -1183,5 +1185,25 @@ public class StringUtil {
 
         return str.substring(start, end);
     }
+
+    // 判断字符串是否是手机号
+    public static boolean isValidPhoneNumber(String phoneNumber) {
+        // 使用正则表达式匹配中国大陆手机号的格式
+        String regex = "^1[3-9]\\d{9}$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(phoneNumber);
+
+        return matcher.matches();
+    }
+
+//    public static void main(String[] args) {
+//        String phoneNumber = "138123456781"; // 要校验的手机号
+//
+//        if (isValidPhoneNumber(phoneNumber)) {
+//            System.out.println("是有效的手机号码");
+//        } else {
+//            System.out.println("不是有效的手机号码");
+//        }
+//    }
 
 }
