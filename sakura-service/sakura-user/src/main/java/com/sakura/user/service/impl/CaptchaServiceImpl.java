@@ -10,7 +10,9 @@ import com.sakura.user.captcha.GifCaptcha;
 import com.sakura.user.param.SMSCodeParam;
 import com.sakura.user.service.CaptchaService;
 import com.sakura.user.tool.AliyunSmsUtils;
+import com.sakura.user.tool.CommonUtil;
 import com.sakura.user.vo.PictureCodeVo;
+import com.sakura.user.vo.SaltVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -39,6 +41,8 @@ public class CaptchaServiceImpl implements CaptchaService {
     String ALIYUN_SMS_REGISTER_TEMPLATE_PARAM;
 
     @Autowired
+    CommonUtil commonUtil;
+    @Autowired
     private RedisUtil redisUtil;
     @Autowired
     private AliyunSmsUtils aliyunSmsUtils;
@@ -63,17 +67,33 @@ public class CaptchaServiceImpl implements CaptchaService {
     }
 
     @Override
+    public SaltVo getSalt() throws Exception {
+        String key = UUID.randomUUID().toString();
+        String salt = UUID.randomUUID().toString().replaceAll("-", "");
+
+        // 将值放入Redis，有效期30分钟
+        redisUtil.set(key, salt, 60 * 30);
+
+        SaltVo saltVo = new SaltVo();
+        saltVo.setSaltKey(key);
+        saltVo.setSalt(salt);
+
+        return saltVo;
+    }
+
+    @Override
     public String getSMSCode(SMSCodeParam smsCodeParam) throws Exception {
         // 校验图片验证码是否正确，防止脚本刷短信
-        if (!redisUtil.hasKey(smsCodeParam.getKey())) {
-            throw new BusinessException(500, "图片验证码已过期");
+        if (!commonUtil.checkCode(smsCodeParam.getKey(), smsCodeParam.getPictureCode())) {
+            throw new BusinessException(500, "图片验证码错误");
         }
-        String verCode = redisUtil.get(smsCodeParam.getKey()).toString();
-        if (StringUtil.isEmpty(verCode) || !verCode.equals(smsCodeParam.getPictureCode())) {
-            throw new BusinessException(500, "图片验证码已过期");
+
+        // 获取真实手机号
+        String mobile = commonUtil.getDecryptStr(smsCodeParam.getMobile(), smsCodeParam.getSaltKey(), null);
+        if (!StringUtil.isValidPhoneNumber(mobile)) {
+            throw new BusinessException(500, "手机号格式异常");
         }
-        // 验证码使用后就删除
-        redisUtil.del(smsCodeParam.getKey());
+        smsCodeParam.setMobile(mobile);
 
         // 用户每天发送短信不得超过最大限制数
         long smsNum = redisUtil.incr("sms-send-num" + smsCodeParam.getMobile(), 1);

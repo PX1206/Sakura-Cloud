@@ -4,10 +4,12 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.sakura.common.constant.CommonConstant;
 import com.sakura.common.exception.BusinessException;
 import com.sakura.common.redis.RedisUtil;
+import com.sakura.common.tool.AESUtil;
 import com.sakura.common.tool.SHA256Util;
 import com.sakura.common.tool.StringUtil;
 import com.sakura.user.entity.User;
 import com.sakura.user.mapper.UserMapper;
+import com.sakura.user.param.LoginParam;
 import com.sakura.user.param.UserRegisterParam;
 import com.sakura.user.service.UserService;
 import com.sakura.user.param.UserPageParam;
@@ -18,6 +20,8 @@ import com.sakura.common.pagination.PageInfo;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.sakura.user.tool.CommonUtil;
+import com.sakura.user.vo.UserInfoVo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.transaction.annotation.Transactional;
 import lombok.extern.slf4j.Slf4j;
@@ -37,27 +41,29 @@ import java.util.UUID;
 public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implements UserService {
 
     @Autowired
-    private RedisUtil redisUtil;
+    CommonUtil commonUtil;
+    @Autowired
+    RedisUtil redisUtil;
     @Autowired
     private UserMapper userMapper;
 
     @Override
     public boolean register(UserRegisterParam userRegisterParam) throws Exception {
-        // 先校验短信验证码是否正确
-        if (!redisUtil.hasKey(CommonConstant.SMS_CODE + userRegisterParam.getMobile())) {
-            throw new BusinessException(500, "短信验证码已过期");
+        // 获取真实手机号
+        String mobile = commonUtil.getDecryptStr(userRegisterParam.getMobile(), userRegisterParam.getSaltKey(), false);
+        if (!StringUtil.isValidPhoneNumber(mobile)) {
+            throw new BusinessException(500, "手机号格式异常");
         }
-        String smsCode = redisUtil.get("sms_code_" + userRegisterParam.getMobile()).toString();
-        if (StringUtil.isEmpty(smsCode) || !smsCode.equals(userRegisterParam.getSmsCode())) {
+        userRegisterParam.setMobile(mobile);
+
+        // 先校验短信验证码是否正确
+        if (!commonUtil.checkCode(CommonConstant.SMS_CODE + userRegisterParam.getMobile(), userRegisterParam.getSmsCode())) {
             throw new BusinessException(500, "短信验证码错误");
         }
-        // 验证码使用后就删除
-        redisUtil.del("sms_code_" + userRegisterParam.getMobile());
 
         // 校验当前手机号是否已存在
         User user = userMapper.selectOne(Wrappers.<User>lambdaQuery().
-                eq(User::getMobile, userRegisterParam.getMobile()).
-                eq(User::getStatus, 1));
+                eq(User::getMobile, userRegisterParam.getMobile()));
         if (user != null) {
             throw new BusinessException(500, "用户已存在");
         }
@@ -67,19 +73,45 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
         BeanUtils.copyProperties(userRegisterParam, user);
         user.setUserId(StringUtil.random(32)); // 生成用户ID
         user.setSalt(SHA256Util.getSHA256Str(UUID.randomUUID().toString())); // 随机生成盐
-        // 如果用户未设置密码那么初始密码为123456
-        if (StringUtil.isEmpty(userRegisterParam.getPassword())) {
-            // 原始密码为123456
-            // 前端传输时先加密SHA256(123456)
-            userRegisterParam.setPassword(SHA256Util.getSHA256Str("123456"));
-        }
-        // 二次加密
-        user.setPassword(SHA256Util.getSHA256Str(userRegisterParam.getPassword() + user.getSalt()));
+        // 获取用户真实密码
+        String password = commonUtil.getDecryptStr(userRegisterParam.getPassword(), userRegisterParam.getSaltKey(), null);
+        // HA256S加密
+        user.setPassword(SHA256Util.getSHA256Str(password + user.getSalt()));
         user.setStatus(1);
 
         userMapper.insert(user);
 
         return true;
+    }
+
+    @Override
+    public UserInfoVo login(LoginParam loginParam) throws Exception {
+        // 获取真实手机号
+        String mobile = commonUtil.getDecryptStr(loginParam.getMobile(), loginParam.getSaltKey(), false);
+        // 获取用户真实密码
+        String password = commonUtil.getDecryptStr(loginParam.getPassword(), loginParam.getSaltKey(), null);
+
+        // 获取当前登录用户信息
+        User user = userMapper.selectOne(Wrappers.<User>lambdaQuery()
+                .eq(User::getMobile, mobile));
+        if (user == null || !user.getPassword().equals(SHA256Util.getSHA256Str(password + user.getSalt()))) {
+            throw new BusinessException(500, "用户名或密码错误"); // 此处写法固定，防止有人用脚本尝试账号
+        }
+        if (user.getStatus() != 1) {
+            throw new BusinessException(500, "账号状态异常，请联系管理员");
+        }
+
+        // 获取用户详细信息
+        UserInfoVo userInfoVo = userMapper.findUserInfoVoById(user.getUserId());
+
+        // 登录成功保存token信息
+        String token = UUID.randomUUID().toString();
+        userInfoVo.setToken(token);
+
+        redisUtil.set(token, userInfoVo);
+
+
+        return userInfoVo;
     }
 
     @Transactional(rollbackFor = Exception.class)
