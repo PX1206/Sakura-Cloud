@@ -108,7 +108,8 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
         String token = UUID.randomUUID().toString();
         userInfoVo.setToken(token);
 
-        redisUtil.set(token, userInfoVo);
+        // 将信息放入Redis，有效时间2小时
+        redisUtil.set(token, userInfoVo, 60*60*2);
 
 
         return userInfoVo;

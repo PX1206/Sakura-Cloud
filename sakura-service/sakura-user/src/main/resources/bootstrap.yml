@@ -1,6 +1,6 @@
 spring:
   application:
-    name: user-service
+    name: user-service # 该属性如果放到application.yml种会导致nacos动态刷新失效
   cloud:
     nacos:
       discovery:

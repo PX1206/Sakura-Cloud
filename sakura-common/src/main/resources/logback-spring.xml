@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration debug="true">
-    <contextName>stock-service</contextName>
+    <contextName>user-service</contextName>
     <!-- 定义log日志文件位置，INFO_FILE ERROR_FILE会引用 -->
     <property name="LOG_HOME"  value="logs"></property>
+<!--    <define name="LOG_NAME" class="com.sakura.common.log.LogNameProperty"/>-->
+    <!-- 配置参数logDir读取application.yml中的spring.application.name属性，如果没有配置，默认是只默认是只log -->
+    <springProperty scope="context" name="logName" source="spring.application.name" defaultValue="sakura" />
+
     <!-- %m输出的信息,%p日志级别,%t线程名,%d日期,%c类的全名,%i索引【从数字0开始递增】 -->
     <!-- 定义控制台输出数据格式 -->
     <!-- 定义日志输出格式变量：%d表示时间 花括号内为时间格式 %level表示日志级别 %thread表示线程名 %logger{0}表示输出日志的类名 [%line]表示行号用方括号包裹 %msg表示日志消息 %n换行 -->
@@ -24,14 +28,14 @@
     </appender>
 
     <appender name="TO_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <File>${LOG_HOME}/stock-service.log</File>
+        <File>${LOG_HOME}/${logName}.log</File>
         <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
             <layout class="com.sakura.common.log.PatternLogbackLayout">
                 <pattern>${log.pattern}</pattern>
             </layout>
         </encoder>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${LOG_HOME}/stock-service-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <fileNamePattern>${LOG_HOME}/${logName}-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
             <maxHistory>30</maxHistory>
             <TimeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
                 <maxFileSize>512MB</maxFileSize>
@@ -41,7 +45,7 @@
 
     <!--==================异常日志==================-->
     <appender name="error_file" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${LOG_HOME}/stock-service_error.log</file>
+        <file>${LOG_HOME}/${logName}_error.log</file>
         <!-- 只打印错误日志 -->
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
             <level>ERROR</level>
@@ -50,7 +54,7 @@
         </filter>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>
-                ${LOG_HOME}/stock-service_error-%d{yyyy-MM-dd}.%i.log
+                ${LOG_HOME}/${logName}_error-%d{yyyy-MM-dd}.%i.log
             </fileNamePattern>
             <maxHistory>30</maxHistory>
             <TimeBasedFileNamingAndTriggeringPolicy
@@ -68,7 +72,7 @@
 
     <!-- 定义测试环境日志级别 -->
     <springProfile name="dev">
-        <logger name="com.sakura.stock" level="DEBUG"/>
+        <logger name="com.sakura.user" level="DEBUG"/>
         <root>
             <level value="INFO" />
             <appender-ref ref="CONSOLE" />
@@ -78,7 +82,7 @@
 
     <!--  定义线上环境日志级别  -->
     <springProfile name="pro">
-        <logger name="com.sakura.stock" level="DEBUG"/>
+        <logger name="com.sakura.user" level="DEBUG"/>
         <root>
             <level value="INFO" />
             <appender-ref ref="CONSOLE" />
