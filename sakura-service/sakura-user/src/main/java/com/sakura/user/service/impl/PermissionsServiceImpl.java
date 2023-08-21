@@ -1,5 +1,6 @@
 package com.sakura.user.service.impl;
 
+import com.alibaba.fastjson.JSONObject;
 import com.sakura.user.entity.Permissions;
 import com.sakura.user.mapper.PermissionsMapper;
 import com.sakura.user.service.PermissionsService;
@@ -15,6 +16,8 @@ import org.springframework.transaction.annotation.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.Set;
 
 /**
  * 权限表 服务实现类
@@ -53,6 +56,13 @@ public class PermissionsServiceImpl extends BaseServiceImpl<PermissionsMapper, P
         LambdaQueryWrapper<Permissions> wrapper = new LambdaQueryWrapper<>();
         IPage<Permissions> iPage = permissionsMapper.selectPage(page, wrapper);
         return new Paging<Permissions>(iPage);
+    }
+
+    @Override
+    public Set<String> getCodeByUrl(String strJson) throws Exception {
+        JSONObject json = JSONObject.parseObject(strJson);
+        Set<String> codes = permissionsMapper.findPermissionCodeByUrl(json.getString("url"));
+        return codes;
     }
 
 }

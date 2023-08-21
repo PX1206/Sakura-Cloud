@@ -5,6 +5,8 @@ import com.sakura.user.param.PermissionsPageParam;
 import com.sakura.common.base.BaseService;
 import com.sakura.common.pagination.Paging;
 
+import java.util.Set;
+
 /**
  * 权限表 服务类
  *
@@ -49,5 +51,7 @@ public interface PermissionsService extends BaseService<Permissions> {
      * @throws Exception
      */
     Paging<Permissions> getPermissionsPageList(PermissionsPageParam permissionsPageParam) throws Exception;
+
+    Set<String> getCodeByUrl(String strJson) throws Exception;
 
 }

@@ -1,6 +1,9 @@
 server:
   port: 8000
 
+logging:
+  config: classpath:logback-spring.xml
+
 spring:
   profiles:
     active: dev

@@ -2,14 +2,11 @@ package com.sakura.user.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.sakura.user.entity.Permissions;
-import com.sakura.user.param.PermissionsPageParam;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.ibatis.annotations.Param;
-import java.io.Serializable;
+import java.util.Set;
 
 /**
  * 权限表 Mapper 接口
@@ -19,6 +16,8 @@ import java.io.Serializable;
  */
 @Mapper
 public interface PermissionsMapper extends BaseMapper<Permissions> {
+
+    Set<String> findPermissionCodeByUrl(@Param("url") String url);
 
 
 }

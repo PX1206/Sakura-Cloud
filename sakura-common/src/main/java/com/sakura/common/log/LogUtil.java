@@ -48,20 +48,20 @@ public class LogUtil {
         }
     }
 
-    /**
-     * 设置请求ID
-     *
-     * @param requestInfo
-     */
-    protected void setRequestId(RequestInfo requestInfo, String requestId) {
-        if (StringUtil.isEmpty(requestId)) {
-            requestId = UUID.randomUUID().toString().replaceAll("-", "");
-        }
-        log.info("requestId：" + requestId);
-        // 设置请求ID
-        MDC.put(CommonConstant.REQUEST_ID, requestId);
-        requestInfo.setRequestId(requestId);
-    }
+//    /**
+//     * 设置请求ID
+//     *
+//     * @param requestInfo
+//     */
+//    protected void setRequestId(RequestInfo requestInfo, String requestId) {
+//        if (StringUtil.isEmpty(requestId)) {
+//            requestId = UUID.randomUUID().toString().replaceAll("-", "");
+//        }
+//        log.info("requestId：" + requestId);
+//        // 设置请求ID
+//        MDC.put(CommonConstant.REQUEST_ID, requestId);
+//        requestInfo.setRequestId(requestId);
+//    }
 
     protected void getRequestInfo(RequestInfo requestInfo) {
         // 获取请求信息

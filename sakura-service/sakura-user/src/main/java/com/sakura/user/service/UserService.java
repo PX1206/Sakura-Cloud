@@ -6,7 +6,7 @@ import com.sakura.user.param.UserPageParam;
 import com.sakura.common.base.BaseService;
 import com.sakura.common.pagination.Paging;
 import com.sakura.user.param.UserRegisterParam;
-import com.sakura.user.vo.UserInfoVo;
+import com.sakura.common.vo.UserInfoVo;
 
 /**
  * 用户表 服务类

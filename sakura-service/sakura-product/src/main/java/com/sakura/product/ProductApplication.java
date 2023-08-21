@@ -10,7 +10,7 @@ import org.springframework.context.annotation.ComponentScan;
  * @date 2023/7/19 11:43
  */
 @SpringBootApplication
-@EnableFeignClients
+@EnableFeignClients(basePackages = {"com.sakura.common", "com.sakura.product"})
 @ComponentScan(basePackages = {"com.sakura.common", "com.sakura.product"})
 public class ProductApplication {
 

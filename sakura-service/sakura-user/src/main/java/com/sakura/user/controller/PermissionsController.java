@@ -18,6 +18,9 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
+
+import java.util.Set;
 
 /**
  * 权限表 控制器
@@ -88,6 +91,16 @@ public class PermissionsController extends BaseController {
     public ApiResult<Paging<Permissions>> getPermissionsPageList(@Validated @RequestBody PermissionsPageParam permissionsPageParam) throws Exception {
         Paging<Permissions> paging = permissionsService.getPermissionsPageList(permissionsPageParam);
         return ApiResult.ok(paging);
+    }
+
+    /**
+     * 获取权限表详情
+     */
+    @PostMapping("/getCode")
+    @ApiIgnore // 该方法只做权限认证使用
+    public Set<String> getCodeByUrl(@RequestBody String strJson) throws Exception {
+        Set<String> codes = permissionsService.getCodeByUrl(strJson);
+        return codes;
     }
 
 }

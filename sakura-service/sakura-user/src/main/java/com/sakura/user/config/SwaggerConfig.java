@@ -5,10 +5,14 @@ import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.*;
 import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author Sakura
@@ -18,21 +22,39 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 public class SwaggerConfig {
 
-    @Bean(value = "defaultApi2")
-    public Docket creatApi(){
+    @Bean
+    Docket docket() {
         return new Docket(DocumentationType.SWAGGER_2)
-                .apiInfo(apiInfo())
-                .select() //选择哪些路径和api会生成document
-                .apis(RequestHandlerSelectors.basePackage("com.sakura.user.controller"))//controller路径
-                .paths(PathSelectors.any())  //对所有路径进行监控
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("com.sakura.user.controller"))
+                .paths(PathSelectors.any())
+                .build()
+                .securityContexts(Arrays.asList(securityContexts()))
+                .securitySchemes(Arrays.asList(securitySchemes()))
+                .apiInfo(new ApiInfoBuilder()
+                        .description("用户管理")
+                        .title("用户管理接口文档")
+                        .contact(new Contact("Sakura","https://github.com/PX1206/Sakura-Cloud","97442433@qq.com"))
+                        .version("v1.0")
+                        .license("Apache2.0")
+                        .build());
+    }
+    private SecurityScheme securitySchemes() {
+        return new ApiKey("Access-Token", "Access-Token", "header");
+    }
+
+    private SecurityContext securityContexts() {
+        return SecurityContext.builder()
+                .securityReferences(defaultAuth())
+                .forPaths(PathSelectors.any())
                 .build();
     }
 
-    private ApiInfo apiInfo() {
-        return new ApiInfoBuilder()
-                .title("用户管理")//文档主标题
-                .description("用户管理")//文档描述
-                .version("1.0.0")//API的版本
-                .build();
+    private List<SecurityReference> defaultAuth() {
+        AuthorizationScope authorizationScope = new AuthorizationScope("xxx", "描述信息");
+        AuthorizationScope[] authorizationScopes = new AuthorizationScope[1];
+        authorizationScopes[0] = authorizationScope;
+        return Arrays.asList(new SecurityReference("Access-Token", authorizationScopes));
     }
+
 }

@@ -1,4 +1,4 @@
-package com.sakura.user.vo;
+package com.sakura.common.vo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.sakura.common.base.BaseEntity;
@@ -10,6 +10,7 @@ import lombok.experimental.Accessors;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Accessors(chain = true)
@@ -48,14 +49,14 @@ public class UserInfoVo extends BaseEntity {
     private List<RoleVo> roles;
 
     @ApiModelProperty("权限")
-    private List<String> permissions;
+    private Set<String> permissions;
 
     @ApiModelProperty("创建时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private String createDt;
 
-    @ApiModelProperty("登录认证token")
+    @ApiModelProperty("登录认证token, 请求是请配置成：Access-Token")
     private String token;
 
 }

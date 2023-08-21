@@ -93,7 +93,7 @@ public class LogAspect {
             requestInfo.setUserAgent(request.getHeader(CommonConstant.USER_AGENT));
 
             // 记录请求ID
-            logUtil.setRequestId(requestInfo, request.getHeader(CommonConstant.REQUEST_ID));
+            //logUtil.setRequestId(requestInfo, request.getHeader(CommonConstant.REQUEST_ID));
 
             // 调用子类重写方法，控制请求信息日志处理
             logUtil.getRequestInfo(requestInfo);
