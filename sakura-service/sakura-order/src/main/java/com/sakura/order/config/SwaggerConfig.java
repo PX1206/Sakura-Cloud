@@ -1,5 +1,6 @@
 package com.sakura.order.config;
 
+import com.sakura.common.constant.CommonConstant;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -40,7 +41,7 @@ public class SwaggerConfig {
                         .build());
     }
     private SecurityScheme securitySchemes() {
-        return new ApiKey("Access-Token", "Access-Token", "header");
+        return new ApiKey(CommonConstant.Access_Token, CommonConstant.Access_Token, "header");
     }
 
     private SecurityContext securityContexts() {
@@ -54,6 +55,6 @@ public class SwaggerConfig {
         AuthorizationScope authorizationScope = new AuthorizationScope("xxx", "描述信息");
         AuthorizationScope[] authorizationScopes = new AuthorizationScope[1];
         authorizationScopes[0] = authorizationScope;
-        return Arrays.asList(new SecurityReference("Access-Token", authorizationScopes));
+        return Arrays.asList(new SecurityReference(CommonConstant.Access_Token, authorizationScopes));
     }
 }

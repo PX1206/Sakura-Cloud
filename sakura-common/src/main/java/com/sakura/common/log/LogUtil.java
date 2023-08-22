@@ -2,14 +2,13 @@ package com.sakura.common.log;
 
 import com.alibaba.fastjson.JSONObject;
 import com.sakura.common.api.ApiResult;
-import com.sakura.common.constant.CommonConstant;
 import com.sakura.common.entity.RequestInfo;
 import com.sakura.common.entity.SysOperationLog;
+import com.sakura.common.tool.LoginUtil;
 import com.sakura.common.tool.StringUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.MapUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.slf4j.MDC;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,7 +22,6 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 /**
  * @author Sakura
@@ -223,7 +221,7 @@ public class LogUtil {
         // 保存日志操作
         saveSysOperationLog(requestInfo, operationLogInfo, result, null);
         // 释放资源
-        MDC.clear();
+        //MDC.clear();
     }
 
     /**
@@ -273,6 +271,10 @@ public class LogUtil {
                         .setCode(apiResult.getCode())
                         .setMessage(apiResult.getMessage());
             }
+
+            // 保存请求用户信息
+            sysOperationLog.setUserName(LoginUtil.getUserName());
+            sysOperationLog.setUserId(LoginUtil.getUserId());
 
             // 保存日志到数据库
             log.info("日志信息：" + JSONObject.toJSONString(sysOperationLog));

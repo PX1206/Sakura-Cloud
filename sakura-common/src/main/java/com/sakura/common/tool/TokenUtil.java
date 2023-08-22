@@ -1,5 +1,7 @@
 package com.sakura.common.tool;
 
+import com.sakura.common.constant.CommonConstant;
+import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -9,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
  * @author Sakura
  * @date 2023/8/10 10:52
  */
+@Component
 public class TokenUtil {
 
     /**
@@ -31,7 +34,7 @@ public class TokenUtil {
             throw new IllegalArgumentException("request不能为空");
         }
         // 从请求头中获取token
-        String token = request.getHeader("token");
+        String token = request.getHeader(CommonConstant.Access_Token);
         if (StringUtil.isBlank(token)) {
             // 从请求参数中获取token
             token = request.getParameter(token);

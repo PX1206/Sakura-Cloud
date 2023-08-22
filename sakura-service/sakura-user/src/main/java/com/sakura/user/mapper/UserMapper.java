@@ -1,15 +1,13 @@
 package com.sakura.user.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.sakura.common.vo.RoleVo;
 import com.sakura.user.entity.User;
 
-import com.sakura.common.vo.UserInfoVo;
+import com.sakura.common.vo.LoginUserInfoVo;
 import org.apache.ibatis.annotations.Mapper;
 
 import org.apache.ibatis.annotations.Param;
 
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -21,10 +19,10 @@ import java.util.Set;
 @Mapper
 public interface UserMapper extends BaseMapper<User> {
 
-    UserInfoVo findUserInfoVoById(@Param("userId") String userId);
+    LoginUserInfoVo findUserInfoVoById(@Param("userId") String userId);
 
     // xml内部调用方法
-    List<RoleVo> findUserRoles(@Param("userId") String userId);
+    Set<String> findUserRoles(@Param("userId") String userId);
 
     // xml内部调用方法
     Set<String> findUserPermissions(@Param("userId") String userId);

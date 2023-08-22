@@ -2,11 +2,12 @@ package com.sakura.user.service;
 
 import com.sakura.user.entity.User;
 import com.sakura.user.param.LoginParam;
+import com.sakura.user.param.UpdateUserParam;
 import com.sakura.user.param.UserPageParam;
 import com.sakura.common.base.BaseService;
 import com.sakura.common.pagination.Paging;
 import com.sakura.user.param.UserRegisterParam;
-import com.sakura.common.vo.UserInfoVo;
+import com.sakura.common.vo.LoginUserInfoVo;
 
 /**
  * 用户表 服务类
@@ -32,7 +33,7 @@ public interface UserService extends BaseService<User> {
      * @return
      * @throws Exception
      */
-    UserInfoVo login(LoginParam loginParam) throws Exception;
+    LoginUserInfoVo login(LoginParam loginParam) throws Exception;
 
     /**
      * 保存
@@ -46,11 +47,11 @@ public interface UserService extends BaseService<User> {
     /**
      * 修改
      *
-     * @param user
+     * @param updateUserParam
      * @return
      * @throws Exception
      */
-    boolean updateUser(User user) throws Exception;
+    boolean updateUser(UpdateUserParam updateUserParam) throws Exception;
 
     /**
      * 删除

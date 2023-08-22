@@ -4,11 +4,13 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.sakura.common.constant.CommonConstant;
 import com.sakura.common.exception.BusinessException;
 import com.sakura.common.redis.RedisUtil;
+import com.sakura.common.tool.LoginUtil;
 import com.sakura.common.tool.SHA256Util;
 import com.sakura.common.tool.StringUtil;
 import com.sakura.user.entity.User;
 import com.sakura.user.mapper.UserMapper;
 import com.sakura.user.param.LoginParam;
+import com.sakura.user.param.UpdateUserParam;
 import com.sakura.user.param.UserRegisterParam;
 import com.sakura.user.service.UserService;
 import com.sakura.user.param.UserPageParam;
@@ -20,13 +22,14 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.sakura.user.tool.CommonUtil;
-import com.sakura.common.vo.UserInfoVo;
+import com.sakura.common.vo.LoginUserInfoVo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.transaction.annotation.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Date;
 import java.util.UUID;
 
 /**
@@ -84,7 +87,7 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
     }
 
     @Override
-    public UserInfoVo login(LoginParam loginParam) throws Exception {
+    public LoginUserInfoVo login(LoginParam loginParam) throws Exception {
         // 获取真实手机号
         String mobile = commonUtil.getDecryptStr(loginParam.getMobile(), loginParam.getSaltKey(), false);
         // 获取用户真实密码
@@ -101,14 +104,16 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
         }
 
         // 获取用户详细信息
-        UserInfoVo userInfoVo = userMapper.findUserInfoVoById(user.getUserId());
+        LoginUserInfoVo userInfoVo = userMapper.findUserInfoVoById(user.getUserId());
 
         // 登录成功保存token信息
         String token = UUID.randomUUID().toString();
         userInfoVo.setToken(token);
 
+        userInfoVo.setType(1);
+
         // 将信息放入Redis，有效时间2小时
-        redisUtil.set(token, userInfoVo, 60*60*2);
+        redisUtil.set(token, userInfoVo, 60 * 60 * 2);
 
 
         return userInfoVo;
@@ -122,7 +127,18 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public boolean updateUser(User user) throws Exception {
+    public boolean updateUser(UpdateUserParam updateUserParam) throws Exception {
+        // 获取当前登录用户信息
+        User user = userMapper.selectOne(
+                Wrappers.<User>lambdaQuery()
+                        .eq(User::getUserId, LoginUtil.getUserId())
+                        .eq(User::getStatus, 1));
+        if (user == null) {
+            throw new BusinessException(500, "用户信息异常");
+        }
+        BeanUtils.copyProperties(updateUserParam, user);
+        user.setUpdateDt(new Date());
+
         return super.updateById(user);
     }
 

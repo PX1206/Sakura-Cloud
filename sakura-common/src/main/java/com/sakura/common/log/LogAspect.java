@@ -86,7 +86,7 @@ public class LogAspect {
             requestInfo.setTime(DateUtil.getDateTimeString(new Date()));
 
             // 获取请求头token
-            String token = request.getHeader("token");
+            String token = request.getHeader(CommonConstant.Access_Token);
             requestInfo.setToken(token);
 
             // 用户浏览器代理字符串
@@ -101,13 +101,11 @@ public class LogAspect {
             log.error("请求日志AOP处理异常", e);
         }
 
-        String tgoken = TokenUtil.getToken();
-
         // 执行目标方法,获得返回值
         // 方法异常时，会调用子类的@AfterThrowing注解的方法，不会调用下面的代码，异常单独处理
         Object result = joinPoint.proceed();
         try {
-            // 调用子类重写方法，控制响应结果日志处理
+            // 控制响应结果日志处理
             logUtil.getResponseResult(result);
         } catch (Exception e) {
             log.error("处理响应结果异常", e);

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sakura.user.mapper.UserMapper">
 
-    <resultMap id="InfoDetailsMap" type="com.sakura.common.vo.UserInfoVo">
+    <resultMap id="InfoDetailsMap" type="com.sakura.common.vo.LoginUserInfoVo">
         <id column="user_id"  property="userId" />
         <result column="name"  property="name" />
         <result column="sex" property="sex" />
@@ -13,7 +13,7 @@
         <result column="head_img" property="headImg" />
         <result column="create_dt"  property="createDt" />
         <!--<association property="roleVo" javaType="com.sakura.user.vo.RoleVo" select="com.sakura.user.mapper.UserMapper.findUserRole" column="{userId=user_id}"/>-->
-        <collection property="roles" ofType="com.sakura.common.vo.RoleVo" javaType="java.util.List" select="com.sakura.user.mapper.UserMapper.findUserRoles" column="{userId=user_id}"/>
+        <collection property="roles" ofType="java.lang.String" javaType="java.util.Set" select="com.sakura.user.mapper.UserMapper.findUserRoles" column="{userId=user_id}"/>
         <collection property="permissions" ofType="java.lang.String" javaType="java.util.Set" select="com.sakura.user.mapper.UserMapper.findUserPermissions" column="{userId=user_id}"/>
     </resultMap>
 
@@ -25,8 +25,8 @@
         AND status = 1
     </select>
 
-    <select id="findUserRoles" resultType="com.sakura.common.vo.RoleVo">
-        SELECT tr.code, tr.name, tur.create_dt, tr.description
+    <select id="findUserRoles" resultType="java.lang.String">
+        SELECT DISTINCT tr.code
         FROM t_user_role tur
         LEFT JOIN t_role tr ON tur.role_id = tr.id
         WHERE tur.user_id = #{userId,jdbcType=VARCHAR}

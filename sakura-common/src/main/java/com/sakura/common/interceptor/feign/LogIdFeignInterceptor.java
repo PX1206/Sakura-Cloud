@@ -32,9 +32,9 @@ public class LogIdFeignInterceptor implements RequestInterceptor {
         // 获取当前的HttpServletRequest对象
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = attributes.getRequest();
-        String token = request.getHeader("Access-Token");
+        String token = request.getHeader(CommonConstant.Access_Token);
         if (!StringUtil.isEmpty(token)) {
-            requestTemplate.header("Access-Token", token);
+            requestTemplate.header(CommonConstant.Access_Token, token);
         }
 
     }

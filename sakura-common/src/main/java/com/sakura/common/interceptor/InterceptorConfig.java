@@ -1,5 +1,6 @@
 package com.sakura.common.interceptor;
 
+import com.sakura.common.constant.CommonConstant;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
@@ -31,8 +32,13 @@ public class InterceptorConfig extends WebMvcConfigurationSupport implements Web
 	}
 
 	@Bean
-	public UserLoginInterceptor getUserLoginInterceptor() {
-		return new UserLoginInterceptor();
+	public LoginInterceptor getLoginInterceptor() {
+		return new LoginInterceptor();
+	}
+
+	@Bean
+	public UserInterceptor getUserInterceptor() {
+		return new UserInterceptor();
 	}
 
 	@Override
@@ -65,12 +71,13 @@ public class InterceptorConfig extends WebMvcConfigurationSupport implements Web
 		registry.addInterceptor(getLogInterceptor())
 				.addPathPatterns("/**");
 
-		registry.addInterceptor(getUserLoginInterceptor())
+		registry.addInterceptor(getLoginInterceptor())
 				.addPathPatterns("/**")
-				.excludePathPatterns("/user/register")
-				.excludePathPatterns("/user/login")
-				.excludePathPatterns("/captcha/**")
-				.excludePathPatterns("/swagger-resources/**", "/webjars/**", "/v2/**", "/swagger-ui.html/**", "/doc.html/**", "/favicon.ico", "/error");
+				.excludePathPatterns(CommonConstant.ExcludePath);
+
+		registry.addInterceptor(getUserInterceptor())
+				.addPathPatterns("/**")
+				.excludePathPatterns(CommonConstant.ExcludePath);
 
 	}
 

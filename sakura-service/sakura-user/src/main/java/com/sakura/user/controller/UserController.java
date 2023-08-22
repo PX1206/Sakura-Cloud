@@ -2,9 +2,10 @@ package com.sakura.user.controller;
 
 import com.sakura.user.entity.User;
 import com.sakura.user.param.LoginParam;
+import com.sakura.user.param.UpdateUserParam;
 import com.sakura.user.param.UserRegisterParam;
 import com.sakura.user.service.UserService;
-import com.sakura.common.vo.UserInfoVo;
+import com.sakura.common.vo.LoginUserInfoVo;
 import lombok.extern.slf4j.Slf4j;
 import com.sakura.user.param.UserPageParam;
 import com.sakura.common.base.BaseController;
@@ -54,20 +55,9 @@ public class UserController extends BaseController {
     @PostMapping("/login")
     @OperationLog(name = "用户登录", type = OperationLogType.ADD)
     @ApiOperation(value = "用户登录", response = ApiResult.class)
-    public ApiResult<UserInfoVo> login(@Validated @RequestBody LoginParam loginParam) throws Exception {
-        UserInfoVo userInfoVo = userService.login(loginParam);
+    public ApiResult<LoginUserInfoVo> login(@Validated @RequestBody LoginParam loginParam) throws Exception {
+        LoginUserInfoVo userInfoVo = userService.login(loginParam);
         return ApiResult.ok(userInfoVo);
-    }
-
-    /**
-     * 添加用户表
-     */
-    @PostMapping("/add")
-    @OperationLog(name = "添加用户表", type = OperationLogType.ADD)
-    @ApiOperation(value = "添加用户表", response = ApiResult.class)
-    public ApiResult<Boolean> addUser(@Validated(Add.class) @RequestBody User user) throws Exception {
-        boolean flag = userService.saveUser(user);
-        return ApiResult.result(flag);
     }
 
     /**
@@ -76,8 +66,8 @@ public class UserController extends BaseController {
     @PostMapping("/update")
     @OperationLog(name = "修改用户表", type = OperationLogType.UPDATE)
     @ApiOperation(value = "修改用户表", response = ApiResult.class)
-    public ApiResult<Boolean> updateUser(@Validated(Update.class) @RequestBody User user) throws Exception {
-        boolean flag = userService.updateUser(user);
+    public ApiResult<Boolean> updateUser(@Validated(Update.class) @RequestBody UpdateUserParam updateUserParam) throws Exception {
+        boolean flag = userService.updateUser(updateUserParam);
         return ApiResult.result(flag);
     }
 

@@ -33,7 +33,7 @@ public class SysOperationLog extends BaseEntity {
     private String requestId;
 
     @ApiModelProperty("用户ID")
-    private Long userId;
+    private String userId;
 
     @ApiModelProperty("用户名称")
     private String userName;
