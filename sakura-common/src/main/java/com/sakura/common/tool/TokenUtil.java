@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
  * @author Sakura
  * @date 2023/8/10 10:52
  */
-@Component
 public class TokenUtil {
 
     /**

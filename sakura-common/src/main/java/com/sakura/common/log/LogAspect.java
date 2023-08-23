@@ -4,6 +4,7 @@ import com.sakura.common.constant.CommonConstant;
 import com.sakura.common.entity.RequestInfo;
 import com.sakura.common.tool.DateUtil;
 import com.sakura.common.tool.IpUtil;
+import com.sakura.common.tool.LoginUtil;
 import com.sakura.common.tool.TokenUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -88,6 +89,8 @@ public class LogAspect {
             // 获取请求头token
             String token = request.getHeader(CommonConstant.Access_Token);
             requestInfo.setToken(token);
+            requestInfo.setUserName(LoginUtil.getUserName());
+            requestInfo.setUserId(LoginUtil.getUserId());
 
             // 用户浏览器代理字符串
             requestInfo.setUserAgent(request.getHeader(CommonConstant.USER_AGENT));

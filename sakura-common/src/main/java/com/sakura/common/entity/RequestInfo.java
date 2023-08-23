@@ -23,6 +23,16 @@ public class RequestInfo implements Serializable {
     private String path;
 
     /**
+     * 用户ID
+     */
+    private String userId;
+
+    /**
+     * 用户名称
+     */
+    private String userName;
+
+    /**
      * 请求ID
      */
     @JsonIgnore

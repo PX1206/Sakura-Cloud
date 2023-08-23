@@ -257,7 +257,9 @@ public class LogUtil {
                         .setRequestMethod(requestInfo.getRequestMethod())
                         .setContentType(requestInfo.getContentType())
                         .setRequestBody(requestInfo.getRequestBody())
-                        .setToken(requestInfo.getTokenMd5());
+                        .setToken(requestInfo.getTokenMd5())
+                        .setUserName(requestInfo.getUserName())
+                        .setUserId(requestInfo.getUserId());
 
                 // 设置参数字符串
                 sysOperationLog.setParam(JSONObject.toJSONString(requestInfo.getParam()));
@@ -271,10 +273,6 @@ public class LogUtil {
                         .setCode(apiResult.getCode())
                         .setMessage(apiResult.getMessage());
             }
-
-            // 保存请求用户信息
-            sysOperationLog.setUserName(LoginUtil.getUserName());
-            sysOperationLog.setUserId(LoginUtil.getUserId());
 
             // 保存日志到数据库
             log.info("日志信息：" + JSONObject.toJSONString(sysOperationLog));

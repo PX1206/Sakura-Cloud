@@ -20,7 +20,7 @@ public class LoginUserInfoVo extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty("类型：1普通用户 2mch用户 3admin用户 只做后端认证使用")
-    @JsonIgnore // 该属性不返回给前端
+    //@JsonIgnore // 该属性不返回给前端
     private Integer type;
 
     @ApiModelProperty("用户ID")
