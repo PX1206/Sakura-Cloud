@@ -2,6 +2,7 @@ package com.sakura.common.log;
 
 import com.sakura.common.constant.CommonConstant;
 import com.sakura.common.entity.RequestInfo;
+import com.sakura.common.exception.BusinessException;
 import com.sakura.common.tool.DateUtil;
 import com.sakura.common.tool.IpUtil;
 import com.sakura.common.tool.LoginUtil;
@@ -86,11 +87,14 @@ public class LogAspect {
             requestInfo.setParam(requestParamObject);
             requestInfo.setTime(DateUtil.getDateTimeString(new Date()));
 
-            // 获取请求头token
-            String token = request.getHeader(CommonConstant.Access_Token);
-            requestInfo.setToken(token);
-            requestInfo.setUserName(LoginUtil.getUserName());
-            requestInfo.setUserId(LoginUtil.getUserId());
+            try {
+                // 获取请求头token
+                requestInfo.setToken(TokenUtil.getToken());
+                requestInfo.setUserName(LoginUtil.getUserName());
+                requestInfo.setUserId(LoginUtil.getUserId());
+            } catch (BusinessException e) {
+                log.error("获取登录用户信息异常：", e.getMessage());
+            }
 
             // 用户浏览器代理字符串
             requestInfo.setUserAgent(request.getHeader(CommonConstant.USER_AGENT));

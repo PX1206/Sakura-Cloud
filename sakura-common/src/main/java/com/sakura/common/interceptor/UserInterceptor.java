@@ -2,8 +2,7 @@ package com.sakura.common.interceptor;
 
 import com.alibaba.fastjson.JSONObject;
 import com.sakura.common.exception.BusinessException;
-import com.sakura.common.feign.PermissionsFeignService;
-import com.sakura.common.redis.RedisUtil;
+import com.sakura.common.feign.PermissionFeignService;
 import com.sakura.common.tool.LoginUtil;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +19,7 @@ import java.util.Set;
 public class UserInterceptor implements HandlerInterceptor {
 
 	@Autowired
-	private PermissionsFeignService permissionsFeignService;
+	private PermissionFeignService permissionFeignService;
 
 	@Override
 	public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
@@ -39,14 +38,14 @@ public class UserInterceptor implements HandlerInterceptor {
 		}
 
 		// 如果是获取权限code请求则直接返回
-		if ("/permissions/getCode".equals(url)) {
+		if ("/permission/getCode".equals(url)) {
 			return true;
 		}
 
 		// 获取当前接口所需权限
 		JSONObject json = new JSONObject();
 		json.put("url", url);
-		Set<String> codes = permissionsFeignService.getCodeByUrl(json.toJSONString());
+		Set<String> codes = permissionFeignService.getCodeByUrl(json.toJSONString());
 		if (codes == null || codes.size() < 1) {
 			return true;
 		}

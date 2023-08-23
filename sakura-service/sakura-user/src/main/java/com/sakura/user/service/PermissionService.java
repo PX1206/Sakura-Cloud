@@ -1,7 +1,7 @@
 package com.sakura.user.service;
 
-import com.sakura.user.entity.Permissions;
-import com.sakura.user.param.PermissionsPageParam;
+import com.sakura.user.entity.Permission;
+import com.sakura.user.param.PermissionPageParam;
 import com.sakura.common.base.BaseService;
 import com.sakura.common.pagination.Paging;
 
@@ -13,7 +13,7 @@ import java.util.Set;
  * @author Sakura
  * @since 2023-08-17
  */
-public interface PermissionsService extends BaseService<Permissions> {
+public interface PermissionService extends BaseService<Permission> {
 
     /**
      * 保存
@@ -22,7 +22,7 @@ public interface PermissionsService extends BaseService<Permissions> {
      * @return
      * @throws Exception
      */
-    boolean savePermissions(Permissions permissions) throws Exception;
+    boolean savePermission(Permission permission) throws Exception;
 
     /**
      * 修改
@@ -31,7 +31,7 @@ public interface PermissionsService extends BaseService<Permissions> {
      * @return
      * @throws Exception
      */
-    boolean updatePermissions(Permissions permissions) throws Exception;
+    boolean updatePermission(Permission permission) throws Exception;
 
     /**
      * 删除
@@ -40,7 +40,7 @@ public interface PermissionsService extends BaseService<Permissions> {
      * @return
      * @throws Exception
      */
-    boolean deletePermissions(Long id) throws Exception;
+    boolean deletePermission(Long id) throws Exception;
 
 
     /**
@@ -50,7 +50,7 @@ public interface PermissionsService extends BaseService<Permissions> {
      * @return
      * @throws Exception
      */
-    Paging<Permissions> getPermissionsPageList(PermissionsPageParam permissionsPageParam) throws Exception;
+    Paging<Permission> getPermissionPageList(PermissionPageParam permissionPageParam) throws Exception;
 
     Set<String> getCodeByUrl(String strJson) throws Exception;
 

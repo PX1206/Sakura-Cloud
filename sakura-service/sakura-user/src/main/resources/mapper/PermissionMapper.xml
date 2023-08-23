@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.sakura.user.mapper.PermissionsMapper">
+<mapper namespace="com.sakura.user.mapper.PermissionMapper">
 
     <select id="findPermissionCodeByUrl" resultType="java.lang.String" >
         SELECT DISTINCT(code)
-        FROM t_permissions
+        FROM t_permission
         WHERE url = #{url,jdbcType=VARCHAR}
     </select>
 

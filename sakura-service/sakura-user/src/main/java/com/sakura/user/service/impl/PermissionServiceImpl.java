@@ -1,10 +1,10 @@
 package com.sakura.user.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
-import com.sakura.user.entity.Permissions;
-import com.sakura.user.mapper.PermissionsMapper;
-import com.sakura.user.service.PermissionsService;
-import com.sakura.user.param.PermissionsPageParam;
+import com.sakura.user.entity.Permission;
+import com.sakura.user.mapper.PermissionMapper;
+import com.sakura.user.service.PermissionService;
+import com.sakura.user.param.PermissionPageParam;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.sakura.common.base.BaseServiceImpl;
 import com.sakura.common.pagination.Paging;
@@ -27,41 +27,41 @@ import java.util.Set;
  */
 @Slf4j
 @Service
-public class PermissionsServiceImpl extends BaseServiceImpl<PermissionsMapper, Permissions> implements PermissionsService {
+public class PermissionServiceImpl extends BaseServiceImpl<PermissionMapper, Permission> implements PermissionService {
 
     @Autowired
-    private PermissionsMapper permissionsMapper;
+    private PermissionMapper permissionMapper;
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public boolean savePermissions(Permissions permissions) throws Exception {
-        return super.save(permissions);
+    public boolean savePermission(Permission permission) throws Exception {
+        return super.save(permission);
     }
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public boolean updatePermissions(Permissions permissions) throws Exception {
-        return super.updateById(permissions);
+    public boolean updatePermission(Permission permission) throws Exception {
+        return super.updateById(permission);
     }
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public boolean deletePermissions(Long id) throws Exception {
+    public boolean deletePermission(Long id) throws Exception {
         return super.removeById(id);
     }
 
     @Override
-    public Paging<Permissions> getPermissionsPageList(PermissionsPageParam permissionsPageParam) throws Exception {
-        Page<Permissions> page = new PageInfo<>(permissionsPageParam, OrderItem.desc(getLambdaColumn(Permissions::getCreateDt)));
-        LambdaQueryWrapper<Permissions> wrapper = new LambdaQueryWrapper<>();
-        IPage<Permissions> iPage = permissionsMapper.selectPage(page, wrapper);
-        return new Paging<Permissions>(iPage);
+    public Paging<Permission> getPermissionPageList(PermissionPageParam permissionPageParam) throws Exception {
+        Page<Permission> page = new PageInfo<>(permissionPageParam, OrderItem.desc(getLambdaColumn(Permission::getCreateDt)));
+        LambdaQueryWrapper<Permission> wrapper = new LambdaQueryWrapper<>();
+        IPage<Permission> iPage = permissionMapper.selectPage(page, wrapper);
+        return new Paging<Permission>(iPage);
     }
 
     @Override
     public Set<String> getCodeByUrl(String strJson) throws Exception {
         JSONObject json = JSONObject.parseObject(strJson);
-        Set<String> codes = permissionsMapper.findPermissionCodeByUrl(json.getString("url"));
+        Set<String> codes = permissionMapper.findPermissionCodeByUrl(json.getString("url"));
         return codes;
     }
 

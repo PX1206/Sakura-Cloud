@@ -1,7 +1,7 @@
 package com.sakura.user.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.sakura.user.entity.Permissions;
+import com.sakura.user.entity.Permission;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -15,7 +15,7 @@ import java.util.Set;
  * @since 2023-08-17
  */
 @Mapper
-public interface PermissionsMapper extends BaseMapper<Permissions> {
+public interface PermissionMapper extends BaseMapper<Permission> {
 
     Set<String> findPermissionCodeByUrl(@Param("url") String url);
 

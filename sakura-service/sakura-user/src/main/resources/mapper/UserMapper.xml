@@ -34,8 +34,8 @@
 
     <select id="findUserPermissions" resultType="java.lang.String">
         SELECT DISTINCT tp.code
-        FROM t_permissions tp
-        LEFT JOIN t_role_permissions trp ON tp.id = trp.permissions_id
+        FROM t_permission tp
+        LEFT JOIN t_role_permission trp ON tp.id = trp.permission_id
         LEFT JOIN t_user_role tur ON trp.role_id = tur.role_id
         WHERE tp.is_public = 1 OR tur.user_id = #{userId,jdbcType=VARCHAR}
     </select>

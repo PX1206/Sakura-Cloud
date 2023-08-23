@@ -18,6 +18,6 @@ import com.sakura.common.pagination.BasePageOrderParam;
 @Accessors(chain = true)
 @EqualsAndHashCode(callSuper = true)
 @ApiModel(value = "角色权限表分页参数")
-public class RolePermissionsPageParam extends BasePageOrderParam {
+public class RolePermissionPageParam extends BasePageOrderParam {
     private static final long serialVersionUID = 1L;
 }
