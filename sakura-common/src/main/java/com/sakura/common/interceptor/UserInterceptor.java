@@ -37,11 +37,6 @@ public class UserInterceptor implements HandlerInterceptor {
 			return true;
 		}
 
-		// 如果是获取权限code请求则直接返回
-		if ("/permission/getCode".equals(url)) {
-			return true;
-		}
-
 		// 获取当前接口所需权限
 		JSONObject json = new JSONObject();
 		json.put("url", url);

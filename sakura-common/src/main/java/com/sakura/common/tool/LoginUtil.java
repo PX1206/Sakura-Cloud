@@ -20,57 +20,57 @@ public class LoginUtil {
         LoginUtil.redisUtil = redisUtil;
     }
 
-    public static LoginUserInfoVo getUserInfoVo() {
+    public static LoginUserInfoVo getLoginUserInfoVo() {
         // 先获取登录token
         String token = TokenUtil.getToken();
 
         // 获取登录用户权限信息
-        LoginUserInfoVo userInfoVo = (LoginUserInfoVo)redisUtil.get(token);
-        if (userInfoVo == null) {
+        LoginUserInfoVo loginUserInfoVo = (LoginUserInfoVo)redisUtil.get(token);
+        if (loginUserInfoVo == null) {
             throw new BusinessException(500, "用户信息异常");
         }
 
-        return userInfoVo;
+        return loginUserInfoVo;
     }
 
     public static String getUserId() {
         // 获取登录用户权限信息
-        LoginUserInfoVo userInfoVo = getUserInfoVo();
-        if (userInfoVo == null) {
+        LoginUserInfoVo loginUserInfoVo = getLoginUserInfoVo();
+        if (loginUserInfoVo == null) {
             throw new BusinessException(500, "用户信息异常");
         }
 
-        return userInfoVo.getUserId();
+        return loginUserInfoVo.getUserId();
     }
 
     public static String getUserName() {
         // 获取登录用户权限信息
-        LoginUserInfoVo userInfoVo = getUserInfoVo();
-        if (userInfoVo == null) {
+        LoginUserInfoVo loginUserInfoVo = getLoginUserInfoVo();
+        if (loginUserInfoVo == null) {
             throw new BusinessException(500, "用户信息异常");
         }
 
-        return userInfoVo.getName();
+        return loginUserInfoVo.getName();
     }
 
     public static Integer getUserType() {
         // 获取登录用户权限信息
-        LoginUserInfoVo userInfoVo = getUserInfoVo();
-        if (userInfoVo == null) {
+        LoginUserInfoVo loginUserInfoVo = getLoginUserInfoVo();
+        if (loginUserInfoVo == null) {
             throw new BusinessException(500, "用户信息异常");
         }
 
-        return userInfoVo.getType();
+        return loginUserInfoVo.getType();
     }
 
     public static Set<String> getPermissions() {
         // 获取登录用户权限信息
-        LoginUserInfoVo userInfoVo = getUserInfoVo();
-        if (userInfoVo == null) {
+        LoginUserInfoVo loginUserInfoVo = getLoginUserInfoVo();
+        if (loginUserInfoVo == null) {
             throw new BusinessException(500, "用户信息异常");
         }
 
-        return userInfoVo.getPermissions();
+        return loginUserInfoVo.getPermissions();
     }
 
 

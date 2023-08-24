@@ -87,9 +87,9 @@ feign:
     enabled: true # 开启openfeign中的sentinel
   client:
     config:
-      default:
-        request-interceptors:
-          - com.sakura.common.interceptor.feign.LogIdFeignInterceptor # 开启全局自定义logID拦截器
+#      default:
+#        request-interceptors:
+#          - com.sakura.common.interceptor.feign.FeignRequestInterceptor # 开启全局自定义feign拦截器
       stock-service:
         logger-level: basic
         connect-timeout: 5000 # 连接超时时间，默认2s

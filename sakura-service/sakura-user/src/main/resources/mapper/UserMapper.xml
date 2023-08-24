@@ -2,42 +2,78 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sakura.user.mapper.UserMapper">
 
-    <resultMap id="InfoDetailsMap" type="com.sakura.common.vo.LoginUserInfoVo">
-        <id column="user_id"  property="userId" />
-        <result column="name"  property="name" />
-        <result column="sex" property="sex" />
-        <result column="age" property="age" />
-        <result column="birthday" property="birthday" />
-        <result column="mobile" property="mobile" />
-        <result column="address" property="address" />
-        <result column="head_img" property="headImg" />
-        <result column="create_dt"  property="createDt" />
+    <sql id="Base_Column_List">
+        user_id, name, sex, age, birthday, mobile, address, head_img, create_dt
+    </sql>
+
+    <resultMap id="LoginInfoDetailsMap" type="com.sakura.common.vo.LoginUserInfoVo">
+        <id column="user_id" property="userId"/>
+        <result column="name" property="name"/>
+        <result column="sex" property="sex"/>
+        <result column="age" property="age"/>
+        <result column="birthday" property="birthday"/>
+        <result column="mobile" property="mobile"/>
+        <result column="address" property="address"/>
+        <result column="head_img" property="headImg"/>
+        <result column="create_dt" property="createDt"/>
         <!--<association property="roleVo" javaType="com.sakura.user.vo.RoleVo" select="com.sakura.user.mapper.UserMapper.findUserRole" column="{userId=user_id}"/>-->
-        <collection property="roles" ofType="java.lang.String" javaType="java.util.Set" select="com.sakura.user.mapper.UserMapper.findUserRoles" column="{userId=user_id}"/>
-        <collection property="permissions" ofType="java.lang.String" javaType="java.util.Set" select="com.sakura.user.mapper.UserMapper.findUserPermissions" column="{userId=user_id}"/>
+        <collection property="roles" ofType="java.lang.String" javaType="java.util.Set"
+                    select="com.sakura.user.mapper.UserMapper.findUserRoleCodes" column="{userId=user_id}"/>
+        <collection property="permissions" ofType="java.lang.String" javaType="java.util.Set"
+                    select="com.sakura.user.mapper.UserMapper.findUserPermissionCodes" column="{userId=user_id}"/>
     </resultMap>
 
-    <select id="findUserInfoVoById" resultMap="InfoDetailsMap">
-        SELECT user_id, name, sex, age, birthday, mobile,
-               address, head_img, create_dt
+    <select id="findLoginUserInfoVoById" resultMap="LoginInfoDetailsMap">
+        SELECT
+        <include refid="Base_Column_List"/>
         FROM t_user
         WHERE user_id = #{userId,jdbcType=VARCHAR}
         AND status = 1
     </select>
 
-    <select id="findUserRoles" resultType="java.lang.String">
+    <select id="findUserRoleCodes" resultType="java.lang.String">
         SELECT DISTINCT tr.code
         FROM t_user_role tur
         LEFT JOIN t_role tr ON tur.role_id = tr.id
         WHERE tur.user_id = #{userId,jdbcType=VARCHAR}
     </select>
 
-    <select id="findUserPermissions" resultType="java.lang.String">
+    <select id="findUserPermissionCodes" resultType="java.lang.String">
         SELECT DISTINCT tp.code
         FROM t_permission tp
         LEFT JOIN t_role_permission trp ON tp.id = trp.permission_id
         LEFT JOIN t_user_role tur ON trp.role_id = tur.role_id
-        WHERE tp.is_public = 1 OR tur.user_id = #{userId,jdbcType=VARCHAR}
+        WHERE tp.is_public = 1
+        OR tur.user_id = #{userId,jdbcType=VARCHAR}
+    </select>
+
+    <resultMap id="InfoDetailsMap" type="com.sakura.user.vo.UserInfoVo">
+        <id column="user_id" property="userId"/>
+        <result column="name" property="name"/>
+        <result column="sex" property="sex"/>
+        <result column="age" property="age"/>
+        <result column="birthday" property="birthday"/>
+        <result column="mobile" property="mobile"/>
+        <result column="address" property="address"/>
+        <result column="head_img" property="headImg"/>
+        <result column="create_dt" property="createDt"/>
+        <collection property="roles" ofType="com.sakura.user.vo.RoleVo" javaType="java.util.List"
+                    select="com.sakura.user.mapper.UserMapper.findUserRoles" column="{userId=user_id}"/>
+    </resultMap>
+
+    <select id="findUserInfoVoById" resultMap="InfoDetailsMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM t_user
+        WHERE user_id = #{userId,jdbcType=VARCHAR}
+        AND status = 1
+    </select>
+
+    <select id="findUserRoles" resultType="com.sakura.user.vo.RoleVo">
+        SELECT tr.code, tr.name, tr.description, tur.create_dt
+        FROM t_user_role tur
+        LEFT JOIN t_role tr ON tur.role_id = tr.id
+        WHERE tur.user_id = #{userId,jdbcType=VARCHAR}
     </select>
 
 </mapper>

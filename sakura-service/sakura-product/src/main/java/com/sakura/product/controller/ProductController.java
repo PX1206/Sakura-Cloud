@@ -90,16 +90,5 @@ public class ProductController extends BaseController {
         return ApiResult.ok(paging);
     }
 
-    /**
-     * 商品表分页列表
-     */
-    @GetMapping("/getUnitPrice/{productNo}")
-    @OperationLog(name = "获取商品单价", type = OperationLogType.query)
-    @ApiOperation(value = "获取商品单价", response = ApiResult.class)
-    public ApiResult<Integer> getUnitPrice(@PathVariable("productNo") String productNo) throws Exception {
-        Integer unitPrice = productService.getUnitPrice(productNo);
-        return ApiResult.ok(unitPrice);
-    }
-
 }
 

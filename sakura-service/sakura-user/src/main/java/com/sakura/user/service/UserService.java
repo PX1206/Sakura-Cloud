@@ -8,6 +8,7 @@ import com.sakura.common.base.BaseService;
 import com.sakura.common.pagination.Paging;
 import com.sakura.user.param.UserRegisterParam;
 import com.sakura.common.vo.LoginUserInfoVo;
+import com.sakura.user.vo.UserInfoVo;
 
 /**
  * 用户表 服务类
@@ -36,15 +37,6 @@ public interface UserService extends BaseService<User> {
     LoginUserInfoVo login(LoginParam loginParam) throws Exception;
 
     /**
-     * 保存
-     *
-     * @param user
-     * @return
-     * @throws Exception
-     */
-    boolean saveUser(User user) throws Exception;
-
-    /**
      * 修改
      *
      * @param updateUserParam
@@ -53,14 +45,14 @@ public interface UserService extends BaseService<User> {
      */
     boolean updateUser(UpdateUserParam updateUserParam) throws Exception;
 
+
     /**
-     * 删除
+     * 用户详情
      *
-     * @param id
      * @return
      * @throws Exception
      */
-    boolean deleteUser(Long id) throws Exception;
+    UserInfoVo getUserInfo() throws Exception;
 
 
     /**

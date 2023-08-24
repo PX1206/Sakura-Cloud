@@ -92,15 +92,5 @@ public class PermissionController extends BaseController {
         return ApiResult.ok(paging);
     }
 
-    /**
-     * 获取权限表详情
-     */
-    @PostMapping("/getCode")
-    @ApiIgnore // 该方法只做权限认证使用
-    public Set<String> getCodeByUrl(@RequestBody String strJson) throws Exception {
-        Set<String> codes = permissionService.getCodeByUrl(strJson);
-        return codes;
-    }
-
 }
 

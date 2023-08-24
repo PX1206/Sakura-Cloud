@@ -11,7 +11,7 @@ import java.util.Set;
  * @author: Sakura
  * @date: 2023/8/19 14:38
  */
-@FeignClient(name = "user-service", path = "/permission")
+@FeignClient(name = "user-service", path = "/feign/permission")
 public interface PermissionFeignService {
 
     @PostMapping("/getCode")

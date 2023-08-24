@@ -23,6 +23,7 @@ import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.sakura.user.tool.CommonUtil;
 import com.sakura.common.vo.LoginUserInfoVo;
+import com.sakura.user.vo.UserInfoVo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.transaction.annotation.Transactional;
 import lombok.extern.slf4j.Slf4j;
@@ -88,41 +89,35 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
 
     @Override
     public LoginUserInfoVo login(LoginParam loginParam) throws Exception {
-        // 获取真实手机号
-        String mobile = commonUtil.getDecryptStr(loginParam.getMobile(), loginParam.getSaltKey(), false);
-        // 获取用户真实密码
-        String password = commonUtil.getDecryptStr(loginParam.getPassword(), loginParam.getSaltKey(), null);
-
-        // 获取当前登录用户信息
-        User user = userMapper.selectOne(Wrappers.<User>lambdaQuery()
-                .eq(User::getMobile, mobile));
-        if (user == null || !user.getPassword().equals(SHA256Util.getSHA256Str(password + user.getSalt()))) {
-            throw new BusinessException(500, "用户名或密码错误"); // 此处写法固定，防止有人用脚本尝试账号
-        }
-        if (user.getStatus() != 1) {
-            throw new BusinessException(500, "账号状态异常，请联系管理员");
-        }
+//        // 获取真实手机号
+//        String mobile = commonUtil.getDecryptStr(loginParam.getMobile(), loginParam.getSaltKey(), false);
+//        // 获取用户真实密码
+//        String password = commonUtil.getDecryptStr(loginParam.getPassword(), loginParam.getSaltKey(), null);
+//
+//        // 获取当前登录用户信息
+//        User user = userMapper.selectOne(Wrappers.<User>lambdaQuery()
+//                .eq(User::getMobile, mobile));
+//        if (user == null || !user.getPassword().equals(SHA256Util.getSHA256Str(password + user.getSalt()))) {
+//            throw new BusinessException(500, "用户名或密码错误"); // 此处写法固定，防止有人用脚本尝试账号
+//        }
+//        if (user.getStatus() != 1) {
+//            throw new BusinessException(500, "账号状态异常，请联系管理员");
+//        }
 
         // 获取用户详细信息
-        LoginUserInfoVo userInfoVo = userMapper.findUserInfoVoById(user.getUserId());
+        LoginUserInfoVo loginUserInfoVo = userMapper.findLoginUserInfoVoById("LdUjrFaLiw1aFSgJ87bFXE0IyCgkYhxC");
 
         // 登录成功保存token信息
         String token = UUID.randomUUID().toString();
-        userInfoVo.setToken(token);
+        loginUserInfoVo.setToken(token);
 
-        userInfoVo.setType(1);
+        loginUserInfoVo.setType(1);
 
         // 将信息放入Redis，有效时间2小时
-        redisUtil.set(token, userInfoVo, 60 * 60 * 2);
+        redisUtil.set(token, loginUserInfoVo, 60 * 60 * 2);
 
 
-        return userInfoVo;
-    }
-
-    @Transactional(rollbackFor = Exception.class)
-    @Override
-    public boolean saveUser(User user) throws Exception {
-        return super.save(user);
+        return loginUserInfoVo;
     }
 
     @Transactional(rollbackFor = Exception.class)
@@ -142,10 +137,10 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
         return super.updateById(user);
     }
 
-    @Transactional(rollbackFor = Exception.class)
     @Override
-    public boolean deleteUser(Long id) throws Exception {
-        return super.removeById(id);
+    public UserInfoVo getUserInfo() throws Exception {
+        UserInfoVo userInfoVo = userMapper.findUserInfoVoById(LoginUtil.getUserId());
+        return userInfoVo;
     }
 
     @Override

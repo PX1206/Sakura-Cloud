@@ -46,6 +46,11 @@ public interface CommonConstant {
     String Access_Token = "Access-Token";
 
     /**
+     * Feigntoken
+     */
+    String Feign_Token = "Feign-Token";
+
+    /**
      * 图片
      */
     String IMAGE = "image";
@@ -107,6 +112,7 @@ public interface CommonConstant {
      */
     String SMS_SEND_NUM = "sms-send-num_";
 
-    String[] ExcludePath = {"/user/register", "/user/login", "/captcha/getPictureCode"
-            ,"/swagger-resources/**", "/webjars/**", "/v2/**", "/swagger-ui.html/**", "/doc.html/**", "/favicon.ico", "/error"};
+    String[] ExcludePath = {"/user/register", "/user/login", "/captcha/getPictureCode", "/feign/**",
+            "/swagger-resources/**", "/webjars/**", "/v2/**", "/swagger-ui.html/**", "/doc.html/**",
+            "/favicon.ico", "/error"};
 }

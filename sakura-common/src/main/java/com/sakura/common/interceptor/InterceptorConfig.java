@@ -40,6 +40,10 @@ public class InterceptorConfig extends WebMvcConfigurationSupport implements Web
 	public UserInterceptor getUserInterceptor() {
 		return new UserInterceptor();
 	}
+	@Bean
+	public FeignLoginInterceptor getFeignLoginInterceptor() {
+		return new FeignLoginInterceptor();
+	}
 
 	@Override
 	public void configurePathMatch(PathMatchConfigurer configurer) {
@@ -78,6 +82,9 @@ public class InterceptorConfig extends WebMvcConfigurationSupport implements Web
 		registry.addInterceptor(getUserInterceptor())
 				.addPathPatterns("/**")
 				.excludePathPatterns(CommonConstant.ExcludePath);
+
+		registry.addInterceptor(getFeignLoginInterceptor())
+				.addPathPatterns("/feign/**");
 
 	}
 

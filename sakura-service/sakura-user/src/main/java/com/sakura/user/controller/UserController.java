@@ -6,6 +6,7 @@ import com.sakura.user.param.UpdateUserParam;
 import com.sakura.user.param.UserRegisterParam;
 import com.sakura.user.service.UserService;
 import com.sakura.common.vo.LoginUserInfoVo;
+import com.sakura.user.vo.UserInfoVo;
 import lombok.extern.slf4j.Slf4j;
 import com.sakura.user.param.UserPageParam;
 import com.sakura.common.base.BaseController;
@@ -54,43 +55,33 @@ public class UserController extends BaseController {
      */
     @PostMapping("/login")
     @OperationLog(name = "用户登录", type = OperationLogType.ADD)
-    @ApiOperation(value = "用户登录", response = ApiResult.class)
+    @ApiOperation(value = "用户登录", response = LoginUserInfoVo.class)
     public ApiResult<LoginUserInfoVo> login(@Validated @RequestBody LoginParam loginParam) throws Exception {
-        LoginUserInfoVo userInfoVo = userService.login(loginParam);
-        return ApiResult.ok(userInfoVo);
+        LoginUserInfoVo loginUserInfoVo = userService.login(loginParam);
+        return ApiResult.ok(loginUserInfoVo);
     }
 
     /**
      * 修改用户表
      */
     @PostMapping("/update")
-    @OperationLog(name = "修改用户表", type = OperationLogType.UPDATE)
-    @ApiOperation(value = "修改用户表", response = ApiResult.class)
+    @OperationLog(name = "修改用户信息", type = OperationLogType.UPDATE)
+    @ApiOperation(value = "修改用户信息", response = ApiResult.class)
     public ApiResult<Boolean> updateUser(@Validated(Update.class) @RequestBody UpdateUserParam updateUserParam) throws Exception {
         boolean flag = userService.updateUser(updateUserParam);
         return ApiResult.result(flag);
     }
 
-    /**
-     * 删除用户表
-     */
-    @PostMapping("/delete/{id}")
-    @OperationLog(name = "删除用户表", type = OperationLogType.DELETE)
-    @ApiOperation(value = "删除用户表", response = ApiResult.class)
-    public ApiResult<Boolean> deleteUser(@PathVariable("id") Long id) throws Exception {
-        boolean flag = userService.deleteUser(id);
-        return ApiResult.result(flag);
-    }
 
     /**
      * 获取用户表详情
      */
-    @GetMapping("/info/{id}")
-    @OperationLog(name = "用户表详情", type = OperationLogType.INFO)
-    @ApiOperation(value = "用户表详情", response = User.class)
-    public ApiResult<User> getUser(@PathVariable("id") Long id) throws Exception {
-        User user = userService.getById(id);
-        return ApiResult.ok(user);
+    @GetMapping("/info")
+    @OperationLog(name = "用户详情", type = OperationLogType.INFO)
+    @ApiOperation(value = "用户详情", response = UserInfoVo.class)
+    public ApiResult<UserInfoVo> getUserInfo() throws Exception {
+        UserInfoVo userInfoVo = userService.getUserInfo();
+        return ApiResult.ok(userInfoVo);
     }
 
     /**
