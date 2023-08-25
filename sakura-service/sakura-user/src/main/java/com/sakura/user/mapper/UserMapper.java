@@ -33,7 +33,7 @@ public interface UserMapper extends BaseMapper<User> {
     // xml内部调用方法
     Set<String> findUserPermissionCodes(@Param("userId") String userId);
 
-    UserInfoVo findUserInfoVoById(@Param("userId") String userId);
+    UserInfoVo findUserInfoVoById(@Param("userId") String userId, @Param("status") Integer status);
 
     // xml内部调用方法
     List<RoleVo> findUserRoles(@Param("userId") String userId);

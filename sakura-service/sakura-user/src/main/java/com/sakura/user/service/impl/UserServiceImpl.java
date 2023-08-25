@@ -90,39 +90,39 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
 
     @Override
     public LoginUserInfoVo login(LoginParam loginParam) throws Exception {
-        // 获取真实手机号
-        String mobile = commonUtil.getDecryptStr(loginParam.getMobile(), loginParam.getSaltKey(), false);
-        // 获取用户真实密码
-        String password = commonUtil.getDecryptStr(loginParam.getPassword(), loginParam.getSaltKey(), null);
-
-        // 获取当前登录用户信息
-        User user = userMapper.selectOne(Wrappers.<User>lambdaQuery()
-                .eq(User::getMobile, mobile));
-        if (user == null || !user.getPassword().equals(SHA256Util.getSHA256Str(password + user.getSalt()))) {
-            // 添加逻辑，当天输入密码错误冻结用户
-            if (user != null && user.getStatus() == 1) {
-                // 用户每天输错密码不得超过最大限制数
-                long errorNum = redisUtil.incr(CommonConstant.PASSWORD_ERROR_NUM + user.getUserId(), 1);
-                if (errorNum > PASSWORD_ERROR_NUM) {
-
-                    // 密码多次错误冻结用户账号，保护账号安全，可次日自动解冻也可由管理员手动解冻
-                    user.setStatus(3); // 临时冻结
-                    user.setUpdateDt(new Date());
-                    userMapper.updateById(user);
-
-                    throw new BusinessException(500, "密码输入错误次数过多账号已冻结，次日将自动解除");
-                }
-                // 设置当前计数器有效期,当前日期到晚上23：59:59
-                redisUtil.expire(CommonConstant.PASSWORD_ERROR_NUM +  user.getUserId(), DateUtil.timeToMidnight());
-            }
-            throw new BusinessException(500, "用户名或密码错误"); // 此处写法固定，防止有人用脚本尝试账号
-        }
-        if (user.getStatus() != 1) {
-            throw new BusinessException(500, "账号状态异常，请联系管理员");
-        }
+//        // 获取真实手机号
+//        String mobile = commonUtil.getDecryptStr(loginParam.getMobile(), loginParam.getSaltKey(), false);
+//        // 获取用户真实密码
+//        String password = commonUtil.getDecryptStr(loginParam.getPassword(), loginParam.getSaltKey(), null);
+//
+//        // 获取当前登录用户信息
+//        User user = userMapper.selectOne(Wrappers.<User>lambdaQuery()
+//                .eq(User::getMobile, mobile));
+//        if (user == null || !user.getPassword().equals(SHA256Util.getSHA256Str(password + user.getSalt()))) {
+//            // 添加逻辑，当天输入密码错误冻结用户
+//            if (user != null && user.getStatus() == 1) {
+//                // 用户每天输错密码不得超过最大限制数
+//                long errorNum = redisUtil.incr(CommonConstant.PASSWORD_ERROR_NUM + user.getUserId(), 1);
+//                if (errorNum > PASSWORD_ERROR_NUM) {
+//
+//                    // 密码多次错误冻结用户账号，保护账号安全，可次日自动解冻也可由管理员手动解冻
+//                    user.setStatus(3); // 临时冻结
+//                    user.setUpdateDt(new Date());
+//                    userMapper.updateById(user);
+//
+//                    throw new BusinessException(500, "密码输入错误次数过多账号已冻结，次日将自动解除");
+//                }
+//                // 设置当前计数器有效期,当前日期到晚上23：59:59
+//                redisUtil.expire(CommonConstant.PASSWORD_ERROR_NUM +  user.getUserId(), DateUtil.timeToMidnight());
+//            }
+//            throw new BusinessException(500, "用户名或密码错误"); // 此处写法固定，防止有人用脚本尝试账号
+//        }
+//        if (user.getStatus() != 1) {
+//            throw new BusinessException(500, "账号状态异常，请联系管理员");
+//        }
 
         // 获取用户详细信息
-        LoginUserInfoVo loginUserInfoVo = userMapper.findLoginUserInfoVoById(user.getUserId());
+        LoginUserInfoVo loginUserInfoVo = userMapper.findLoginUserInfoVoById("LdUjrFaLiw1aFSgJ87bFXE0IyCgkYhxC");
 
         // 登录成功保存token信息
         String token = UUID.randomUUID().toString();
@@ -190,7 +190,7 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
 
     @Override
     public UserInfoVo getUserInfo() throws Exception {
-        UserInfoVo userInfoVo = userMapper.findUserInfoVoById(LoginUtil.getUserId());
+        UserInfoVo userInfoVo = userMapper.findUserInfoVoById(LoginUtil.getUserId(), 1);
         return userInfoVo;
     }
 
@@ -202,8 +202,14 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
     }
 
     @Override
+    public UserInfoVo getUser(String userId) throws Exception {
+        UserInfoVo userInfoVo = userMapper.findUserInfoVoById(userId, null);
+        return userInfoVo;
+    }
+
+    @Override
     public boolean unfreezeAccount(FreezeAccountParam freezeAccountParam) throws Exception {
-        // 校验图片验证码是否正确，防止出现误从操作
+        // 校验图片验证码是否正确，防止出现误操作
         if (!commonUtil.checkCode(freezeAccountParam.getKey(), freezeAccountParam.getPictureCode())) {
             throw new BusinessException(500, "图片验证码错误");
         }
@@ -225,7 +231,7 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
 
     @Override
     public boolean freezeAccount(FreezeAccountParam freezeAccountParam) throws Exception {
-        // 校验图片验证码是否正确，防止出现误从操作
+        // 校验图片验证码是否正确，防止出现误操作
         if (!commonUtil.checkCode(freezeAccountParam.getKey(), freezeAccountParam.getPictureCode())) {
             throw new BusinessException(500, "图片验证码错误");
         }

@@ -37,15 +37,18 @@
         FROM t_user_role tur
         LEFT JOIN t_role tr ON tur.role_id = tr.id
         WHERE tur.user_id = #{userId,jdbcType=VARCHAR}
+        AND tur.status = 1 AND tr.status = 1
     </select>
 
     <select id="findUserPermissionCodes" resultType="java.lang.String">
         SELECT DISTINCT tp.code
         FROM t_permission tp
-        LEFT JOIN t_role_permission trp ON tp.id = trp.permission_id
-        LEFT JOIN t_user_role tur ON trp.role_id = tur.role_id
-        WHERE tp.is_public = 1
-        OR tur.user_id = #{userId,jdbcType=VARCHAR}
+        LEFT JOIN t_role_permission trp ON tp.id = trp.permission_id AND trp.status = 1
+        LEFT JOIN t_user_role tur ON trp.role_id = tur.role_id AND tur.status = 1
+        -- 为保存角色删除后不会查询到相关权限
+        LEFT JOIN t_role tr ON tur.role_id = tr.id
+        WHERE tp.is_public = 1 AND tp.status = 1
+        OR (tur.user_id = #{userId,jdbcType=VARCHAR} AND tr.status = 1)
     </select>
 
     <resultMap id="InfoDetailsMap" type="com.sakura.user.vo.UserInfoVo">
@@ -68,7 +71,9 @@
         <include refid="User_Column_List"/>
         FROM t_user
         WHERE user_id = #{userId,jdbcType=VARCHAR}
-        AND status = 1
+        <if test="status != null">
+            AND status = #{status,jdbcType=INTEGER}
+        </if>
     </select>
 
     <select id="findUserRoles" resultType="com.sakura.user.vo.RoleVo">
@@ -76,6 +81,7 @@
         FROM t_user_role tur
         LEFT JOIN t_role tr ON tur.role_id = tr.id
         WHERE tur.user_id = #{userId,jdbcType=VARCHAR}
+        AND tur.status = 1 AND tr.status = 1
     </select>
 
     <resultMap id="ListDetailsMap" type="com.sakura.user.vo.UserInfoVo">
@@ -92,6 +98,7 @@
         <collection property="roles" ofType="com.sakura.user.vo.RoleVo" javaType="java.util.List">
             <result property="code" column="code"/>
             <result property="name" column="role_name"/>
+            <result property="description" column="description"/>
             <result property="createDt" column="role_create_dt"/>
         </collection>
     </resultMap>
@@ -102,8 +109,8 @@
         tu.create_dt as user_create_dt, tu.status,
         tr.code, tr.name as role_name, tr.description, tur.create_dt as role_create_dt
         FROM t_user tu
-        LEFT JOIN t_user_role tur ON tu.user_id = tur.user_id
-        LEFT JOIN t_role tr ON tur.role_id = tr.id
+        LEFT JOIN t_user_role tur ON tu.user_id = tur.user_id AND tur.status = 1
+        LEFT JOIN t_role tr ON tur.role_id = tr.id AND tr.status = 1
         WHERE tu.status = 1
     </select>
 

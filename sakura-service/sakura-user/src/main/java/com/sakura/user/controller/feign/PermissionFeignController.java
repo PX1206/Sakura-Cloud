@@ -7,6 +7,7 @@ import com.sakura.user.service.PermissionService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.Set;
 
@@ -19,6 +20,7 @@ import java.util.Set;
 @Slf4j
 @RestController
 @RequestMapping("/feign/permission")
+@ApiIgnore
 public class PermissionFeignController extends BaseController {
 
     @Autowired

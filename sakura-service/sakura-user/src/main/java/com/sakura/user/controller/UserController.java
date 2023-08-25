@@ -92,7 +92,7 @@ public class UserController extends BaseController {
     }
 
     /**
-     * 用户表分页列表
+     * 用户分页列表
      */
     @PostMapping("/getUserList")
     @OperationLog(name = "用户分页列表", type = OperationLogType.PAGE)
@@ -100,6 +100,17 @@ public class UserController extends BaseController {
     public ApiResult<Paging<UserInfoVo>> getUserList(@Validated @RequestBody UserPageParam userPageParam) throws Exception {
         Paging<UserInfoVo> paging = userService.getUserList(userPageParam);
         return ApiResult.ok(paging);
+    }
+
+    /**
+     * 用户详情
+     */
+    @PostMapping("/getUser/{userId}")
+    @OperationLog(name = "获取用户详细信息", type = OperationLogType.PAGE)
+    @ApiOperation(value = "获取用户详细信息 Admin", response = UserInfoVo.class)
+    public ApiResult<UserInfoVo> getUser(@PathVariable("userId") String userId) throws Exception {
+        UserInfoVo userInfoVo = userService.getUser(userId);
+        return ApiResult.ok(userInfoVo);
     }
 
     /**

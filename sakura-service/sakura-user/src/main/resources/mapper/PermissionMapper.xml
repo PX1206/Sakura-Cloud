@@ -5,7 +5,8 @@
     <select id="findPermissionCodeByUrl" resultType="java.lang.String" >
         SELECT DISTINCT(code)
         FROM t_permission
-        WHERE url = #{url,jdbcType=VARCHAR}
+        -- 处理Restful风格url权限校验问题
+        WHERE #{url,jdbcType=VARCHAR} LIKE url
     </select>
 
 </mapper>

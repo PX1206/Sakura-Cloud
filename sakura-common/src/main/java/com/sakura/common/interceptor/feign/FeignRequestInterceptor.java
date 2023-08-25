@@ -2,6 +2,7 @@ package com.sakura.common.interceptor.feign;
 
 import com.sakura.common.constant.CommonConstant;
 import com.sakura.common.redis.RedisUtil;
+import com.sakura.common.tool.StringUtil;
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
 import org.slf4j.Logger;
@@ -9,7 +10,10 @@ import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.UUID;
 
 /**
@@ -29,6 +33,15 @@ public class FeignRequestInterceptor implements RequestInterceptor {
         // 在header里面放入logid
         if (MDC.get(CommonConstant.REQUEST_ID) != null) {
             requestTemplate.header(CommonConstant.REQUEST_ID, MDC.get(CommonConstant.REQUEST_ID));
+        }
+
+        // 获取当前请求的token传递到下一个服务中
+        // 获取当前的HttpServletRequest对象
+        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        HttpServletRequest request = attributes.getRequest();
+        String token = request.getHeader(CommonConstant.Access_Token);
+        if (!StringUtil.isEmpty(token)) {
+            requestTemplate.header(CommonConstant.Access_Token, token);
         }
 
         // 生成feign临时认证token, 有效时间30秒

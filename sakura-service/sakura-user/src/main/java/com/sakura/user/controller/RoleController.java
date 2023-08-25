@@ -1,6 +1,8 @@
 package com.sakura.user.controller;
 
 import com.sakura.user.entity.Role;
+import com.sakura.user.param.DeleteRoleParam;
+import com.sakura.user.param.RoleParam;
 import com.sakura.user.service.RoleService;
 import lombok.extern.slf4j.Slf4j;
 import com.sakura.user.param.RolePageParam;
@@ -29,7 +31,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/role")
 @Module("user")
-@Api(value = "角色表API", tags = {"角色表"})
+@Api(value = "角色管理", tags = {"角色管理"})
 public class RoleController extends BaseController {
 
     @Autowired
@@ -39,10 +41,10 @@ public class RoleController extends BaseController {
      * 添加角色表
      */
     @PostMapping("/add")
-    @OperationLog(name = "添加角色表", type = OperationLogType.ADD)
-    @ApiOperation(value = "添加角色表", response = ApiResult.class)
-    public ApiResult<Boolean> addRole(@Validated(Add.class) @RequestBody Role role) throws Exception {
-        boolean flag = roleService.saveRole(role);
+    @OperationLog(name = "添加角色", type = OperationLogType.ADD)
+    @ApiOperation(value = "添加角色", response = ApiResult.class)
+    public ApiResult<Boolean> addRole(@Validated(Add.class) @RequestBody RoleParam roleParam) throws Exception {
+        boolean flag = roleService.saveRole(roleParam);
         return ApiResult.result(flag);
     }
 
@@ -50,21 +52,21 @@ public class RoleController extends BaseController {
      * 修改角色表
      */
     @PostMapping("/update")
-    @OperationLog(name = "修改角色表", type = OperationLogType.UPDATE)
-    @ApiOperation(value = "修改角色表", response = ApiResult.class)
-    public ApiResult<Boolean> updateRole(@Validated(Update.class) @RequestBody Role role) throws Exception {
-        boolean flag = roleService.updateRole(role);
+    @OperationLog(name = "修改角色", type = OperationLogType.UPDATE)
+    @ApiOperation(value = "修改角色", response = ApiResult.class)
+    public ApiResult<Boolean> updateRole(@Validated(Update.class) @RequestBody RoleParam roleParam) throws Exception {
+        boolean flag = roleService.updateRole(roleParam);
         return ApiResult.result(flag);
     }
 
     /**
      * 删除角色表
      */
-    @PostMapping("/delete/{id}")
-    @OperationLog(name = "删除角色表", type = OperationLogType.DELETE)
-    @ApiOperation(value = "删除角色表", response = ApiResult.class)
-    public ApiResult<Boolean> deleteRole(@PathVariable("id") Long id) throws Exception {
-        boolean flag = roleService.deleteRole(id);
+    @PostMapping("/delete")
+    @OperationLog(name = "删除角色", type = OperationLogType.DELETE)
+    @ApiOperation(value = "删除角色", response = ApiResult.class)
+    public ApiResult<Boolean> deleteRole(@RequestBody DeleteRoleParam deleteRoleParam) throws Exception {
+        boolean flag = roleService.deleteRole(deleteRoleParam);
         return ApiResult.result(flag);
     }
 

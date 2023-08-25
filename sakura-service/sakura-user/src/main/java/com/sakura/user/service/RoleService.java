@@ -1,9 +1,11 @@
 package com.sakura.user.service;
 
 import com.sakura.user.entity.Role;
+import com.sakura.user.param.DeleteRoleParam;
 import com.sakura.user.param.RolePageParam;
 import com.sakura.common.base.BaseService;
 import com.sakura.common.pagination.Paging;
+import com.sakura.user.param.RoleParam;
 
 /**
  * 角色表 服务类
@@ -16,29 +18,29 @@ public interface RoleService extends BaseService<Role> {
     /**
      * 保存
      *
-     * @param role
+     * @param roleParam
      * @return
      * @throws Exception
      */
-    boolean saveRole(Role role) throws Exception;
+    boolean saveRole(RoleParam roleParam) throws Exception;
 
     /**
      * 修改
      *
-     * @param role
+     * @param roleParam
      * @return
      * @throws Exception
      */
-    boolean updateRole(Role role) throws Exception;
+    boolean updateRole(RoleParam roleParam) throws Exception;
 
     /**
      * 删除
      *
-     * @param id
+     * @param deleteRoleParam
      * @return
      * @throws Exception
      */
-    boolean deleteRole(Long id) throws Exception;
+    boolean deleteRole(DeleteRoleParam deleteRoleParam) throws Exception;
 
 
     /**

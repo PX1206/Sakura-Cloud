@@ -9,6 +9,7 @@ import org.springframework.util.ObjectUtils;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.text.MessageFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.regex.Matcher;
@@ -106,6 +107,19 @@ public class StringUtil {
     public static String randomUUID() {
         ThreadLocalRandom random = ThreadLocalRandom.current();
         return new UUID(random.nextLong(), random.nextLong()).toString().replace(StringPool.DASH, StringPool.EMPTY);
+    }
+
+    public static String randomNum() {
+        String str = String.valueOf(System.currentTimeMillis());
+        str +=  (int)((Math.random() * 9 + 1) * 10000);
+        return str;
+    }
+
+    public static String randomDateNum() {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmssSSS");
+        String str = formatter.format(new Date());
+        str +=  (int)((Math.random() * 9 + 1) * 10000);
+        return str;
     }
 
     /**
