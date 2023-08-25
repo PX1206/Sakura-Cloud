@@ -24,6 +24,7 @@ public class SMSCodeParam extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty("手机号，前端从getSalt()接口获取盐使用AES加密传输")
+    @NotBlank(message = "手机号不能为空")
     //@Pattern(regexp = "^$|^((13[0-9])|(15[^4])|(18[0-9])|(17[0-8])|(16[0-8])|(147))\\d{8}$", message = "手机号码格式错误")
     private String mobile;
 

@@ -110,7 +110,12 @@ public interface CommonConstant {
     /**
      * Redis短信验证码发送次数key
      */
-    String SMS_SEND_NUM = "sms-send-num_";
+    String SMS_SEND_NUM = "sms-send-num-";
+
+    /**
+     * 密码错误次数key
+     */
+    String PASSWORD_ERROR_NUM = "password-error-num-";
 
     String[] ExcludePath = {"/user/register", "/user/login", "/captcha/getPictureCode", "/feign/**",
             "/swagger-resources/**", "/webjars/**", "/v2/**", "/swagger-ui.html/**", "/doc.html/**",

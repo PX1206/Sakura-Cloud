@@ -60,6 +60,9 @@ public class LoginUserInfoVo extends BaseEntity {
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private String createDt;
 
+    @ApiModelProperty("状态：0注销 1正常 2冻结 3临时冻结")
+    private Integer status;
+
     @ApiModelProperty("登录认证token, 请求时请在Header配置成：Access-Token")
     private String token;
 

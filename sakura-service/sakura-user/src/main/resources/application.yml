@@ -113,3 +113,6 @@ aliyun:
       sign-name: Sakura-Cloud
       template-code: SMS_202320123
       template-param: code # 阿里云短信模板参数名
+
+user:
+  password-error-num: 5

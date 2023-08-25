@@ -96,7 +96,7 @@ public class CaptchaServiceImpl implements CaptchaService {
         smsCodeParam.setMobile(mobile);
 
         // 用户每天发送短信不得超过最大限制数
-        long smsNum = redisUtil.incr("sms-send-num" + smsCodeParam.getMobile(), 1);
+        long smsNum = redisUtil.incr(CommonConstant.SMS_SEND_NUM + smsCodeParam.getMobile(), 1);
         if (smsNum > ALIYUN_SMS_SEND_MAX_NUM) {
             throw new BusinessException(500, "当天短信发送数量已达最大");
         }

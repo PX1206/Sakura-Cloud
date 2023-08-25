@@ -21,8 +21,8 @@ public abstract class BasePageParam implements Serializable {
     @ApiModelProperty(value = "页大小,默认为10", example = "10")
     private Long pageSize = CommonConstant.DEFAULT_PAGE_SIZE;
 
-    @ApiModelProperty(value = "搜索字符串", example = "")
-    private String keyword;
+//    @ApiModelProperty(value = "搜索字符串", example = "")
+//    private String keyword;
 
     public void setPageIndex(Long pageIndex) {
         if (pageIndex == null || pageIndex <= 0) {

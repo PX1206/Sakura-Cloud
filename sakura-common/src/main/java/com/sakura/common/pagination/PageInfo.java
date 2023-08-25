@@ -115,18 +115,18 @@ public class PageInfo<T> extends Page<T> {
         // 设置pageIndex/pageSize
         super.setCurrent(pageParam.getPageIndex());
         super.setSize(pageParam.getPageSize());
-        // 排序字段处理
-        BasePageOrderParam basePageOrderParam = (BasePageOrderParam) pageParam;
-        List<OrderItem> orderItems = basePageOrderParam.getPageSorts();
-        if (CollectionUtils.isEmpty(orderItems)) {
-            setDefaultOrder(defaultOrderItem);
-            return;
-        }
-        if (orderMapping == null) {
-            orderMapping = new OrderMapping(true);
-        }
-        orderMapping.filterOrderItems(orderItems);
-        super.setOrders(orderItems);
+//        // 排序字段处理
+//        BasePageOrderParam basePageOrderParam = (BasePageOrderParam) pageParam;
+//        List<OrderItem> orderItems = basePageOrderParam.getPageSorts();
+//        if (CollectionUtils.isEmpty(orderItems)) {
+//            setDefaultOrder(defaultOrderItem);
+//            return;
+//        }
+//        if (orderMapping == null) {
+//            orderMapping = new OrderMapping(true);
+//        }
+//        orderMapping.filterOrderItems(orderItems);
+//        super.setOrders(orderItems);
     }
 
     /**

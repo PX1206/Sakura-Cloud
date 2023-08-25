@@ -4,17 +4,14 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.sakura.common.constant.CommonConstant;
 import com.sakura.common.exception.BusinessException;
 import com.sakura.common.redis.RedisUtil;
+import com.sakura.common.tool.DateUtil;
 import com.sakura.common.tool.LoginUtil;
 import com.sakura.common.tool.SHA256Util;
 import com.sakura.common.tool.StringUtil;
 import com.sakura.user.entity.User;
 import com.sakura.user.mapper.UserMapper;
-import com.sakura.user.param.LoginParam;
-import com.sakura.user.param.UpdateUserParam;
-import com.sakura.user.param.UserRegisterParam;
+import com.sakura.user.param.*;
 import com.sakura.user.service.UserService;
-import com.sakura.user.param.UserPageParam;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.sakura.common.base.BaseServiceImpl;
 import com.sakura.common.pagination.Paging;
 import com.sakura.common.pagination.PageInfo;
@@ -25,6 +22,7 @@ import com.sakura.user.tool.CommonUtil;
 import com.sakura.common.vo.LoginUserInfoVo;
 import com.sakura.user.vo.UserInfoVo;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.transaction.annotation.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -42,6 +40,9 @@ import java.util.UUID;
 @Slf4j
 @Service
 public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implements UserService {
+
+    @Value("${user.password-error-num}")
+    Integer PASSWORD_ERROR_NUM;
 
     @Autowired
     CommonUtil commonUtil;
@@ -89,23 +90,39 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
 
     @Override
     public LoginUserInfoVo login(LoginParam loginParam) throws Exception {
-//        // 获取真实手机号
-//        String mobile = commonUtil.getDecryptStr(loginParam.getMobile(), loginParam.getSaltKey(), false);
-//        // 获取用户真实密码
-//        String password = commonUtil.getDecryptStr(loginParam.getPassword(), loginParam.getSaltKey(), null);
-//
-//        // 获取当前登录用户信息
-//        User user = userMapper.selectOne(Wrappers.<User>lambdaQuery()
-//                .eq(User::getMobile, mobile));
-//        if (user == null || !user.getPassword().equals(SHA256Util.getSHA256Str(password + user.getSalt()))) {
-//            throw new BusinessException(500, "用户名或密码错误"); // 此处写法固定，防止有人用脚本尝试账号
-//        }
-//        if (user.getStatus() != 1) {
-//            throw new BusinessException(500, "账号状态异常，请联系管理员");
-//        }
+        // 获取真实手机号
+        String mobile = commonUtil.getDecryptStr(loginParam.getMobile(), loginParam.getSaltKey(), false);
+        // 获取用户真实密码
+        String password = commonUtil.getDecryptStr(loginParam.getPassword(), loginParam.getSaltKey(), null);
+
+        // 获取当前登录用户信息
+        User user = userMapper.selectOne(Wrappers.<User>lambdaQuery()
+                .eq(User::getMobile, mobile));
+        if (user == null || !user.getPassword().equals(SHA256Util.getSHA256Str(password + user.getSalt()))) {
+            // 添加逻辑，当天输入密码错误冻结用户
+            if (user != null) {
+                // 用户每天输错密码不得超过最大限制数
+                long errorNum = redisUtil.incr(CommonConstant.PASSWORD_ERROR_NUM + user.getUserId(), 1);
+                if (errorNum > PASSWORD_ERROR_NUM) {
+
+                    // 密码多次错误冻结用户账号，保护账号安全，可次日自动解冻也可由管理员手动解冻
+                    user.setStatus(3); // 临时冻结
+                    user.setUpdateDt(new Date());
+                    userMapper.updateById(user);
+
+                    throw new BusinessException(500, "密码输入错误次数过多账号已冻结，次日将自动解除");
+                }
+                // 设置当前计数器有效期,当前日期到晚上23：59:59
+                redisUtil.expire(CommonConstant.PASSWORD_ERROR_NUM +  user.getUserId(), DateUtil.timeToMidnight());
+            }
+            throw new BusinessException(500, "用户名或密码错误"); // 此处写法固定，防止有人用脚本尝试账号
+        }
+        if (user.getStatus() != 1) {
+            throw new BusinessException(500, "账号状态异常，请联系管理员");
+        }
 
         // 获取用户详细信息
-        LoginUserInfoVo loginUserInfoVo = userMapper.findLoginUserInfoVoById("LdUjrFaLiw1aFSgJ87bFXE0IyCgkYhxC");
+        LoginUserInfoVo loginUserInfoVo = userMapper.findLoginUserInfoVoById(user.getUserId());
 
         // 登录成功保存token信息
         String token = UUID.randomUUID().toString();
@@ -138,17 +155,50 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
     }
 
     @Override
+    public boolean updateMobile(UpdateMobileParam updateMobileParam) throws Exception {
+        // 获取当前登录用户信息
+        User user = userMapper.selectOne(
+                Wrappers.<User>lambdaQuery()
+                        .eq(User::getUserId, LoginUtil.getUserId())
+                        .eq(User::getStatus, 1));
+        if (user == null) {
+            throw new BusinessException(500, "用户信息异常");
+        }
+
+        // 先校验原手机短信验证码是否正确
+        if (!commonUtil.checkCode(CommonConstant.SMS_CODE + user.getMobile(), updateMobileParam.getOldSmsCode())) {
+            throw new BusinessException(500, "原手机号短信验证码错误");
+        }
+
+        // 获取真实手机号
+        String mobile = commonUtil.getDecryptStr(updateMobileParam.getNewMobile(), updateMobileParam.getSaltKey(), null);
+        if (!StringUtil.isValidPhoneNumber(mobile)) {
+            throw new BusinessException(500, "手机号格式异常");
+        }
+        // 校验新手机短信验证码是否正确
+        if (!commonUtil.checkCode(CommonConstant.SMS_CODE + mobile, updateMobileParam.getNewSmsCode())) {
+            throw new BusinessException(500, "新手机号短信验证码错误");
+        }
+
+        // 保存用户信息
+        user.setMobile(mobile);
+        user.setUpdateDt(new Date());
+        userMapper.updateById(user);
+
+        return true;
+    }
+
+    @Override
     public UserInfoVo getUserInfo() throws Exception {
         UserInfoVo userInfoVo = userMapper.findUserInfoVoById(LoginUtil.getUserId());
         return userInfoVo;
     }
 
     @Override
-    public Paging<User> getUserPageList(UserPageParam userPageParam) throws Exception {
-        Page<User> page = new PageInfo<>(userPageParam, OrderItem.desc(getLambdaColumn(User::getCreateDt)));
-        LambdaQueryWrapper<User> wrapper = new LambdaQueryWrapper<>();
-        IPage<User> iPage = userMapper.selectPage(page, wrapper);
-        return new Paging<User>(iPage);
+    public Paging<UserInfoVo> getUserList(UserPageParam userPageParam) throws Exception {
+        Page<UserInfoVo> page = new PageInfo<>(userPageParam, OrderItem.desc(getLambdaColumn(User::getCreateDt)));
+        IPage<UserInfoVo> iPage = userMapper.getUserList(page, userPageParam);
+        return new Paging(iPage);
     }
 
 }

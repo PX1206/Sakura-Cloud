@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sakura.user.mapper.UserMapper">
 
-    <sql id="Base_Column_List">
-        user_id, name, sex, age, birthday, mobile, address, head_img, create_dt
+    <sql id="User_Column_List">
+        user_id, name, sex, age, birthday, mobile, address, head_img, create_dt, status
     </sql>
 
     <resultMap id="LoginInfoDetailsMap" type="com.sakura.common.vo.LoginUserInfoVo">
@@ -16,6 +16,7 @@
         <result column="address" property="address"/>
         <result column="head_img" property="headImg"/>
         <result column="create_dt" property="createDt"/>
+        <result column="status" property="status"/>
         <!--<association property="roleVo" javaType="com.sakura.user.vo.RoleVo" select="com.sakura.user.mapper.UserMapper.findUserRole" column="{userId=user_id}"/>-->
         <collection property="roles" ofType="java.lang.String" javaType="java.util.Set"
                     select="com.sakura.user.mapper.UserMapper.findUserRoleCodes" column="{userId=user_id}"/>
@@ -25,7 +26,7 @@
 
     <select id="findLoginUserInfoVoById" resultMap="LoginInfoDetailsMap">
         SELECT
-        <include refid="Base_Column_List"/>
+        <include refid="User_Column_List"/>
         FROM t_user
         WHERE user_id = #{userId,jdbcType=VARCHAR}
         AND status = 1
@@ -57,13 +58,14 @@
         <result column="address" property="address"/>
         <result column="head_img" property="headImg"/>
         <result column="create_dt" property="createDt"/>
+        <result column="status" property="status"/>
         <collection property="roles" ofType="com.sakura.user.vo.RoleVo" javaType="java.util.List"
                     select="com.sakura.user.mapper.UserMapper.findUserRoles" column="{userId=user_id}"/>
     </resultMap>
 
     <select id="findUserInfoVoById" resultMap="InfoDetailsMap">
         SELECT
-        <include refid="Base_Column_List"/>
+        <include refid="User_Column_List"/>
         FROM t_user
         WHERE user_id = #{userId,jdbcType=VARCHAR}
         AND status = 1
@@ -74,6 +76,35 @@
         FROM t_user_role tur
         LEFT JOIN t_role tr ON tur.role_id = tr.id
         WHERE tur.user_id = #{userId,jdbcType=VARCHAR}
+    </select>
+
+    <resultMap id="ListDetailsMap" type="com.sakura.user.vo.UserInfoVo">
+        <id column="user_id" property="userId"/>
+        <result column="user_name" property="name"/>
+        <result column="sex" property="sex"/>
+        <result column="age" property="age"/>
+        <result column="birthday" property="birthday"/>
+        <result column="mobile" property="mobile"/>
+        <result column="address" property="address"/>
+        <result column="head_img" property="headImg"/>
+        <result column="user_create_dt" property="createDt"/>
+        <result column="status" property="status"/>
+        <collection property="roles" ofType="com.sakura.user.vo.RoleVo" javaType="java.util.List">
+            <result property="code" column="code"/>
+            <result property="name" column="role_name"/>
+            <result property="createDt" column="role_create_dt"/>
+        </collection>
+    </resultMap>
+
+    <select id="getUserList" resultMap="ListDetailsMap">
+        SELECT
+        tu.user_id, tu.name as user_name, tu.sex, tu.age, tu.birthday, tu.mobile, tu.address, tu.head_img,
+        tu.create_dt as user_create_dt, tu.status,
+        tr.code, tr.name as role_name, tr.description, tur.create_dt as role_create_dt
+        FROM t_user tu
+        LEFT JOIN t_user_role tur ON tu.user_id = tur.user_id
+        LEFT JOIN t_role tr ON tur.role_id = tr.id
+        WHERE tu.status = 1
     </select>
 
 </mapper>

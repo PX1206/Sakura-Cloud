@@ -52,5 +52,8 @@ public class UserInfoVo extends BaseEntity {
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private String createDt;
 
+    @ApiModelProperty("状态：0注销 1正常 2冻结 3临时冻结")
+    private Integer status;
+
 
 }

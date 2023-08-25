@@ -70,7 +70,7 @@ public class User extends BaseEntity {
     @ApiModelProperty("修改日期")
     private Date updateDt;
 
-    @ApiModelProperty("状态：1正常 0删除 2冻结")
+    @ApiModelProperty("状态：0注销 1正常 2冻结 3临时冻结")
     private Integer status;
 
 }

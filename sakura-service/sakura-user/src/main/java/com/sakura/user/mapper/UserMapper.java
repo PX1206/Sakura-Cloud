@@ -1,9 +1,12 @@
 package com.sakura.user.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.sakura.user.entity.User;
 
 import com.sakura.common.vo.LoginUserInfoVo;
+import com.sakura.user.param.UserPageParam;
 import com.sakura.user.vo.RoleVo;
 import com.sakura.user.vo.UserInfoVo;
 import org.apache.ibatis.annotations.Mapper;
@@ -34,6 +37,8 @@ public interface UserMapper extends BaseMapper<User> {
 
     // xml内部调用方法
     List<RoleVo> findUserRoles(@Param("userId") String userId);
+
+    IPage<UserInfoVo> getUserList(@Param("page") Page page, @Param("param") UserPageParam param);
 
 
 }

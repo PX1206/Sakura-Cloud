@@ -1,12 +1,9 @@
 package com.sakura.user.service;
 
 import com.sakura.user.entity.User;
-import com.sakura.user.param.LoginParam;
-import com.sakura.user.param.UpdateUserParam;
-import com.sakura.user.param.UserPageParam;
+import com.sakura.user.param.*;
 import com.sakura.common.base.BaseService;
 import com.sakura.common.pagination.Paging;
-import com.sakura.user.param.UserRegisterParam;
 import com.sakura.common.vo.LoginUserInfoVo;
 import com.sakura.user.vo.UserInfoVo;
 
@@ -45,6 +42,15 @@ public interface UserService extends BaseService<User> {
      */
     boolean updateUser(UpdateUserParam updateUserParam) throws Exception;
 
+    /**
+     * 修改
+     *
+     * @param updateMobileParam
+     * @return
+     * @throws Exception
+     */
+    boolean updateMobile(UpdateMobileParam updateMobileParam) throws Exception;
+
 
     /**
      * 用户详情
@@ -62,6 +68,6 @@ public interface UserService extends BaseService<User> {
      * @return
      * @throws Exception
      */
-    Paging<User> getUserPageList(UserPageParam userPageParam) throws Exception;
+    Paging<UserInfoVo> getUserList(UserPageParam userPageParam) throws Exception;
 
 }
