@@ -102,5 +102,27 @@ public class UserController extends BaseController {
         return ApiResult.ok(paging);
     }
 
+    /**
+     * 账号解冻
+     */
+    @PostMapping("/unfreezeAccount")
+    @OperationLog(name = "账号解冻", type = OperationLogType.UPDATE)
+    @ApiOperation(value = "账号解冻 Admin", response = ApiResult.class)
+    public ApiResult<Boolean> unfreezeAccount(@RequestBody FreezeAccountParam freezeAccountParam) throws Exception {
+        boolean flag = userService.unfreezeAccount(freezeAccountParam);
+        return ApiResult.result(flag);
+    }
+
+    /**
+     * 账号冻结
+     */
+    @PostMapping("/freezeAccount")
+    @OperationLog(name = "账号冻结", type = OperationLogType.UPDATE)
+    @ApiOperation(value = "账号冻结 Admin", response = ApiResult.class)
+    public ApiResult<Boolean> freezeAccount(@RequestBody FreezeAccountParam freezeAccountParam) throws Exception {
+        boolean flag = userService.freezeAccount(freezeAccountParam);
+        return ApiResult.result(flag);
+    }
+
 }
 

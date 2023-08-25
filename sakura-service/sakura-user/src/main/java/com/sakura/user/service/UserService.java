@@ -70,4 +70,22 @@ public interface UserService extends BaseService<User> {
      */
     Paging<UserInfoVo> getUserList(UserPageParam userPageParam) throws Exception;
 
+    /**
+     * 账号解冻
+     *
+     * @param freezeAccountParam
+     * @return
+     * @throws Exception
+     */
+    boolean unfreezeAccount(FreezeAccountParam freezeAccountParam) throws Exception;
+
+    /**
+     * 账号冻结
+     *
+     * @param freezeAccountParam
+     * @return
+     * @throws Exception
+     */
+    boolean freezeAccount(FreezeAccountParam freezeAccountParam) throws Exception;
+
 }

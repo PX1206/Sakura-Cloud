@@ -100,7 +100,7 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
                 .eq(User::getMobile, mobile));
         if (user == null || !user.getPassword().equals(SHA256Util.getSHA256Str(password + user.getSalt()))) {
             // 添加逻辑，当天输入密码错误冻结用户
-            if (user != null) {
+            if (user != null && user.getStatus() == 1) {
                 // 用户每天输错密码不得超过最大限制数
                 long errorNum = redisUtil.incr(CommonConstant.PASSWORD_ERROR_NUM + user.getUserId(), 1);
                 if (errorNum > PASSWORD_ERROR_NUM) {
@@ -199,6 +199,51 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
         Page<UserInfoVo> page = new PageInfo<>(userPageParam, OrderItem.desc(getLambdaColumn(User::getCreateDt)));
         IPage<UserInfoVo> iPage = userMapper.getUserList(page, userPageParam);
         return new Paging(iPage);
+    }
+
+    @Override
+    public boolean unfreezeAccount(FreezeAccountParam freezeAccountParam) throws Exception {
+        // 校验图片验证码是否正确，防止出现误从操作
+        if (!commonUtil.checkCode(freezeAccountParam.getKey(), freezeAccountParam.getPictureCode())) {
+            throw new BusinessException(500, "图片验证码错误");
+        }
+
+        // 获取当前登录用户信息
+        User user = userMapper.selectOne(
+                Wrappers.<User>lambdaQuery()
+                        .eq(User::getUserId, freezeAccountParam.getUserId()));
+        if (user == null || (user.getStatus() != 2 && user.getStatus() != 3)) {
+            throw new BusinessException(500, "用户信息异常");
+        }
+
+        user.setStatus(1);
+        user.setUpdateDt(new Date());
+        userMapper.updateById(user);
+
+        return true;
+    }
+
+    @Override
+    public boolean freezeAccount(FreezeAccountParam freezeAccountParam) throws Exception {
+        // 校验图片验证码是否正确，防止出现误从操作
+        if (!commonUtil.checkCode(freezeAccountParam.getKey(), freezeAccountParam.getPictureCode())) {
+            throw new BusinessException(500, "图片验证码错误");
+        }
+
+        // 获取当前登录用户信息
+        User user = userMapper.selectOne(
+                Wrappers.<User>lambdaQuery()
+                        .eq(User::getUserId, freezeAccountParam.getUserId())
+                        .eq(User::getStatus, 1));
+        if (user == null) {
+            throw new BusinessException(500, "用户信息异常");
+        }
+
+        user.setStatus(2);
+        user.setUpdateDt(new Date());
+        userMapper.updateById(user);
+
+        return true;
     }
 
 }
