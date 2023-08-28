@@ -28,7 +28,7 @@ public class ProductFeignController extends BaseController {
      * 商品表分页列表
      */
     @GetMapping("/getUnitPrice/{productNo}")
-    @OperationLog(name = "获取商品单价", type = OperationLogType.query)
+    @OperationLog(name = "获取商品单价", type = OperationLogType.QUERY)
     public ApiResult<Integer> getUnitPrice(@PathVariable("productNo") String productNo) throws Exception {
         Integer unitPrice = productService.getUnitPrice(productNo);
         return ApiResult.ok(unitPrice);

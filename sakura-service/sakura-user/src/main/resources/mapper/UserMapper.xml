@@ -121,6 +121,9 @@
             <if test="param.sex != null">
                 AND tu.sex = #{param.sex,jdbcType=INTEGER}
             </if>
+            <if test="param.roleCode != null and param.roleCode != ''">
+                AND tr.code = #{param.roleCode,jdbcType=VARCHAR}
+            </if>
             <if test="param.status != null">
                 AND tu.status = #{param.status,jdbcType=INTEGER}
             </if>

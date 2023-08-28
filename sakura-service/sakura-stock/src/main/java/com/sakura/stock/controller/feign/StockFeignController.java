@@ -27,7 +27,7 @@ public class StockFeignController extends BaseController {
      * 获取商品库存数量
      */
     @GetMapping("/getProductNum/{productNo}")
-    @OperationLog(name = "获取商品库存数量", type = OperationLogType.query)
+    @OperationLog(name = "获取商品库存数量", type = OperationLogType.QUERY)
     public ApiResult<Integer> getProductNum(@PathVariable("productNo") String productNo) throws Exception {
         Integer num = stockService.getProductNum(productNo);
         return ApiResult.ok(num);

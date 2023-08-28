@@ -28,7 +28,7 @@ public enum OperationLogType implements BaseEnum {
     /**
      * 查询
      **/
-    query(4, "详情查询"),
+    QUERY(4, "详情查询"),
     /**
      * 详情查询
      **/

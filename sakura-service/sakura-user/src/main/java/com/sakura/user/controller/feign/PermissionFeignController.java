@@ -30,7 +30,7 @@ public class PermissionFeignController extends BaseController {
      * 获取当前url所需权限
      */
     @PostMapping("/getCode")
-    @OperationLog(name = "获取请求链接权限code", type = OperationLogType.query)
+    @OperationLog(name = "获取请求链接权限code", type = OperationLogType.QUERY)
     public Set<String> getCodeByUrl(@RequestBody String strJson) throws Exception {
         Set<String> codes = permissionService.getCodeByUrl(strJson);
         return codes;

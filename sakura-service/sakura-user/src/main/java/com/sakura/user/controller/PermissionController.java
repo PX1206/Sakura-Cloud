@@ -1,6 +1,5 @@
 package com.sakura.user.controller;
 
-import com.sakura.user.entity.Permission;
 import com.sakura.user.param.PermissionParam;
 import com.sakura.user.service.PermissionService;
 import com.sakura.user.vo.PermissionTreeVo;
@@ -85,8 +84,8 @@ public class PermissionController extends BaseController {
      * 权限表分页列表
      */
     @GetMapping("/tree/{parentId}")
-    @OperationLog(name = "权限树", type = OperationLogType.PAGE)
-    @ApiOperation(value = "权限树 顶层parentId为0", response = Permission.class)
+    @OperationLog(name = "权限树", type = OperationLogType.QUERY)
+    @ApiOperation(value = "权限树 顶层parentId为0", response = PermissionTreeVo.class)
     public ApiResult<List<PermissionTreeVo>> getPermissionTree(@PathVariable("parentId") Integer parentId) throws Exception {
         List<PermissionTreeVo> permissionTreeVos = permissionService.getPermissionTree(parentId);
         return ApiResult.ok(permissionTreeVos);

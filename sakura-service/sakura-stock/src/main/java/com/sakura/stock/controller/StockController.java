@@ -7,7 +7,6 @@ import com.sakura.stock.param.StockPageParam;
 import com.sakura.common.base.BaseController;
 import com.sakura.common.api.ApiResult;
 import com.sakura.common.pagination.Paging;
-import com.sakura.common.api.IdParam;
 import com.sakura.common.log.Module;
 import com.sakura.common.log.OperationLog;
 import com.sakura.common.enums.OperationLogType;
@@ -94,7 +93,7 @@ public class StockController extends BaseController {
      * 获取商品库存数量
      */
     @GetMapping("/getProductNum/{productNo}")
-    @OperationLog(name = "获取商品库存数量", type = OperationLogType.query)
+    @OperationLog(name = "获取商品库存数量", type = OperationLogType.QUERY)
     @ApiOperation(value = "获取商品库存数量", response = ApiResult.class)
     public ApiResult<Integer> getProductNum(@PathVariable("productNo") String productNo) throws Exception {
         Integer num = stockService.getProductNum(productNo);

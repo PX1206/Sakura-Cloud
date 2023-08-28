@@ -113,6 +113,14 @@ public class PermissionServiceImpl extends BaseServiceImpl<PermissionMapper, Per
         return permissionTreeVos;
     }
 
+   /**
+    * @description: 递归获取子权限
+    * @param parentId 父ID
+    * @param permissionVos 所有权限集合
+    * @param num 最大遍历层数
+    * @author: Sakura
+    * @date: 2023/8/28 16:18
+    */
     private List<PermissionTreeVo> getChildPermissions(Integer parentId, List<PermissionVo> permissionVos, int num) throws Exception {
         num++;// 控制遍历次数，防止因数据问题导致无限循环内存溢出，目前最大支持5层
         if (num > 5) {
@@ -126,6 +134,7 @@ public class PermissionServiceImpl extends BaseServiceImpl<PermissionMapper, Per
             if (parentId.equals(permissionVo.getParentId())) {
                 PermissionTreeVo permissionTreeVo = new PermissionTreeVo();
                 BeanUtils.copyProperties(permissionVo, permissionTreeVo);
+                // 通过当前ID获取子权限
                 List<PermissionTreeVo> childPermissionTreeVos = getChildPermissions(permissionVo.getId(), permissionVos, num);
                 permissionTreeVo.setChildList(childPermissionTreeVos);
 

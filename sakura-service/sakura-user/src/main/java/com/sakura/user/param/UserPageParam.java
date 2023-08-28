@@ -7,6 +7,8 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 import com.sakura.common.pagination.BasePageOrderParam;
 
+import javax.validation.constraints.NotBlank;
+
 /**
  * <pre>
  * 用户表 分页参数对象
@@ -30,6 +32,9 @@ public class UserPageParam extends BasePageOrderParam {
 
     @ApiModelProperty("手机号")
     private String mobile;
+
+    @ApiModelProperty("角色code")
+    private String roleCode;
 
     @ApiModelProperty("状态：0注销 1正常 2冻结 3临时冻结")
     private Integer status;
