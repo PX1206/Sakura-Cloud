@@ -9,4 +9,10 @@
         WHERE #{url,jdbcType=VARCHAR} LIKE url
     </select>
 
+    <select id="findAllPermission" resultType="com.sakura.user.vo.PermissionVo" >
+        SELECT id, parent_id, code, name, url, type, description, is_public, create_dt
+        FROM t_permission
+        WHERE status = 1
+    </select>
+
 </mapper>

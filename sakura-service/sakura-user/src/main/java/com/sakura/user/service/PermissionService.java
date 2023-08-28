@@ -1,10 +1,12 @@
 package com.sakura.user.service;
 
 import com.sakura.user.entity.Permission;
-import com.sakura.user.param.PermissionPageParam;
 import com.sakura.common.base.BaseService;
-import com.sakura.common.pagination.Paging;
+import com.sakura.user.param.PermissionParam;
+import com.sakura.user.vo.PermissionTreeVo;
+import com.sakura.user.vo.PermissionVo;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -18,20 +20,20 @@ public interface PermissionService extends BaseService<Permission> {
     /**
      * 保存
      *
-     * @param permissions
+     * @param permissionParam
      * @return
      * @throws Exception
      */
-    boolean savePermission(Permission permission) throws Exception;
+    boolean savePermission(PermissionParam permissionParam) throws Exception;
 
     /**
      * 修改
      *
-     * @param permissions
+     * @param permissionParam
      * @return
      * @throws Exception
      */
-    boolean updatePermission(Permission permission) throws Exception;
+    boolean updatePermission(PermissionParam permissionParam) throws Exception;
 
     /**
      * 删除
@@ -42,15 +44,24 @@ public interface PermissionService extends BaseService<Permission> {
      */
     boolean deletePermission(Long id) throws Exception;
 
-
     /**
-     * 获取分页对象
+     * 权限表详情
      *
-     * @param permissionsPageParam
+     * @param id
      * @return
      * @throws Exception
      */
-    Paging<Permission> getPermissionPageList(PermissionPageParam permissionPageParam) throws Exception;
+    PermissionVo getPermission(Long id) throws Exception;
+
+
+    /**
+     * 获取权限树
+     *
+     * @param parentId
+     * @return
+     * @throws Exception
+     */
+    List<PermissionTreeVo> getPermissionTree(Integer parentId) throws Exception;
 
     Set<String> getCodeByUrl(String strJson) throws Exception;
 
