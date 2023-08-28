@@ -9,7 +9,6 @@ import com.sakura.user.param.DeleteRoleParam;
 import com.sakura.user.param.RoleParam;
 import com.sakura.user.service.RoleService;
 import com.sakura.user.param.RolePageParam;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.sakura.common.base.BaseServiceImpl;
 import com.sakura.common.pagination.Paging;
 import com.sakura.common.pagination.PageInfo;
@@ -17,6 +16,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.sakura.user.tool.CommonUtil;
+import com.sakura.user.vo.RoleVo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.transaction.annotation.Transactional;
 import lombok.extern.slf4j.Slf4j;
@@ -99,11 +99,23 @@ public class RoleServiceImpl extends BaseServiceImpl<RoleMapper, Role> implement
     }
 
     @Override
-    public Paging<Role> getRolePageList(RolePageParam rolePageParam) throws Exception {
-        Page<Role> page = new PageInfo<>(rolePageParam, OrderItem.desc(getLambdaColumn(Role::getCreateDt)));
-        LambdaQueryWrapper<Role> wrapper = new LambdaQueryWrapper<>();
-        IPage<Role> iPage = roleMapper.selectPage(page, wrapper);
-        return new Paging<Role>(iPage);
+    public RoleVo getRole(Long id) throws Exception {
+        Role role = roleMapper.selectById(id);
+        if (role == null) {
+            throw new BusinessException(500, "角色信息异常");
+        }
+
+        RoleVo roleVo = new RoleVo();
+        BeanUtils.copyProperties(role, roleVo);
+
+        return roleVo;
+    }
+
+    @Override
+    public Paging<RoleVo> getRolePageList(RolePageParam rolePageParam) throws Exception {
+        Page<RoleVo> page = new PageInfo<>(rolePageParam, OrderItem.desc(getLambdaColumn(Role::getCreateDt)));
+        IPage<RoleVo> iPage = roleMapper.findRoles(page, rolePageParam);
+        return new Paging<RoleVo>(iPage);
     }
 
 }

@@ -6,6 +6,7 @@ import com.sakura.user.param.RolePageParam;
 import com.sakura.common.base.BaseService;
 import com.sakura.common.pagination.Paging;
 import com.sakura.user.param.RoleParam;
+import com.sakura.user.vo.RoleVo;
 
 /**
  * 角色表 服务类
@@ -42,6 +43,15 @@ public interface RoleService extends BaseService<Role> {
      */
     boolean deleteRole(DeleteRoleParam deleteRoleParam) throws Exception;
 
+    /**
+     * 获取角色详情
+     *
+     * @param id
+     * @return
+     * @throws Exception
+     */
+    RoleVo getRole(Long id) throws Exception;
+
 
     /**
      * 获取分页对象
@@ -50,6 +60,6 @@ public interface RoleService extends BaseService<Role> {
      * @return
      * @throws Exception
      */
-    Paging<Role> getRolePageList(RolePageParam rolePageParam) throws Exception;
+    Paging<RoleVo> getRolePageList(RolePageParam rolePageParam) throws Exception;
 
 }

@@ -111,7 +111,20 @@
         FROM t_user tu
         LEFT JOIN t_user_role tur ON tu.user_id = tur.user_id AND tur.status = 1
         LEFT JOIN t_role tr ON tur.role_id = tr.id AND tr.status = 1
-        WHERE tu.status = 1
+        <where>
+            <if test="param.name != null and param.name != ''">
+                AND tu.name LIKE CONCAT('%',#{param.name,jdbcType=VARCHAR},'%')
+            </if>
+            <if test="param.mobile != null and param.mobile != ''">
+                AND tu.mobile LIKE CONCAT('%',#{param.mobile,jdbcType=VARCHAR},'%')
+            </if>
+            <if test="param.sex != null">
+                AND tu.sex = #{param.sex,jdbcType=INTEGER}
+            </if>
+            <if test="param.status != null">
+                AND tu.status = #{param.status,jdbcType=INTEGER}
+            </if>
+        </where>
     </select>
 
 </mapper>

@@ -4,12 +4,12 @@ import com.sakura.user.entity.Role;
 import com.sakura.user.param.DeleteRoleParam;
 import com.sakura.user.param.RoleParam;
 import com.sakura.user.service.RoleService;
+import com.sakura.user.vo.RoleVo;
 import lombok.extern.slf4j.Slf4j;
 import com.sakura.user.param.RolePageParam;
 import com.sakura.common.base.BaseController;
 import com.sakura.common.api.ApiResult;
 import com.sakura.common.pagination.Paging;
-import com.sakura.common.api.IdParam;
 import com.sakura.common.log.Module;
 import com.sakura.common.log.OperationLog;
 import com.sakura.common.enums.OperationLogType;
@@ -71,14 +71,14 @@ public class RoleController extends BaseController {
     }
 
     /**
-     * 获取角色表详情
+     * 获取角色详情
      */
     @GetMapping("/info/{id}")
-    @OperationLog(name = "角色表详情", type = OperationLogType.INFO)
-    @ApiOperation(value = "角色表详情", response = Role.class)
-    public ApiResult<Role> getRole(@PathVariable("id") Long id) throws Exception {
-        Role role = roleService.getById(id);
-        return ApiResult.ok(role);
+    @OperationLog(name = "角色详情", type = OperationLogType.INFO)
+    @ApiOperation(value = "角色详情", response = RoleVo.class)
+    public ApiResult<RoleVo> getRole(@PathVariable("id") Long id) throws Exception {
+        RoleVo roleVo = roleService.getRole(id);
+        return ApiResult.ok(roleVo);
     }
 
     /**
@@ -87,8 +87,8 @@ public class RoleController extends BaseController {
     @PostMapping("/getPageList")
     @OperationLog(name = "角色表分页列表", type = OperationLogType.PAGE)
     @ApiOperation(value = "角色表分页列表", response = Role.class)
-    public ApiResult<Paging<Role>> getRolePageList(@Validated @RequestBody RolePageParam rolePageParam) throws Exception {
-        Paging<Role> paging = roleService.getRolePageList(rolePageParam);
+    public ApiResult<Paging<RoleVo>> getRolePageList(@Validated @RequestBody RolePageParam rolePageParam) throws Exception {
+        Paging<RoleVo> paging = roleService.getRolePageList(rolePageParam);
         return ApiResult.ok(paging);
     }
 
