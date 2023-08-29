@@ -1,9 +1,10 @@
 package com.sakura.user.service;
 
 import com.sakura.user.entity.RolePermission;
-import com.sakura.user.param.RolePermissionPageParam;
 import com.sakura.common.base.BaseService;
-import com.sakura.common.pagination.Paging;
+import com.sakura.user.param.RolePermissionParam;
+
+import java.util.Set;
 
 /**
  * 角色权限表 服务类
@@ -16,38 +17,19 @@ public interface RolePermissionService extends BaseService<RolePermission> {
     /**
      * 保存
      *
-     * @param rolePermission
+     * @param rolePermissionParam
      * @return
      * @throws Exception
      */
-    boolean saveRolePermission(RolePermission rolePermission) throws Exception;
+    boolean saveRolePermission(RolePermissionParam rolePermissionParam) throws Exception;
 
     /**
-     * 修改
+     * 获取角色权限ID
      *
-     * @param rolePermission
+     * @param roleId
      * @return
      * @throws Exception
      */
-    boolean updateRolePermission(RolePermission rolePermission) throws Exception;
-
-    /**
-     * 删除
-     *
-     * @param id
-     * @return
-     * @throws Exception
-     */
-    boolean deleteRolePermission(Long id) throws Exception;
-
-
-    /**
-     * 获取分页对象
-     *
-     * @param rolePermissionPageParam
-     * @return
-     * @throws Exception
-     */
-    Paging<RolePermission> getRolePermissionPageList(RolePermissionPageParam rolePermissionPageParam) throws Exception;
+    Set<Integer> getRolePermissionId(Integer roleId);
 
 }

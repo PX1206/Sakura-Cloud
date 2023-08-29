@@ -77,7 +77,7 @@
     </select>
 
     <select id="findUserRoles" resultType="com.sakura.user.vo.RoleVo">
-        SELECT tr.code, tr.name, tr.description, tur.create_dt
+        SELECT tr.id, tr.code, tr.name, tr.description, tur.create_dt
         FROM t_user_role tur
         LEFT JOIN t_role tr ON tur.role_id = tr.id
         WHERE tur.user_id = #{userId,jdbcType=VARCHAR}
@@ -96,6 +96,7 @@
         <result column="user_create_dt" property="createDt"/>
         <result column="status" property="status"/>
         <collection property="roles" ofType="com.sakura.user.vo.RoleVo" javaType="java.util.List">
+            <id property="id" column="id"/>
             <result property="code" column="code"/>
             <result property="name" column="role_name"/>
             <result property="description" column="description"/>
@@ -107,7 +108,7 @@
         SELECT
         tu.user_id, tu.name as user_name, tu.sex, tu.age, tu.birthday, tu.mobile, tu.address, tu.head_img,
         tu.create_dt as user_create_dt, tu.status,
-        tr.code, tr.name as role_name, tr.description, tur.create_dt as role_create_dt
+        tr.id, tr.code, tr.name as role_name, tr.description, tur.create_dt as role_create_dt
         FROM t_user tu
         LEFT JOIN t_user_role tur ON tu.user_id = tur.user_id AND tur.status = 1
         LEFT JOIN t_role tr ON tur.role_id = tr.id AND tr.status = 1

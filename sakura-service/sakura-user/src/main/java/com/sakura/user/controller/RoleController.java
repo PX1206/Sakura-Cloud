@@ -85,8 +85,8 @@ public class RoleController extends BaseController {
      * 角色表分页列表
      */
     @PostMapping("/getPageList")
-    @OperationLog(name = "角色表分页列表", type = OperationLogType.PAGE)
-    @ApiOperation(value = "角色表分页列表", response = Role.class)
+    @OperationLog(name = "角色分页列表", type = OperationLogType.PAGE)
+    @ApiOperation(value = "角色分页列表", response = Role.class)
     public ApiResult<Paging<RoleVo>> getRolePageList(@Validated @RequestBody RolePageParam rolePageParam) throws Exception {
         Paging<RoleVo> paging = roleService.getRolePageList(rolePageParam);
         return ApiResult.ok(paging);

@@ -38,7 +38,7 @@ public class UserRole extends BaseEntity {
     private String userId;
 
     @ApiModelProperty("角色id")
-    private String roleId;
+    private Integer roleId;
 
     @ApiModelProperty("创建日期")
     private Date createDt;

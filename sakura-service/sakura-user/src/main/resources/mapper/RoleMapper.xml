@@ -3,7 +3,7 @@
 <mapper namespace="com.sakura.user.mapper.RoleMapper">
 
     <select id="findRoles" resultType="com.sakura.user.vo.RoleVo">
-        SELECT code, name, description, create_dt
+        SELECT id, code, name, description, create_dt
         FROM t_role
         <where>
             <if test="param.name != null and param.name != ''">

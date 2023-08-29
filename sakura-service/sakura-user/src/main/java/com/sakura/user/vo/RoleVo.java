@@ -24,6 +24,9 @@ import java.util.Date;
 public class RoleVo extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
+    @ApiModelProperty("自增ID")
+    private Integer id;
+
     @ApiModelProperty("角色code")
     private String code;
 
