@@ -11,8 +11,6 @@ import com.sakura.common.pagination.Paging;
 import com.sakura.common.log.Module;
 import com.sakura.common.log.OperationLog;
 import com.sakura.common.enums.OperationLogType;
-import com.sakura.common.api.Add;
-import com.sakura.common.api.Update;
 import org.springframework.validation.annotation.Validated;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -41,7 +39,7 @@ public class UserController extends BaseController {
     @PostMapping("/register")
     @OperationLog(name = "用户注册", type = OperationLogType.ADD)
     @ApiOperation(value = "用户注册 User", response = ApiResult.class)
-    public ApiResult<Boolean> register(@Validated(Add.class) @RequestBody UserRegisterParam userRegisterParam) throws Exception {
+    public ApiResult<Boolean> register(@Validated @RequestBody UserRegisterParam userRegisterParam) throws Exception {
         boolean flag = userService.register(userRegisterParam);
         return ApiResult.result(flag);
     }
@@ -63,7 +61,7 @@ public class UserController extends BaseController {
     @PostMapping("/update")
     @OperationLog(name = "修改用户信息", type = OperationLogType.UPDATE)
     @ApiOperation(value = "修改用户信息 User", response = ApiResult.class)
-    public ApiResult<Boolean> updateUser(@Validated(Update.class) @RequestBody UpdateUserParam updateUserParam) throws Exception {
+    public ApiResult<Boolean> updateUser(@Validated @RequestBody UpdateUserParam updateUserParam) throws Exception {
         boolean flag = userService.updateUser(updateUserParam);
         return ApiResult.result(flag);
     }
@@ -74,7 +72,7 @@ public class UserController extends BaseController {
     @PostMapping("/updateMobile")
     @OperationLog(name = "修改用户手机号", type = OperationLogType.UPDATE)
     @ApiOperation(value = "修改用户手机号 User", response = ApiResult.class)
-    public ApiResult<Boolean> updateMobile(@Validated(Update.class) @RequestBody UpdateMobileParam updateMobileParam) throws Exception {
+    public ApiResult<Boolean> updateMobile(@Validated @RequestBody UpdateMobileParam updateMobileParam) throws Exception {
         boolean flag = userService.updateMobile(updateMobileParam);
         return ApiResult.result(flag);
     }
@@ -132,6 +130,17 @@ public class UserController extends BaseController {
     @ApiOperation(value = "账号冻结 Admin", response = ApiResult.class)
     public ApiResult<Boolean> freezeAccount(@RequestBody FreezeAccountParam freezeAccountParam) throws Exception {
         boolean flag = userService.freezeAccount(freezeAccountParam);
+        return ApiResult.result(flag);
+    }
+
+    /**
+     * 重置密码
+     */
+    @PostMapping("/resetPassword")
+    @OperationLog(name = "重置密码", type = OperationLogType.UPDATE)
+    @ApiOperation(value = "重置密码 User", response = ApiResult.class)
+    public ApiResult<Boolean> resetPassword(@Validated @RequestBody ResetPasswordParam resetPasswordParam) throws Exception {
+        boolean flag = userService.resetPassword(resetPasswordParam);
         return ApiResult.result(flag);
     }
 

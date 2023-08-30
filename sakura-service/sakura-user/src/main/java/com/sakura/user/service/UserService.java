@@ -96,4 +96,13 @@ public interface UserService extends BaseService<User> {
      */
     boolean freezeAccount(FreezeAccountParam freezeAccountParam) throws Exception;
 
+    /**
+     * 用户注册
+     *
+     * @param resetPasswordParam
+     * @return
+     * @throws Exception
+     */
+    boolean resetPassword(ResetPasswordParam resetPasswordParam) throws Exception;
+
 }

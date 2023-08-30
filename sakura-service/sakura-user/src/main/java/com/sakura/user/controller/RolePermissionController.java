@@ -48,8 +48,8 @@ public class RolePermissionController extends BaseController {
      * 获取角色权限ID
      */
     @GetMapping("/getRolePermissionId/{roleId}")
-    @OperationLog(name = "获取角色权限ID", type = OperationLogType.INFO)
-    @ApiOperation(value = "获取角色权限ID", response = RolePermission.class)
+    @OperationLog(name = "获取角色权限ID", type = OperationLogType.QUERY)
+    @ApiOperation(value = "获取角色权限ID", response = ApiResult.class)
     public ApiResult<Set<Integer>> getRolePermissionId(@PathVariable("roleId") Integer roleId) throws Exception {
         Set<Integer> permissionIds = rolePermissionService.getRolePermissionId(roleId);
         return ApiResult.ok(permissionIds);
