@@ -1,11 +1,11 @@
 server:
-  port: 8040
+  port: 8050
 
 logging:
   config: classpath:logback-spring.xml
   level:
-    com.sakura.user.feign: debug # 这里我们可以单独配置feign的日志级别
-    com.sakura.user.mapper: debug # 使用logging方式打印SQL日志，方便查看logid
+    com.sakura.code.feign: debug # 这里我们可以单独配置feign的日志级别
+    com.sakura.code.mapper: debug # 使用logging方式打印SQL日志，方便查看logid
 
 spring:
   profiles:
@@ -52,7 +52,7 @@ rocketmq:
   name-server: 192.168.43.118:9876
 
 seata:
-  tx-service-group: user-tx-group
+  tx-service-group: code-tx-group
   service:
     vgroupMapping:
       user-tx-group: default
@@ -73,32 +73,20 @@ seata:
       username: ${spring.cloud.nacos.discovery.username}
       password: ${spring.cloud.nacos.discovery.password}
 
-mybatis-plus:
-  configuration:
-    map-underscore-to-camel-case: true # 虽然默认为 true ，但是还是显示去指定下。
-    #log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-  global-config:
-    db-config:
-      id-type: AUTO
-      logic-delete-value: "Y" # 逻辑已删除值(默认为 Y)
-      logic-not-delete-value: "N" #逻辑未删除值(默认为 N)
-  mapper-locations: classpath*:mapper/*.xml
-  type-aliases-package: com.sakura.user.entity
-
 feign:
   sentinel:
     enabled: true # 开启openfeign中的sentinel
-  client:
-    config:
-#      default:
-#        request-interceptors:
-#          - com.sakura.common.interceptor.feign.FeignRequestInterceptor # 开启全局自定义feign拦截器
-      product-service:
-        logger-level: basic
-        connect-timeout: 5000 # 连接超时时间，默认2s
-        read-timeout: 6000 #请求处理超时时间，默认5s
-        request-interceptors:
-          - com.sakura.user.interceptor.feign.CustomFeignInterceptor # 开启自定义拦截器
 
-user:
-  password-error-num: 5
+aliyun:
+  sms: # 阿里云短信服务参数，申请开通的时候有
+    access-key-id: LTde4GJggqwQ4hvzrP8feyAf
+    secret: ivseKA8iHAtsVderlmL31s54fe78QA
+    region-id: cn-hangzhou
+    sys-domain: dysmsapi.aliyuncs.com
+    sys-action: SendSms
+    sys-version: 2017-05-25
+    send-max-num: 5
+    register: # 用户认证信息模版
+      sign-name: Sakura-Cloud
+      template-code: SMS_202320123
+      template-param: code # 阿里云短信模板参数名

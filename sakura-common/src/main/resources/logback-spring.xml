@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration debug="true">
-    <contextName>user-service</contextName>
+    <contextName>sakura-service</contextName>
     <!-- 定义log日志文件位置，INFO_FILE ERROR_FILE会引用 -->
     <property name="LOG_HOME"  value="logs"></property>
 <!--    <define name="LOG_NAME" class="com.sakura.common.log.LogNameProperty"/>-->

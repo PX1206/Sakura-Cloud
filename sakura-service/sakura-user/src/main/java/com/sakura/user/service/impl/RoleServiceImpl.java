@@ -2,7 +2,7 @@ package com.sakura.user.service.impl;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.sakura.common.exception.BusinessException;
-import com.sakura.common.tool.StringUtil;
+import com.sakura.common.tool.CommonUtil;
 import com.sakura.user.entity.Role;
 import com.sakura.user.mapper.RoleMapper;
 import com.sakura.user.param.DeleteRoleParam;
@@ -15,7 +15,6 @@ import com.sakura.common.pagination.PageInfo;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.sakura.user.tool.CommonUtil;
 import com.sakura.user.vo.RoleVo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.transaction.annotation.Transactional;

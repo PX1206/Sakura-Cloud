@@ -16,6 +16,8 @@
         <module>sakura-product</module>
         <module>sakura-order</module>
         <module>sakura-user</module>
+        <module>sakura-merchant</module>
+        <module>sakura-code</module>
     </modules>
 
     <dependencies>

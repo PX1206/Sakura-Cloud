@@ -1,17 +1,17 @@
 server:
-  port: 8040
+  port: 8060
 
 logging:
   config: classpath:logback-spring.xml
   level:
-    com.sakura.user.feign: debug # 这里我们可以单独配置feign的日志级别
-    com.sakura.user.mapper: debug # 使用logging方式打印SQL日志，方便查看logid
+    com.sakura.merchant.feign: debug # 这里我们可以单独配置feign的日志级别
+    com.sakura.merchant.mapper: debug # 使用logging方式打印SQL日志，方便查看logid
 
 spring:
   profiles:
     active: dev
   datasource:
-    url: jdbc:mysql://192.168.43.128:3306/user?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    url: jdbc:mysql://192.168.43.128:3306/merchant?useUnicode=true&characterEncoding=utf-8&useSSL=false
     username: root
     password: px123456
     # 使用druid数据源
@@ -52,7 +52,7 @@ rocketmq:
   name-server: 192.168.43.118:9876
 
 seata:
-  tx-service-group: user-tx-group
+  tx-service-group: merchant-tx-group
   service:
     vgroupMapping:
       user-tx-group: default
@@ -83,7 +83,7 @@ mybatis-plus:
       logic-delete-value: "Y" # 逻辑已删除值(默认为 Y)
       logic-not-delete-value: "N" #逻辑未删除值(默认为 N)
   mapper-locations: classpath*:mapper/*.xml
-  type-aliases-package: com.sakura.user.entity
+  type-aliases-package: com.sakura.merchant.entity
 
 feign:
   sentinel:
@@ -98,7 +98,4 @@ feign:
         connect-timeout: 5000 # 连接超时时间，默认2s
         read-timeout: 6000 #请求处理超时时间，默认5s
         request-interceptors:
-          - com.sakura.user.interceptor.feign.CustomFeignInterceptor # 开启自定义拦截器
-
-user:
-  password-error-num: 5
+          - com.sakura.merchant.interceptor.feign.CustomFeignInterceptor # 开启自定义拦截器

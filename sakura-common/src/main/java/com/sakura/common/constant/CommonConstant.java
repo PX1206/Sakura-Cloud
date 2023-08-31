@@ -117,7 +117,8 @@ public interface CommonConstant {
      */
     String PASSWORD_ERROR_NUM = "password-error-num-";
 
-    String[] ExcludePath = {"/user/register", "/user/login", "/captcha/getPictureCode", "/feign/**",
+    String[] ExcludePath = {"/user/register", "/user/login", "/captcha/getPictureCode",
+            "/encryption/getSalt", "/sms/getCode", "/feign/**",
             "/swagger-resources/**", "/webjars/**", "/v2/**", "/swagger-ui.html/**", "/doc.html/**",
             "/favicon.ico", "/error"};
 }
