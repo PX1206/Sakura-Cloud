@@ -1,0 +1,100 @@
+server:
+  port: 8050
+
+logging:
+  config: classpath:logback-spring.xml
+  level:
+    com.sakura.base.feign: debug # 这里我们可以单独配置feign的日志级别
+    com.sakura.base.mapper: debug # 使用logging方式打印SQL日志，方便查看logid
+
+spring:
+  profiles:
+    active: dev
+  servlet:
+    multipart:
+      max-file-size: 5MB # 设置最大上传文件大小限制
+      max-request-size: 10MB
+  datasource:
+    url: jdbc:mysql://192.168.43.128:3306/base?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    username: root
+    password: px123456
+    # 使用druid数据源
+    druid:
+      #2.连接池配置
+      #初始化连接池的连接数量 大小，最小，最大
+      initial-size: 5
+      min-idle: 5
+      max-active: 20
+      #配置获取连接等待超时的时间
+      max-wait: 60000
+      #配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+      time-between-eviction-runs-millis: 60000
+      # 配置一个连接在池中最小生存的时间，单位是毫秒
+      min-evictable-idle-time-millis: 30000
+      validation-query: SELECT 1
+      test-while-idle: true
+      test-on-borrow: true
+      test-on-return: false
+      # 是否缓存preparedStatement，也就是PSCache  官方建议MySQL下建议关闭   个人建议如果想用SQL防火墙 建议打开
+      pool-prepared-statements: true
+      max-pool-prepared-statement-per-connection-size: 20
+      # 配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
+      filter:
+        stat:
+          merge-sql: true
+          slow-sql-millis: 5000
+  cloud:
+    sentinel:
+      transport:
+        dashboard: 192.168.43.128:9100
+  redis:
+    host: 192.168.43.118
+    port: 6379
+    password: px123456
+
+rocketmq:
+  name-server: 192.168.43.118:9876
+
+seata:
+  tx-service-group: base-tx-group
+  service:
+    vgroupMapping:
+      base-tx-group: default
+  config:
+    type: nacos
+    nacos:
+      server-addr: ${spring.cloud.nacos.discovery.server-addr}
+      namespace: f6758f0e-1bbe-484f-9247-e9e6d1df5a25
+      group: SEATA_GROUP
+      username: ${spring.cloud.nacos.config.username}
+      password: ${spring.cloud.nacos.config.password}
+  registry:
+    type: nacos
+    nacos:
+      server-addr: ${spring.cloud.nacos.discovery.server-addr}
+      namespace: f6758f0e-1bbe-484f-9247-e9e6d1df5a25
+      group: SEATA_GROUP
+      username: ${spring.cloud.nacos.discovery.username}
+      password: ${spring.cloud.nacos.discovery.password}
+
+feign:
+  sentinel:
+    enabled: true # 开启openfeign中的sentinel
+
+aliyun:
+  sms: # 阿里云短信服务参数，申请开通的时候有
+    access-key-id: LTde4GJggqwQ4hvzrP8feyAf
+    secret: ivseKA8iHAtsVderlmL31s54fe78QA
+    region-id: cn-hangzhou
+    sys-domain: dysmsapi.aliyuncs.com
+    sys-action: SendSms
+    sys-version: 2017-05-25
+    send-max-num: 5
+    register: # 用户认证信息模版
+      sign-name: Sakura-Cloud
+      template-code: SMS_1376337793
+      template-param: code # 阿里云短信模板参数名
+
+# 当前服务的ip端口
+local:
+  host: http://localhost:8000/api-base/

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sakura.base.mapper.LocalFileMapper">
+    <select id="getFileList" resultType="com.sakura.base.vo.FileVo">
+        select code, name, type, domain, path, suffix,
+            source, size, user_id, create_dt
+        from t_file
+        <where>
+            <if test="param.type != null">
+                and type = #{param.type,jdbcType=INTEGER}
+            </if>
+            <if test="param.name != null and param.name != ''">
+                AND name LIKE CONCAT('%',#{param.name,jdbcType=VARCHAR},'%')
+            </if>
+            <if test="param.source != null">
+                and source = #{param.source,jdbcType=INTEGER}
+            </if>
+            <if test="param.userId != null and param.userId != ''">
+                AND user_id LIKE CONCAT('%',#{param.userId,jdbcType=VARCHAR},'%')
+            </if>
+            and status = 1
+        </where>
+        order by create_dt desc
+    </select>
+
+</mapper>

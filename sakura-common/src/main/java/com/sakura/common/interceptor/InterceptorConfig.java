@@ -77,11 +77,11 @@ public class InterceptorConfig extends WebMvcConfigurationSupport implements Web
 
 		registry.addInterceptor(getLoginInterceptor())
 				.addPathPatterns("/**")
-				.excludePathPatterns(CommonConstant.ExcludePath);
+				.excludePathPatterns(CommonConstant.EXCLUDE_PATH);
 
 		registry.addInterceptor(getUserInterceptor())
 				.addPathPatterns("/**")
-				.excludePathPatterns(CommonConstant.ExcludePath);
+				.excludePathPatterns(CommonConstant.EXCLUDE_PATH);
 
 		registry.addInterceptor(getFeignLoginInterceptor())
 				.addPathPatterns("/feign/**");

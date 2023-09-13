@@ -32,6 +32,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 		}
 		// 校验登录信息是否正常
 		String token = TokenUtil.getToken();
+		log.info(token);
 
 		if (StringUtil.isBlank(token) || !redisUtil.hasKey(token)) {
 			throw new BusinessException(401, "请重新登录！");
