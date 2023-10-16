@@ -52,8 +52,8 @@ public class Permission extends BaseEntity {
     @ApiModelProperty("描述")
     private String description;
 
-    @ApiModelProperty("是否是公共权限： 1是 0否")
-    private Integer isPublic;
+    @ApiModelProperty("权限归类：0公共 1客户 2商户 3admin 默认0")
+    private Integer classify;
 
     @ApiModelProperty("创建日期")
     private Date createDt;

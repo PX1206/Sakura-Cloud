@@ -49,8 +49,8 @@ public class PermissionParam extends BaseEntity {
     @ApiModelProperty("描述")
     private String description;
 
-    @ApiModelProperty("是否是公共权限： 1是 0否")
-    @NotNull(message = "是否是公共权限不能为空")
-    private Integer isPublic;
+    @ApiModelProperty("权限归类：0公共 1客户 2商户 3admin 默认0")
+    @NotNull(message = "权限归类不能为空")
+    private Integer classify;
 
 }

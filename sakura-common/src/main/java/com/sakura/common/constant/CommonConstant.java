@@ -43,12 +43,12 @@ public interface CommonConstant {
     /**
      * 登录token
      */
-    String Access_Token = "Access-Token";
+    String ACCESS_TOKEN = "Access-Token";
 
     /**
      * Feigntoken
      */
-    String Feign_Token = "Feign-Token";
+    String FEIGN_TOKEN = "Feign-Token";
 
     /**
      * 图片
@@ -117,7 +117,10 @@ public interface CommonConstant {
      */
     String PASSWORD_ERROR_NUM = "password-error-num-";
 
-    String[] EXCLUDE_PATH = {"/user/register", "/user/login", "/captcha/getPictureCode",
+    String PERMISSION_URL = "permission_url_";
+
+    String[] EXCLUDE_PATH = {"/user/register", "/customerUser/login", "/adminUser/login",
+            "/captcha/getPictureCode",
             "/encryption/getSalt", "/sms/getCode", "/feign/**", "/file/{code}",
             "/swagger-resources/**", "/webjars/**", "/v2/**", "/swagger-ui.html/**", "/doc.html/**",
             "/favicon.ico", "/error"};

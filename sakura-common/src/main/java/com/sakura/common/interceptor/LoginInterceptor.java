@@ -2,6 +2,7 @@ package com.sakura.common.interceptor;
 
 import com.sakura.common.exception.BusinessException;
 import com.sakura.common.redis.RedisUtil;
+import com.sakura.common.tool.LoginUtil;
 import com.sakura.common.tool.StringUtil;
 import com.sakura.common.tool.TokenUtil;
 import lombok.extern.java.Log;

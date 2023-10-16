@@ -36,9 +36,6 @@ public class LoginUtil {
     public static String getUserId() {
         // 获取登录用户权限信息
         LoginUserInfoVo loginUserInfoVo = getLoginUserInfoVo();
-        if (loginUserInfoVo == null) {
-            throw new BusinessException(500, "用户信息异常");
-        }
 
         return loginUserInfoVo.getUserId();
     }
@@ -46,9 +43,6 @@ public class LoginUtil {
     public static String getUserName() {
         // 获取登录用户权限信息
         LoginUserInfoVo loginUserInfoVo = getLoginUserInfoVo();
-        if (loginUserInfoVo == null) {
-            throw new BusinessException(500, "用户信息异常");
-        }
 
         return loginUserInfoVo.getName();
     }
@@ -56,9 +50,6 @@ public class LoginUtil {
     public static Integer getUserType() {
         // 获取登录用户权限信息
         LoginUserInfoVo loginUserInfoVo = getLoginUserInfoVo();
-        if (loginUserInfoVo == null) {
-            throw new BusinessException(500, "用户信息异常");
-        }
 
         return loginUserInfoVo.getType();
     }
@@ -66,12 +57,8 @@ public class LoginUtil {
     public static Set<String> getPermissions() {
         // 获取登录用户权限信息
         LoginUserInfoVo loginUserInfoVo = getLoginUserInfoVo();
-        if (loginUserInfoVo == null) {
-            throw new BusinessException(500, "用户信息异常");
-        }
 
         return loginUserInfoVo.getPermissions();
     }
-
 
 }

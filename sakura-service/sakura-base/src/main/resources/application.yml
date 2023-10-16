@@ -90,7 +90,7 @@ aliyun:
     sys-action: SendSms
     sys-version: 2017-05-25
     send-max-num: 5
-    register: # 用户认证信息模版
+    register: # 短信验证码信息模版
       sign-name: Sakura-Cloud
       template-code: SMS_1376337793
       template-param: code # 阿里云短信模板参数名

@@ -10,7 +10,7 @@
     </select>
 
     <select id="findAllPermission" resultType="com.sakura.user.vo.PermissionVo" >
-        SELECT id, parent_id, code, name, url, type, description, is_public, create_dt
+        SELECT id, parent_id, code, name, url, type, description, classify, create_dt
         FROM t_permission
         WHERE status = 1
     </select>

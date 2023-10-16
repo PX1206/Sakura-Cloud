@@ -1,8 +1,8 @@
 package com.sakura.user.scheduled;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.sakura.user.entity.User;
-import com.sakura.user.mapper.UserMapper;
+import com.sakura.user.entity.CustomerUser;
+import com.sakura.user.mapper.CustomerUserMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -26,7 +26,7 @@ public class ScheduledTask {
 //    在24分、30分执行一次：0 24,30 * * * ?
 
     @Autowired
-    private UserMapper userMapper;
+    private CustomerUserMapper customerUserMapper;
 
     /**
      * @description: 每天凌晨解冻临时冻结账号
@@ -37,7 +37,7 @@ public class ScheduledTask {
     public void unfreezeAccount() {
         log.info("定时解冻临时冻结账号程序启动——————————————————————————————————————————");
         try {
-            userMapper.update(new User().setStatus(1), Wrappers.<User>lambdaUpdate().eq(User::getStatus, 3));
+            customerUserMapper.update(new CustomerUser().setStatus(1), Wrappers.<CustomerUser>lambdaUpdate().eq(CustomerUser::getStatus, 3));
         } catch (Exception e) {
             log.error("定时解冻临时冻结账号异常", e);
         }

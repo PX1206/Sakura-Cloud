@@ -2,7 +2,9 @@ package com.sakura.user.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.sakura.common.constant.CommonConstant;
 import com.sakura.common.exception.BusinessException;
+import com.sakura.common.redis.RedisUtil;
 import com.sakura.user.entity.Permission;
 import com.sakura.user.mapper.PermissionMapper;
 import com.sakura.user.param.PermissionParam;
@@ -33,6 +35,8 @@ public class PermissionServiceImpl extends BaseServiceImpl<PermissionMapper, Per
 
     @Autowired
     private PermissionMapper permissionMapper;
+    @Autowired
+    private RedisUtil redisUtil;
 
     @Transactional(rollbackFor = Exception.class)
     @Override
@@ -69,8 +73,14 @@ public class PermissionServiceImpl extends BaseServiceImpl<PermissionMapper, Per
         Permission permission = new Permission();
         BeanUtils.copyProperties(permissionParam, permission);
         permission.setUpdateDt(new Date());
+        permissionMapper.updateById(permission);
 
-        return super.updateById(permission);
+        // 将数据存入Redis，防止因修改了权限导致认证异常
+        if (permission.getUrl() != null) {
+            redisUtil.sSetAndTime(CommonConstant.PERMISSION_URL + permission.getUrl(), 72*60*60, permission.getCode());
+        }
+
+        return true;
     }
 
     @Transactional(rollbackFor = Exception.class)

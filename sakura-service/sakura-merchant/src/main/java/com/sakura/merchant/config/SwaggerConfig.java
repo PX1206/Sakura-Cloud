@@ -41,7 +41,7 @@ public class SwaggerConfig {
                         .build());
     }
     private SecurityScheme securitySchemes() {
-        return new ApiKey(CommonConstant.Access_Token, CommonConstant.Access_Token, "header");
+        return new ApiKey(CommonConstant.ACCESS_TOKEN, CommonConstant.ACCESS_TOKEN, "header");
     }
 
     private SecurityContext securityContexts() {
@@ -55,7 +55,7 @@ public class SwaggerConfig {
         AuthorizationScope authorizationScope = new AuthorizationScope("xxx", "描述信息");
         AuthorizationScope[] authorizationScopes = new AuthorizationScope[1];
         authorizationScopes[0] = authorizationScope;
-        return Arrays.asList(new SecurityReference(CommonConstant.Access_Token, authorizationScopes));
+        return Arrays.asList(new SecurityReference(CommonConstant.ACCESS_TOKEN, authorizationScopes));
     }
 
 }

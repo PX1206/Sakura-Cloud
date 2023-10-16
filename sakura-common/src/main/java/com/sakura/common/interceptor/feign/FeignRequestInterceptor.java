@@ -39,14 +39,14 @@ public class FeignRequestInterceptor implements RequestInterceptor {
         // 获取当前的HttpServletRequest对象
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = attributes.getRequest();
-        String token = request.getHeader(CommonConstant.Access_Token);
+        String token = request.getHeader(CommonConstant.ACCESS_TOKEN);
         if (!StringUtil.isEmpty(token)) {
-            requestTemplate.header(CommonConstant.Access_Token, token);
+            requestTemplate.header(CommonConstant.ACCESS_TOKEN, token);
         }
 
         // 生成feign临时认证token, 有效时间30秒
         String feign_token = UUID.randomUUID().toString();
-        requestTemplate.header(CommonConstant.Feign_Token, feign_token);
+        requestTemplate.header(CommonConstant.FEIGN_TOKEN, feign_token);
         redisUtil.set(feign_token, 1, 30);
     }
 }

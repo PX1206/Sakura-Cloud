@@ -10,6 +10,7 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -49,8 +50,8 @@ public class LoginUserInfoVo extends BaseEntity {
     @ApiModelProperty("用户头像")
     private String headImg;
 
-    @ApiModelProperty("角色code")
-    private Set<String> roles;
+    @ApiModelProperty("角色，允许多个")
+    private List<RoleVo> roles;
 
     @ApiModelProperty("权限code")
     private Set<String> permissions;

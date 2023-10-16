@@ -48,8 +48,8 @@ public class PermissionVo extends BaseEntity {
     @ApiModelProperty("描述")
     private String description;
 
-    @ApiModelProperty("是否是公共权限： 1是 0否")
-    private Integer isPublic;
+    @ApiModelProperty("权限归类：0公共 1客户 2商户 3admin 默认0")
+    private Integer classify;
 
     @ApiModelProperty("创建时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")

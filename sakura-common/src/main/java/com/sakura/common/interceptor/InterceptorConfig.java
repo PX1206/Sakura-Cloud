@@ -37,8 +37,8 @@ public class InterceptorConfig extends WebMvcConfigurationSupport implements Web
 	}
 
 	@Bean
-	public UserInterceptor getUserInterceptor() {
-		return new UserInterceptor();
+	public PermissionInterceptor getPermissionInterceptor() {
+		return new PermissionInterceptor();
 	}
 	@Bean
 	public FeignLoginInterceptor getFeignLoginInterceptor() {
@@ -79,7 +79,7 @@ public class InterceptorConfig extends WebMvcConfigurationSupport implements Web
 				.addPathPatterns("/**")
 				.excludePathPatterns(CommonConstant.EXCLUDE_PATH);
 
-		registry.addInterceptor(getUserInterceptor())
+		registry.addInterceptor(getPermissionInterceptor())
 				.addPathPatterns("/**")
 				.excludePathPatterns(CommonConstant.EXCLUDE_PATH);
 

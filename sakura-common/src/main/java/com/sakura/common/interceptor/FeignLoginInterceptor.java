@@ -25,7 +25,7 @@ public class FeignLoginInterceptor implements HandlerInterceptor {
 
 		log.info("进入FeignLoginInterceptor：");
 		// 校验feign接口认证信息
-		String feign_token = httpServletRequest.getHeader(CommonConstant.Feign_Token);
+		String feign_token = httpServletRequest.getHeader(CommonConstant.FEIGN_TOKEN);
 		if (StringUtil.isBlank(feign_token) || !redisUtil.hasKey(feign_token)) {
 			throw new BusinessException(401, "接口请求错误！");
 		}

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sakura.user.mapper.CustomerRoleMapper">
+
+    <select id="findCustomerRoles" resultType="com.sakura.user.vo.CustomerRoleVo">
+        SELECT id, name, description, create_dt
+        FROM t_customer_role
+        <where>
+            <if test="param.name != null and param.name != ''">
+                AND name LIKE CONCAT('%',#{param.name,jdbcType=VARCHAR},'%')
+            </if>
+            AND status = 1
+        </where>
+    </select>
+
+</mapper>
