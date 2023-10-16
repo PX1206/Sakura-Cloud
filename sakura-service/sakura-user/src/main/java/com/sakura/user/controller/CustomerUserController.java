@@ -50,7 +50,7 @@ public class CustomerUserController extends BaseController {
     @PostMapping("/login")
     @OperationLog(name = "用户登录", type = OperationLogType.ADD)
     @ApiOperation(value = "用户登录 User", response = LoginUserInfoVo.class)
-    public ApiResult<LoginUserInfoVo> login(/*@Validated*/ @RequestBody LoginParam loginParam) throws Exception {
+    public ApiResult<LoginUserInfoVo> login(@Validated @RequestBody LoginParam loginParam) throws Exception {
         LoginUserInfoVo loginUserInfoVo = customerUserService.login(loginParam);
         return ApiResult.ok(loginUserInfoVo);
     }
