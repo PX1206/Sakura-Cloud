@@ -1,5 +1,6 @@
 package com.sakura.common.interceptor;
 
+import com.sakura.common.constant.CommonConstant;
 import com.sakura.common.exception.BusinessException;
 import com.sakura.common.redis.RedisUtil;
 import com.sakura.common.tool.LoginUtil;

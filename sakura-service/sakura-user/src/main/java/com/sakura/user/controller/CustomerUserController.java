@@ -155,5 +155,16 @@ public class CustomerUserController extends BaseController {
         return ApiResult.result(flag);
     }
 
+    /**
+     * 删除用户，admin专用接口
+     */
+    @PostMapping("/delete")
+    @OperationLog(name = "删除用户", type = OperationLogType.UPDATE)
+    @ApiOperation(value = "删除用户 admin", response = ApiResult.class)
+    public ApiResult<Boolean> deleteCustomerUser(@Validated @RequestBody DeleteCustomerUserParam deleteCustomerUserParam) throws Exception {
+        boolean flag = customerUserService.deleteCustomerUser(deleteCustomerUserParam);
+        return ApiResult.result(flag);
+    }
+
 }
 

@@ -4,14 +4,14 @@ server:
 logging:
   config: classpath:logback-spring.xml
   level:
-    com.sakura.product.feign: debug # 这里我们可以单独配置feign的日志级别
-    com.sakura.product.mapper: debug # 使用logging方式打印SQL日志，方便查看logid
+    com.sakura.order.feign: debug # 这里我们可以单独配置feign的日志级别
+    com.sakura.order.mapper: debug # 使用logging方式打印SQL日志，方便查看logid
 
 spring:
   profiles:
     active: dev
   datasource:
-    url: jdbc:mysql://192.168.43.128:3306/product?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    url: jdbc:mysql://192.168.43.128:3306/order?useUnicode=true&characterEncoding=utf-8&useSSL=false
     username: root
     password: px123456
     # 使用druid数据源
@@ -48,11 +48,17 @@ spring:
     port: 6379
     password: px123456
 
+rocketmq:
+  name-server: 192.168.43.118:9876
+  producer:
+    group: order-group
+    send-message-timeout: 6000
+
 seata:
-  tx-service-group: product-tx-group
+  tx-service-group: order-tx-group
   service:
     vgroupMapping:
-      product-tx-group: default
+      order-tx-group: default
   config:
     type: nacos
     nacos:
@@ -70,17 +76,18 @@ seata:
       username: ${spring.cloud.nacos.discovery.username}
       password: ${spring.cloud.nacos.discovery.password}
 
+
 mybatis-plus:
   configuration:
     map-underscore-to-camel-case: true # 虽然默认为 true ，但是还是显示去指定下。
-    #log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    #log-impl: org.apache.ibatis.logging.stdout.StdOutImpl # 关闭这个日志打印，使用上面的logging日志打印方式
   global-config:
     db-config:
       id-type: AUTO
       logic-delete-value: "Y" # 逻辑已删除值(默认为 Y)
       logic-not-delete-value: "N" #逻辑未删除值(默认为 N)
   mapper-locations: classpath*:mapper/*.xml
-  type-aliases-package: com.sakura.product.entity
+  type-aliases-package: com.sakura.order.entity
 
 feign:
   sentinel:
@@ -90,9 +97,9 @@ feign:
 #      default:
 #        request-interceptors:
 #          - com.sakura.common.interceptor.feign.FeignRequestInterceptor # 开启全局自定义feign拦截器
-      stock-service:
+      product-service:
         logger-level: basic
         connect-timeout: 5000 # 连接超时时间，默认2s
         read-timeout: 6000 #请求处理超时时间，默认5s
         request-interceptors:
-          - com.sakura.product.interceptor.feign.CustomFeignInterceptor # 开启自定义拦截器
+#          - com.sakura.order.interceptor.feign.CustomFeignInterceptor # 开启自定义拦截器

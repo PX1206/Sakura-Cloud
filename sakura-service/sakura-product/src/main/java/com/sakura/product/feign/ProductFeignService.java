@@ -1,0 +1,19 @@
+package com.sakura.product.feign;
+
+import com.sakura.common.api.ApiResult;
+import com.sakura.product.feign.fallback.ProductFeignServiceFallback;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
+/**
+ * @description: stock服务接口
+ * @author: Sakura
+ * @date: 2023/7/20 14:38
+ */
+@FeignClient(name = "product-service", path = "/feign/product", fallback = ProductFeignServiceFallback.class)
+public interface ProductFeignService {
+
+    @GetMapping("/getUnitPrice/{productNo}")
+    ApiResult<Integer> getUnitPrice(@PathVariable("productNo") String productNo);
+}

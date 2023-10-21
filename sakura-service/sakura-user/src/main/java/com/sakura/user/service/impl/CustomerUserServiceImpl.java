@@ -134,8 +134,13 @@ public class CustomerUserServiceImpl extends BaseServiceImpl<CustomerUserMapper,
         loginUserInfoVo.setType(1);
 
         // 将信息放入Redis，有效时间2小时
-        redisUtil.set(token, loginUserInfoVo, 60 * 60 * 2);
+        redisUtil.set(token, loginUserInfoVo, 2 * 60 * 60);
 
+        // 记录用户登录token，当用户被冻结删除或重置密码等操作时需要清空所有设备上的登录token
+        redisUtil.sSetAndTime(CommonConstant.USER_TOKEN_SET + customerUser.getUserId(), 2 * 60 * 60 , token);
+
+        // 记录用户登录token
+        LoginUtil.saveUserLoginToken(customerUser.getUserId(), token);
 
         return loginUserInfoVo;
     }
@@ -329,6 +334,31 @@ public class CustomerUserServiceImpl extends BaseServiceImpl<CustomerUserMapper,
         redisUtil.del(TokenUtil.getToken());
 
         return true;
+    }
+
+    @Override
+    public boolean deleteCustomerUser(DeleteCustomerUserParam deleteCustomerUserParam) throws Exception {
+        // 校验图片验证码是否正确，防止出现误操作
+        if (!commonUtil.checkCode(deleteCustomerUserParam.getKey(), deleteCustomerUserParam.getPictureCode())) {
+            throw new BusinessException(500, "图片验证码错误");
+        }
+
+        // 获取用户信息
+        CustomerUser customerUser = customerUserMapper.selectOne(
+                Wrappers.<CustomerUser>lambdaQuery()
+                        .eq(CustomerUser::getUserId, deleteCustomerUserParam.getUserId())
+                        .ne(CustomerUser::getStatus, 0));
+
+        if (customerUser == null) {
+            throw new BusinessException(500, "用户信息异常");
+        }
+
+        // 用户注销后将无法继续使用
+        customerUser.setStatus(0);
+        customerUser.setUpdateDt(new Date());
+        customerUserMapper.updateById(customerUser);
+
+        return false;
     }
 
 }

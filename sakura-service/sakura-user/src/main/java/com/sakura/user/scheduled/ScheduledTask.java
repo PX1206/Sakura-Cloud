@@ -5,6 +5,7 @@ import com.sakura.user.entity.CustomerUser;
 import com.sakura.user.mapper.CustomerUserMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -34,6 +35,7 @@ public class ScheduledTask {
      * @date: 2023/8/25 11:27
      */
     @Scheduled(cron = "0 0 0 * * ?") // 0 0 0 * * ? 每天0点启动
+    @Async
     public void unfreezeAccount() {
         log.info("定时解冻临时冻结账号程序启动——————————————————————————————————————————");
         try {

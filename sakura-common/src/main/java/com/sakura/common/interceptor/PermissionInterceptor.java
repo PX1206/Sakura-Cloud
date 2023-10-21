@@ -38,11 +38,6 @@ public class PermissionInterceptor implements HandlerInterceptor {
 			return true;
 		}
 
-		// 如果当前用户不是普通用户则无需走当前权限校验
-		if (LoginUtil.getUserType() != 1) {
-			return true;
-		}
-
 		// 获取当前接口所需权限
 		JSONObject json = new JSONObject();
 		json.put("url", url);

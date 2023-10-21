@@ -119,6 +119,8 @@ public interface CommonConstant {
 
     String PERMISSION_URL = "permission_url_";
 
+    String USER_TOKEN_SET = "user_token_set_";
+
     String[] EXCLUDE_PATH = {"/user/register", "/customerUser/login", "/adminUser/login",
             "/captcha/getPictureCode",
             "/encryption/getSalt", "/sms/getCode", "/feign/**", "/file/{code}",

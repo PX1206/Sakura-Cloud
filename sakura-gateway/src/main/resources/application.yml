@@ -54,22 +54,10 @@ spring:
               - OPTION
       # 路由规则配置
       routes:
-        - id: order-service # 规则ID
-          uri: lb://order-service # lb表示启用loadbalancer负载均衡器
+        - id: base-service
+          uri: lb://base-service
           predicates:
-            - Path=/api-order/** # 页面请求gateway的ip+端口/api-order就会进入这个断言规则里面，然后转发到上面的order-service服务
-          filters:
-            - StripPrefix=1 # 这里是去掉上面路径中的/api-order这一层，完整的转发路径是127.0.0.1:8000/api-order/add/order
-        - id: product-service
-          uri: lb://product-service
-          predicates:
-            - Path=/api-product/**
-          filters:
-            - StripPrefix=1
-        - id: stock-service
-          uri: lb://stock-service
-          predicates:
-            - Path=/api-stock/**
+            - Path=/api-base/**
           filters:
             - StripPrefix=1
         - id: user-service
@@ -78,10 +66,18 @@ spring:
             - Path=/api-user/**
           filters:
             - StripPrefix=1
-        - id: base-service
-          uri: lb://base-service
+        - id: product-service
+          uri: lb://product-service
           predicates:
-            - Path=/api-base/**
+            - Path=/api-product/**
           filters:
             - StripPrefix=1
+        - id: order-service # 规则ID
+          uri: lb://order-service # lb表示启用loadbalancer负载均衡器
+          predicates:
+            - Path=/api-order/** # 页面请求gateway的ip+端口/api-order就会进入这个断言规则里面，然后转发到上面的order-service服务
+          filters:
+            - StripPrefix=1 # 这里是去掉上面路径中的/api-order这一层，完整的转发路径是127.0.0.1:8000/api-order/add/order
+
+
 

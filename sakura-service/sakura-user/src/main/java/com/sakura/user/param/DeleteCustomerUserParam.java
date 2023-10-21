@@ -14,13 +14,13 @@ import javax.validation.constraints.NotNull;
  * 用户表
  *
  * @author Sakura
- * @since 2023-08-25
+ * @since 2023-10-16
  */
 @Data
 @Accessors(chain = true)
 @EqualsAndHashCode(callSuper = true)
-@ApiModel(value = "删除客户角色参数")
-public class DeleteCustomerRoleParam extends BaseEntity {
+@ApiModel(value = "删除客户用户参数")
+public class DeleteCustomerUserParam extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty("key")
@@ -31,8 +31,9 @@ public class DeleteCustomerRoleParam extends BaseEntity {
     @NotBlank(message = "图片验证码不能为空")
     private String pictureCode;
 
-    @ApiModelProperty("角色ID")
-    @NotNull(message = "角色ID不能为空")
-    private Integer id;
+
+    @ApiModelProperty("用户ID 删除后不可恢复谨慎操作")
+    @NotBlank(message = "用户ID不能为空")
+    private String userId;
 
 }

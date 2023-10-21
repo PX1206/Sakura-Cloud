@@ -184,11 +184,13 @@ public class AdminUserServiceImpl extends BaseServiceImpl<AdminUserMapper, Admin
         String token = UUID.randomUUID().toString();
         loginUserInfoVo.setToken(token);
 
-        loginUserInfoVo.setType(1);
+        loginUserInfoVo.setType(3);
 
         // 将信息放入Redis，有效时间2小时
-        redisUtil.set(token, loginUserInfoVo, 60 * 60 * 2);
+        redisUtil.set(token, loginUserInfoVo, 2 * 60 * 60);
 
+        // 记录用户登录token
+        LoginUtil.saveUserLoginToken(adminUser.getUserId(), token);
 
         return loginUserInfoVo;
     }

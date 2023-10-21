@@ -114,4 +114,13 @@ public interface CustomerUserService extends BaseService<CustomerUser> {
      */
     boolean AccountCancellation(AccountCancellationParam accountCancellationParam) throws Exception;
 
+    /**
+     * 删除用户，admin专用接口
+     *
+     * @param deleteCustomerUserParam
+     * @return
+     * @throws Exception
+     */
+    boolean deleteCustomerUser(DeleteCustomerUserParam deleteCustomerUserParam) throws Exception;
+
 }

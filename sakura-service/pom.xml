@@ -12,12 +12,10 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>sakura-stock</module>
+        <module>sakura-base</module>
+        <module>sakura-user</module>
         <module>sakura-product</module>
         <module>sakura-order</module>
-        <module>sakura-user</module>
-        <module>sakura-merchant</module>
-        <module>sakura-base</module>
     </modules>
 
     <dependencies>

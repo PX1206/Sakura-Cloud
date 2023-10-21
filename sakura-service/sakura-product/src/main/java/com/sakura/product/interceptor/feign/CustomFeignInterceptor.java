@@ -15,10 +15,10 @@ public class CustomFeignInterceptor implements RequestInterceptor {
     @Override
     public void apply(RequestTemplate requestTemplate) {
         logger.info("进入feign自定义拦截器");
-//        // 我们可以在这里记录日志或者添加参数以及修改参数等
-//        requestTemplate.header("123", "123");
-//        requestTemplate.query("456", "456");
-//        // 我们把参数从1改成5
-//        requestTemplate.uri("/get/5");
+        // 我们可以在这里记录日志或者添加参数以及修改参数等
+        //requestTemplate.header("123", "123");
+        //requestTemplate.query("456", "456");
+        // 我们把参数从1改成5
+        //requestTemplate.uri("/get/5");
     }
 }
