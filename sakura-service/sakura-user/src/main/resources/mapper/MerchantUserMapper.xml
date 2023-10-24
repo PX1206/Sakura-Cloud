@@ -2,4 +2,138 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sakura.user.mapper.MerchantUserMapper">
 
+    <sql id="Base_Column_List">
+        user_id
+        , name, sex, age, birthday, mobile, address, head_img, create_dt, status
+    </sql>
+
+    <resultMap id="InfoDetailsMap" type="com.sakura.user.vo.MerchantUserInfoVo">
+        <id column="user_id" property="userId"/>
+        <result column="name" property="name"/>
+        <result column="sex" property="sex"/>
+        <result column="age" property="age"/>
+        <result column="birthday" property="birthday"/>
+        <result column="mobile" property="mobile"/>
+        <result column="address" property="address"/>
+        <result column="head_img" property="headImg"/>
+        <result column="create_dt" property="createDt"/>
+        <result column="status" property="status"/>
+        <collection property="roles" ofType="com.sakura.user.vo.MerchantUserRoleVo" javaType="java.util.List"
+                    select="com.sakura.user.mapper.MerchantUserMapper.findMerchantUserRoles" column="{userId=user_id}"/>
+    </resultMap>
+
+    <select id="findMerchantUserInfoVoById" resultMap="InfoDetailsMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM t_merchant_user
+        WHERE user_id = #{userId,jdbcType=VARCHAR}
+        <if test="status != null">
+            AND status = #{status,jdbcType=INTEGER}
+        </if>
+    </select>
+
+    <select id="findMerchantUserRoles" resultType="com.sakura.user.vo.MerchantUserRoleVo">
+        SELECT tmr.id, tmr.name, tmr.description, tmur.create_dt
+        FROM t_merchant_user_role tmur
+                 LEFT JOIN t_merchant_role tmr ON tmur.role_id = tmr.id
+        WHERE tmur.user_id = #{userId,jdbcType=VARCHAR}
+          AND tmur.status = 1
+          AND tmr.status = 1
+    </select>
+
+    <resultMap id="ListDetailsMap" type="com.sakura.user.vo.MerchantUserInfoVo">
+        <id column="user_id" property="userId"/>
+        <result column="user_name" property="name"/>
+        <result column="sex" property="sex"/>
+        <result column="age" property="age"/>
+        <result column="birthday" property="birthday"/>
+        <result column="mobile" property="mobile"/>
+        <result column="address" property="address"/>
+        <result column="head_img" property="headImg"/>
+        <result column="user_create_dt" property="createDt"/>
+        <result column="status" property="status"/>
+        <collection property="roles" ofType="com.sakura.user.vo.MerchantUserRoleVo" javaType="java.util.List">
+            <id property="id" column="id"/>
+            <result property="name" column="role_name"/>
+            <result property="description" column="description"/>
+            <result property="createDt" column="role_create_dt"/>
+        </collection>
+    </resultMap>
+
+    <select id="getMerchantUserList" resultMap="ListDetailsMap">
+        SELECT
+        tmu.user_id, tmu.name as user_name, tmu.sex, tmu.age, tmu.birthday, tmu.mobile, tmu.address, tmu.head_img,
+        tmu.create_dt as user_create_dt, tmu.status,
+        tmr.id, tmr.name as role_name, tmr.description, tmur.create_dt as role_create_dt
+        FROM t_merchant_user tmu
+        LEFT JOIN t_merchant_user_role tmur ON tmu.user_id = tmur.user_id AND tmur.status = 1
+        LEFT JOIN t_merchant_role tmr ON tmur.role_id = tmr.id AND tmr.status = 1
+        <where>
+            tmu.merchant_no = #{merchantNo,jdbcType=VARCHAR}
+            <if test="param.name != null and param.name != ''">
+                AND tmu.name LIKE CONCAT('%',#{param.name,jdbcType=VARCHAR},'%')
+            </if>
+            <if test="param.mobile != null and param.mobile != ''">
+                AND tmu.mobile LIKE CONCAT('%',#{param.mobile,jdbcType=VARCHAR},'%')
+            </if>
+            <if test="param.sex != null">
+                AND tmu.sex = #{param.sex,jdbcType=INTEGER}
+            </if>
+            <if test="param.roleId != null">
+                AND tmr.id = #{param.roleId,jdbcType=INTEGER}
+            </if>
+            <if test="param.status != null">
+                AND tmu.status = #{param.status,jdbcType=INTEGER}
+            </if>
+        </where>
+    </select>
+
+    <resultMap id="LoginInfoDetailsMap" type="com.sakura.common.vo.LoginUserInfoVo">
+        <id column="user_id" property="userId"/>
+        <result column="name" property="name"/>
+        <result column="sex" property="sex"/>
+        <result column="age" property="age"/>
+        <result column="birthday" property="birthday"/>
+        <result column="mobile" property="mobile"/>
+        <result column="address" property="address"/>
+        <result column="head_img" property="headImg"/>
+        <result column="create_dt" property="createDt"/>
+        <result column="status" property="status"/>
+        <!--<association property="roleVo" javaType="com.sakura.user.vo.RoleVo" select="com.sakura.user.mapper.UserMapper.findUserRole" column="{userId=user_id}"/>-->
+        <collection property="roles" ofType="com.sakura.common.vo.RoleVo" javaType="java.util.List"
+                    select="com.sakura.user.mapper.MerchantUserMapper.findMerchantUserRole" column="{userId=user_id}"/>
+        <collection property="permissions" ofType="java.lang.String" javaType="java.util.Set"
+                    select="com.sakura.user.mapper.MerchantUserMapper.findMerchantUserPermissionCodes"
+                    column="{userId=user_id}"/>
+    </resultMap>
+
+    <select id="findLoginMerchantUserInfoVoById" resultMap="LoginInfoDetailsMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM t_merchant_user
+        WHERE user_id = #{userId,jdbcType=VARCHAR}
+        AND status = 1
+    </select>
+
+    <select id="findMerchantUserRole" resultType="com.sakura.common.vo.RoleVo">
+        SELECT tmr.id, tmr.name, tmr.description, tmur.create_dt
+        FROM t_merchant_user_role tmur
+                 LEFT JOIN t_merchant_role tmr ON tmur.role_id = tmr.id
+        WHERE tmur.user_id = #{userId,jdbcType=VARCHAR}
+          AND tmur.status = 1
+          AND tmr.status = 1
+    </select>
+
+    <select id="findMerchantUserPermissionCodes" resultType="java.lang.String">
+        SELECT DISTINCT tp.code
+        FROM t_permission tp
+                 LEFT JOIN t_merchant_role_permission tmrp ON tp.id = tmrp.permission_id AND tmrp.status = 1
+                 LEFT JOIN t_merchant_user_role tmur ON tmrp.role_id = tmur.role_id AND tmur.status = 1
+            -- 为保存角色删除后不会查询到相关权限
+                 LEFT JOIN t_merchant_role tmr ON tmur.role_id = tmr.id
+        WHERE (tp.classify = 0 OR tp.classify = 3) AND tp.status = 1
+           OR (tmur.user_id = #{userId,jdbcType=VARCHAR} AND tmr.status = 1)
+    </select>
+
+
 </mapper>

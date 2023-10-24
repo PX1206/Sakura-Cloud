@@ -16,13 +16,13 @@ import java.util.List;
  * admin用户表
  *
  * @author Sakura
- * @since 2023-09-26
+ * @since 2023-10-22
  */
 @Data
 @Accessors(chain = true)
 @EqualsAndHashCode(callSuper = true)
-@ApiModel(value = "Admin用户信息")
-public class AdminUserInfoVo extends BaseEntity {
+@ApiModel(value = "商户用户信息")
+public class MerchantUserInfoVo extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty("用户ID")
@@ -52,7 +52,7 @@ public class AdminUserInfoVo extends BaseEntity {
     private String headImg;
 
     @ApiModelProperty("角色")
-    private List<AdminUserRoleVo> roles;
+    private List<MerchantUserRoleVo> roles;
 
     @ApiModelProperty("创建日期")
     private Date createDt;

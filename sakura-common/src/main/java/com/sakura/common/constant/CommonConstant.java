@@ -117,12 +117,23 @@ public interface CommonConstant {
      */
     String PASSWORD_ERROR_NUM = "password-error-num-";
 
+    /**
+     * Redis保存权限url前缀
+     */
     String PERMISSION_URL = "permission_url_";
 
+    /**
+     * @description: 保存用户登录token集合
+     */
     String USER_TOKEN_SET = "user_token_set_";
 
+    /**
+     * Redis保存登录用户商户号前缀
+     */
+    String MERCHANT_NO_TOKEN = "merchant_no_token_";
+
     String[] EXCLUDE_PATH = {"/user/register", "/customerUser/login", "/adminUser/login",
-            "/captcha/getPictureCode",
+            "/merchantUser/login", "/captcha/getPictureCode",
             "/encryption/getSalt", "/sms/getCode", "/feign/**", "/file/{code}",
             "/swagger-resources/**", "/webjars/**", "/v2/**", "/swagger-ui.html/**", "/doc.html/**",
             "/favicon.ico", "/error"};

@@ -1,4 +1,4 @@
-package com.sakura.order.config;
+package com.sakura.stock.config;
 
 import com.github.xiaoymin.knife4j.spring.annotations.EnableKnife4j;
 import org.springframework.context.annotation.Bean;
@@ -22,22 +22,22 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2WebMvc;
 @EnableKnife4j
 public class SwaggerConfiguration {
 
-    @Bean(value = "orderApi")
+    @Bean(value = "productApi")
     @Order(value = 1)
     public Docket groupRestApi() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(groupApiInfo())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.sakura.order.controller"))
+                .apis(RequestHandlerSelectors.basePackage("com.sakura.product.controller"))
                 .paths(PathSelectors.any())
                 .build();
     }
 
     private ApiInfo groupApiInfo() {
         return new ApiInfoBuilder()
-                .title("订单管理接口文档")
-                .description("<div style='font-size:14px;color:red;'>订单管理APIs</div>")
-                .termsOfServiceUrl("http://localhost:8000/api-order/")
+                .title("商品管理接口文档")
+                .description("<div style='font-size:14px;color:red;'>商品管理APIs</div>")
+                .termsOfServiceUrl("http://localhost:8000/api-product/")
                 .contact(new Contact("Sakura","https://github.com/PX1206/Sakura-Cloud","97442433@qq.com"))
                 .version("1.0")
                 .build();

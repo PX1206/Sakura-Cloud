@@ -2,7 +2,7 @@ spring:
   # 配置中心地址
   application:
     # 服务名称
-    name: product-service
+    name: stock-service
   cloud:
     nacos:
       discovery:

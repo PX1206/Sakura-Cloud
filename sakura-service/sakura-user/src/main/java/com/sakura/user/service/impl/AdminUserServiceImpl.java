@@ -178,7 +178,7 @@ public class AdminUserServiceImpl extends BaseServiceImpl<AdminUserMapper, Admin
         }
 
         // 获取用户详细信息
-        LoginUserInfoVo loginUserInfoVo = adminUserMapper.findLoginAdminUserInfoVoById("wf1MgKYRYipELlQhMm33yc6rvU0P3bi0");
+        LoginUserInfoVo loginUserInfoVo = adminUserMapper.findLoginAdminUserInfoVoById(adminUser.getUserId());
 
         // 登录成功保存token信息
         String token = UUID.randomUUID().toString();

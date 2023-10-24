@@ -45,8 +45,10 @@ public class PermissionInterceptor implements HandlerInterceptor {
 		Set<String> codes;
 		if (!redisUtil.hasKey(CommonConstant.PERMISSION_URL + url) || redisUtil.sGet(CommonConstant.PERMISSION_URL + url).isEmpty()) {
 			codes = permissionFeignService.getCodeByUrl(json.toJSONString());
-			// 将数据缓存到数据库并设置有效期
-			redisUtil.sSetAndTime(CommonConstant.PERMISSION_URL + url, 72*60*60 ,codes.toArray());
+			if (!codes.isEmpty()) {
+				// 将数据缓存到数据库并设置有效期
+				redisUtil.sSetAndTime(CommonConstant.PERMISSION_URL + url, 72*60*60 ,codes.toArray());
+			}
 		} else {
 			codes = redisUtil.sGet(CommonConstant.PERMISSION_URL + url).stream()
 					.map(Object::toString)

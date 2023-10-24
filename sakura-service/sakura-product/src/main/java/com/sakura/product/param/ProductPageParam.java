@@ -8,16 +8,16 @@ import com.sakura.common.pagination.BasePageOrderParam;
 
 /**
  * <pre>
- * 订单表 分页参数对象
+ * 商品表 分页参数对象
  * </pre>
  *
  * @author Sakura
- * @date 2023-08-07
+ * @date 2023-10-23
  */
 @Data
 @Accessors(chain = true)
 @EqualsAndHashCode(callSuper = true)
-@ApiModel(value = "订单表分页参数")
-public class OrderPageParam extends BasePageOrderParam {
+@ApiModel(value = "商品表分页参数")
+public class ProductPageParam extends BasePageOrderParam {
     private static final long serialVersionUID = 1L;
 }

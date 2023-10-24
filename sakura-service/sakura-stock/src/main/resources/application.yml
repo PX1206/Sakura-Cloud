@@ -1,5 +1,5 @@
 server:
-  port: 8050
+  port: 8040
 
 logging:
   config: classpath:logback-spring.xml
@@ -11,7 +11,7 @@ spring:
   profiles:
     active: dev
   datasource:
-    url: jdbc:mysql://192.168.43.128:3306/order?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    url: jdbc:mysql://192.168.43.128:3306/stock?useUnicode=true&characterEncoding=utf-8&useSSL=false
     username: root
     password: px123456
     # 使用druid数据源
@@ -102,4 +102,4 @@ feign:
         connect-timeout: 5000 # 连接超时时间，默认2s
         read-timeout: 6000 #请求处理超时时间，默认5s
         request-interceptors:
-          - com.sakura.order.interceptor.feign.CustomFeignInterceptor # 开启自定义拦截器
+#          - com.sakura.order.interceptor.feign.CustomFeignInterceptor # 开启自定义拦截器

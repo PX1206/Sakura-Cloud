@@ -36,6 +36,17 @@ public class LoginUtil {
         return loginUserInfoVo;
     }
 
+    // 注意该字段只有商户用户才有
+    public static String getMerchantNo() {
+        // 获取登录用户权限信息
+        String merchantNo = (String)redisUtil.get(CommonConstant.MERCHANT_NO_TOKEN + TokenUtil.getToken());
+        if (StringUtil.isEmpty(merchantNo)) {
+            throw new BusinessException(500, "用户信息异常");
+        }
+
+        return merchantNo;
+    }
+
     public static String getUserId() {
         // 获取登录用户权限信息
         LoginUserInfoVo loginUserInfoVo = getLoginUserInfoVo();
