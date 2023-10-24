@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 @RestController
 @RequestMapping("/sms")
-@Module("code")
+@Module("base")
 @Api(value = "短信验证码管理", tags = {"短信验证码管理"})
 public class SsmController {
 

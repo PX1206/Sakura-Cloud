@@ -90,5 +90,16 @@ public class StockController extends BaseController {
         return ApiResult.ok(paging);
     }
 
+    /**
+     * 获取商品库存数量
+     */
+    @GetMapping("/getProductNum/{productNo}")
+    @OperationLog(name = "获取商品库存数量", type = OperationLogType.QUERY)
+    @ApiOperation(value = "获取商品库存数量", response = ApiResult.class)
+    public ApiResult<Integer> getProductNum(@PathVariable("productNo") String productNo) throws Exception {
+        Integer num = stockService.getProductNum(productNo);
+        return ApiResult.ok(num);
+    }
+
 }
 

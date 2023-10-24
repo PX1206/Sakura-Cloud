@@ -1,5 +1,6 @@
 package com.sakura.product.service.impl;
 
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.sakura.product.entity.Product;
 import com.sakura.product.mapper.ProductMapper;
 import com.sakura.product.service.ProductService;
@@ -53,6 +54,19 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductMapper, Product> 
         LambdaQueryWrapper<Product> wrapper = new LambdaQueryWrapper<>();
         IPage<Product> iPage = productMapper.selectPage(page, wrapper);
         return new Paging<Product>(iPage);
+    }
+
+    @Override
+    public Integer getUnitPrice(String productNo) {
+        Product product = productMapper.selectOne(
+                Wrappers.<Product>lambdaQuery()
+                        .eq(Product::getProductNo, productNo)
+                        .eq(Product::getStatus, 1));
+        if (product == null || product.getUnitPrice() == null) {
+            return -1;
+        }
+
+        return product.getUnitPrice();
     }
 
 }

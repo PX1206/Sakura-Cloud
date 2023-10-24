@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 @RestController
 @RequestMapping("/encryption")
-@Module("code")
+@Module("base")
 @Api(value = "加密管理", tags = {"加密管理"})
 public class EncryptionController {
 

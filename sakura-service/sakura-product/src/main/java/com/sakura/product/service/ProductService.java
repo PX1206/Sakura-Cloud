@@ -50,4 +50,13 @@ public interface ProductService extends BaseService<Product> {
      */
     Paging<Product> getProductPageList(ProductPageParam productPageParam) throws Exception;
 
+    /**
+     * 获取商品单价
+     *
+     * @param productNo
+     * @return
+     * @throws Exception
+     */
+    Integer getUnitPrice(String productNo);
+
 }

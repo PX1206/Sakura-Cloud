@@ -50,4 +50,13 @@ public interface StockService extends BaseService<Stock> {
      */
     Paging<Stock> getStockPageList(StockPageParam stockPageParam) throws Exception;
 
+    /**
+     * 获取商品库存数量
+     *
+     * @param productNo
+     * @return
+     * @throws Exception
+     */
+    Integer getProductNum(String productNo);
+
 }

@@ -1,5 +1,6 @@
 package com.sakura.stock.service.impl;
 
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.sakura.stock.entity.Stock;
 import com.sakura.stock.mapper.StockMapper;
 import com.sakura.stock.service.StockService;
@@ -11,6 +12,7 @@ import com.sakura.common.pagination.PageInfo;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import io.seata.spring.annotation.GlobalLock;
 import org.springframework.transaction.annotation.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -53,6 +55,23 @@ public class StockServiceImpl extends BaseServiceImpl<StockMapper, Stock> implem
         LambdaQueryWrapper<Stock> wrapper = new LambdaQueryWrapper<>();
         IPage<Stock> iPage = stockMapper.selectPage(page, wrapper);
         return new Paging<Stock>(iPage);
+    }
+
+    @Override
+    @GlobalLock
+    public Integer getProductNum(String productNo) {
+        Stock stock = stockMapper.selectOne(
+                Wrappers.<Stock>lambdaQuery()
+                        .eq(Stock::getProductNo, productNo)
+                        .eq(Stock::getStatus, 1));
+        if (stock == null || stock.getProductNum() == null) {
+            return 0;
+        }
+        // 修改库存
+        stock.setProductNum(stock.getProductNum() -1);
+        stockMapper.updateById(stock);
+
+        return stock.getProductNum();
     }
 
 }

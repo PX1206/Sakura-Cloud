@@ -4,6 +4,7 @@ import com.sakura.base.param.FilePageParam;
 import com.sakura.base.service.FileService;
 import com.sakura.base.vo.FileVo;
 import com.sakura.common.api.ApiResult;
+import com.sakura.common.log.Module;
 import com.sakura.common.pagination.Paging;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -24,6 +25,7 @@ import javax.servlet.http.HttpServletResponse;
 @Slf4j
 @RestController
 @RequestMapping("/file")
+@Module("base")
 @Api(value = "文件管理", tags = {"文件管理"})
 public class FileController {
 

@@ -20,5 +20,7 @@ import java.io.Serializable;
 @Mapper
 public interface StockMapper extends BaseMapper<Stock> {
 
+    int decreaseStock(@Param("productNo") String productNo, @Param("num") Integer num);
+
 
 }

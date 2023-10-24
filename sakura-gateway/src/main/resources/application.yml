@@ -72,6 +72,12 @@ spring:
             - Path=/api-product/**
           filters:
             - StripPrefix=1
+        - id: stock-service
+          uri: lb://stock-service
+          predicates:
+            - Path=/api-stock/**
+          filters:
+            - StripPrefix=1
         - id: order-service # 规则ID
           uri: lb://order-service # lb表示启用loadbalancer负载均衡器
           predicates:

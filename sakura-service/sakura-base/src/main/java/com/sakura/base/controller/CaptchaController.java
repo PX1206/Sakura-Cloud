@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 @RestController
 @RequestMapping("/captcha")
-@Module("code")
+@Module("base")
 @Api(value = "图片验证码管理", tags = {"图片验证码管理"})
 public class CaptchaController {
 
