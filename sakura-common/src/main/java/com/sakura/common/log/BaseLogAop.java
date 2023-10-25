@@ -637,12 +637,12 @@ public abstract class BaseLogAop {
             rocketMQTemplate.asyncSend(RocketMqConstant.SAVE_OPERATION_LOG_TOPIC, JSON.toJSONString(sysOperationLog), new SendCallback() {
                 @Override
                 public void onSuccess(SendResult sendResult) {
-                    log.info("推送系统操作日志消息成功：" + JSON.toJSONString(sysOperationLog));
+                    log.info("推送系统操作日志消息成功");
                 }
 
                 @Override
                 public void onException(Throwable throwable) {
-                    log.error("推送系统操作日志消息成功：" + JSON.toJSONString(sysOperationLog) + "------>" + throwable.getMessage());
+                    log.error("推送系统操作日志消息失败" + "------>" + throwable.getMessage());
                 }
             });
 
