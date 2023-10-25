@@ -54,6 +54,9 @@ spring:
 
 rocketmq:
   name-server: 192.168.43.118:9876
+  producer:
+    group: base-group
+    send-message-timeout: 6000
 
 seata:
   tx-service-group: base-tx-group

@@ -184,7 +184,7 @@ public class MerchantUserServiceImpl extends BaseServiceImpl<MerchantUserMapper,
         String token = UUID.randomUUID().toString();
         loginUserInfoVo.setToken(token);
 
-        loginUserInfoVo.setType(3);
+        loginUserInfoVo.setType(2);
 
         // 将信息放入Redis，有效时间2小时
         redisUtil.set(token, loginUserInfoVo, 2 * 60 * 60);

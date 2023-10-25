@@ -1,10 +1,12 @@
 package com.sakura.common.log;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 
 import com.sakura.common.api.ApiCode;
 import com.sakura.common.api.ApiResult;
 import com.sakura.common.constant.CommonConstant;
+import com.sakura.common.constant.RocketMqConstant;
 import com.sakura.common.entity.ClientInfo;
 import com.sakura.common.entity.RequestInfo;
 import com.sakura.common.entity.SysOperationLog;
@@ -15,11 +17,15 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.rocketmq.client.producer.SendCallback;
+import org.apache.rocketmq.client.producer.SendResult;
+import org.apache.rocketmq.spring.core.RocketMQTemplate;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.MDC;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -536,6 +542,9 @@ public abstract class BaseLogAop {
         return requestPath;
     }
 
+    @Autowired
+    private RocketMQTemplate rocketMQTemplate;
+
     /**
      * 异步保存系统操作日志
      *
@@ -624,6 +633,18 @@ public abstract class BaseLogAop {
             }
             // 保存日志到数据库
             log.info("日志信息：" + Jackson.toJsonStringNonNull(sysOperationLog, true));
+            // 通过MQ异步去处理扣减库存操作，加快下单响应速度
+            rocketMQTemplate.asyncSend(RocketMqConstant.SAVE_OPERATION_LOG_TOPIC, JSON.toJSONString(sysOperationLog), new SendCallback() {
+                @Override
+                public void onSuccess(SendResult sendResult) {
+                    log.info("推送系统操作日志消息成功：" + JSON.toJSONString(sysOperationLog));
+                }
+
+                @Override
+                public void onException(Throwable throwable) {
+                    log.error("推送系统操作日志消息成功：" + JSON.toJSONString(sysOperationLog) + "------>" + throwable.getMessage());
+                }
+            });
 
 
         } catch (Exception e) {
