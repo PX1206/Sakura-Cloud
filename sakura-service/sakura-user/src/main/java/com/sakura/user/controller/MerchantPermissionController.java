@@ -19,7 +19,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * 商户权限表 控制器
+ * 商户权限 控制器
+ * 100001为默认商户，此权限为所有商户共有权限
+ * 商户也可以分配独有权限，比如一些定制开发功能，收费板块功能
  *
  * @author Sakura
  * @since 2023-09-26

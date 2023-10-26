@@ -23,14 +23,14 @@ public class SakuraGenerator {
 
         // 设置基本信息
         generatorProperties
-                .setMavenModuleName("sakura-service/sakura-base") // 注意这里的项目目录层级
+                .setMavenModuleName("sakura-service/sakura-user") // 注意这里的项目目录层级
                 .setParentPackage("com.sakura")
-                .setModuleName("base")
+                .setModuleName("user")
                 .setAuthor("Sakura")
                 .setFileOverride(true);
 
         // 设置表信息
-        generatorProperties.addTable("t_sys_operation_log","id");
+        generatorProperties.addTable("t_merchant_type_permission","id");
         // 设置表前缀
         generatorProperties.setTablePrefix(Arrays.asList("t_"));
 
@@ -40,7 +40,7 @@ public class SakuraGenerator {
                 .setUsername("root")
                 .setPassword("px123456")
                 .setDriverName("com.mysql.jdbc.Driver")
-                .setUrl("jdbc:mysql://192.168.43.128:3306/base?useUnicode=true&characterEncoding=UTF-8&useSSL=false");
+                .setUrl("jdbc:mysql://192.168.43.128:3306/user?useUnicode=true&characterEncoding=UTF-8&useSSL=false");
 
         // 生成配置
         generatorProperties.getGeneratorConfig()

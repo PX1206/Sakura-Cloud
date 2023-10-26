@@ -41,6 +41,9 @@ public class Merchant extends BaseEntity {
     @ApiModelProperty("父商户号，顶层商户为0")
     private String parentNo;
 
+    @ApiModelProperty("商户类型id")
+    private Integer typeId;
+
     @ApiModelProperty("商户名称")
     private String merchantName;
 

@@ -16,26 +16,26 @@ import javax.validation.constraints.NotNull;
 import com.sakura.common.api.Update;
 
 /**
- * 商户权限表
+ * 商户类型权限表
  *
  * @author Sakura
- * @since 2023-09-26
+ * @since 2023-10-26
  */
 @Data
 @Accessors(chain = true)
 @EqualsAndHashCode(callSuper = true)
-@TableName("t_merchant_permission")
-@ApiModel(value = "MerchantPermission对象")
-public class MerchantPermission extends BaseEntity {
+@TableName("t_merchant_type_permission")
+@ApiModel(value = "MerchantTypePermission对象")
+public class MerchantTypePermission extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
     @NotNull(message = "id不能为空", groups = {Update.class})
-    @ApiModelProperty("自增ID")
+    @ApiModelProperty("自增id")
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
-    @ApiModelProperty("商户号（100001为公共商户权限）")
-    private String merchantNo;
+    @ApiModelProperty("类型id")
+    private Integer typeId;
 
     @ApiModelProperty("权限id")
     private Integer permissionId;
@@ -46,7 +46,7 @@ public class MerchantPermission extends BaseEntity {
     @ApiModelProperty("修改日期")
     private Date updateDt;
 
-    @ApiModelProperty("状态：1正常 0删除")
+    @ApiModelProperty("状态：0删除 1正常")
     private Integer status;
 
 }
