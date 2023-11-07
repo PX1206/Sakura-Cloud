@@ -91,4 +91,30 @@ public class LoginUtil {
         redisUtil.sSetAndTime(CommonConstant.USER_TOKEN_SET + userId, 2 * 60 * 60 , token);
     }
 
+    // 退出当前登录
+    public static void logout() {
+        // 先获取登录token
+        String token = TokenUtil.getToken();
+        if (redisUtil.hasKey(token)) {
+            redisUtil.del(token);
+        }
+    }
+
+    // 退出用户所有设备登录
+    public static void logoutAll(String userId) {
+        // 获取当前登录用户所有登录token
+        if (redisUtil.hasKey(CommonConstant.USER_TOKEN_SET + userId)) {
+            Set<Object> tokens = redisUtil.sGet(CommonConstant.USER_TOKEN_SET + userId);
+            tokens.forEach(obj-> {
+                // 删除这些token
+                if (redisUtil.hasKey(obj.toString())) {
+                    redisUtil.del(obj.toString());
+                }
+            });
+
+            redisUtil.del(CommonConstant.USER_TOKEN_SET + userId);
+        }
+
+    }
+
 }

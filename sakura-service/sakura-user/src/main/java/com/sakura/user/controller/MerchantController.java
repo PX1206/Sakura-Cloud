@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/merchant")
 @Module("user")
-@Api(value = "商户表API", tags = {"商户表"})
+@Api(value = "商户API", tags = {"商户管理"})
 public class MerchantController extends BaseController {
 
     @Autowired
@@ -37,10 +37,10 @@ public class MerchantController extends BaseController {
     /**
      * 添加商户表
      */
-    @PostMapping("/add")
-    @OperationLog(name = "添加商户表", type = OperationLogType.ADD)
-    @ApiOperation(value = "添加商户表", response = ApiResult.class)
-    public ApiResult<Boolean> addMerchant(@Validated(Add.class) @RequestBody Merchant merchant) throws Exception {
+    @PostMapping("/applySettled")
+    @OperationLog(name = "入驻申请", type = OperationLogType.ADD)
+    @ApiOperation(value = "入驻申请", response = ApiResult.class)
+    public ApiResult<Boolean>applySettled(@Validated(Add.class) @RequestBody Merchant merchant) throws Exception {
         boolean flag = merchantService.saveMerchant(merchant);
         return ApiResult.result(flag);
     }

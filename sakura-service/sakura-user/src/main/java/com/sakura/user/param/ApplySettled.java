@@ -1,6 +1,5 @@
 package com.sakura.user.param;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.sakura.common.base.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -13,23 +12,27 @@ import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 /**
- * 用户表
+ * 商户表
  *
  * @author Sakura
- * @since 2023-08-14
+ * @since 2023-09-26
  */
 @Data
 @Accessors(chain = true)
 @EqualsAndHashCode(callSuper = true)
-@ApiModel(value = "用户注册参数")
-public class CustomerUserRegisterParam extends BaseEntity {
+@ApiModel(value = "入驻申请参数")
+public class ApplySettled extends BaseEntity {
     private static final long serialVersionUID = 1L;
+
+    @ApiModelProperty("商户名称")
+    @NotBlank(message = "商户名称")
+    private String merchantNo;
 
     @ApiModelProperty("姓名")
     @NotBlank(message = "姓名不能为空")
     private String name;
 
-    @ApiModelProperty("手机号，前端从getSalt()接口获取盐使用AES加密传输")
+    @ApiModelProperty("手机号（该手机号为超级管理员账号），前端从getSalt()接口获取盐使用AES加密传输")
     @NotBlank(message = "手机号不能为空")
     //@Pattern(regexp = "^$|^((13[0-9])|(15[^4])|(18[0-9])|(17[0-8])|(16[0-8])|(147))\\d{8}$", message = "手机号码格式错误")
     private String mobile;
