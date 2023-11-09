@@ -62,7 +62,7 @@ public abstract class BaseLogAop {
     /**
      * 截取字符串的最多长度
      */
-    private static final int MAX_LENGTH = 300;
+    private static final int MAX_LENGTH = 250;
 
     /**
      * 项目上下文路径

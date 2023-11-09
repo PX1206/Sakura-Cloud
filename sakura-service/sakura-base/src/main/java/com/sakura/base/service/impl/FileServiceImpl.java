@@ -72,9 +72,9 @@ public class FileServiceImpl implements FileService {
     @Override
     public Paging<FileVo> getFilePageList(FilePageParam filePageParam) throws Exception {
         Page<FileVo> page = new Page<>(filePageParam.getPageIndex(), filePageParam.getPageSize());
-        IPage<FileVo> iPage = localFileMapper.getFileList(page, filePageParam);
+        IPage<FileVo> iPage = localFileMapper.getFileList(page, LOCAL_HOST + "file/", filePageParam);
         // 组装URL
-        iPage.getRecords().stream().forEach(fileVo -> fileVo.setUrl(LOCAL_HOST + "file/" + fileVo.getCode()));
+        //iPage.getRecords().stream().forEach(fileVo -> fileVo.setUrl(LOCAL_HOST + "file/" + fileVo.getCode()));
         return new Paging<FileVo>(iPage);
     }
 

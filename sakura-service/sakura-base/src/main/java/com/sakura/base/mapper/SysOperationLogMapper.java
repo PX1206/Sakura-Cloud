@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.sakura.base.entity.SysOperationLog;
 import com.sakura.base.param.SysOperationLogPageParam;
 
+import com.sakura.base.vo.SysOperationLogVo;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -19,6 +20,8 @@ import java.io.Serializable;
  */
 @Mapper
 public interface SysOperationLogMapper extends BaseMapper<SysOperationLog> {
+
+    IPage<SysOperationLogVo> getSysOperationLogList(@Param("page") Page page, @Param("param") SysOperationLogPageParam param);
 
 
 }

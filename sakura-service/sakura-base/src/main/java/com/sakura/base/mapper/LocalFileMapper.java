@@ -14,6 +14,7 @@ import java.util.List;
 @Mapper
 public interface LocalFileMapper extends BaseMapper<LocalFile> {
 
-	IPage<FileVo> getFileList(@Param("page") Page page, @Param("param") FilePageParam param);
+	IPage<FileVo> getFileList(@Param("page") Page page, @Param("localFilePath") String localFilePath,
+							  @Param("param") FilePageParam param);
 
 }

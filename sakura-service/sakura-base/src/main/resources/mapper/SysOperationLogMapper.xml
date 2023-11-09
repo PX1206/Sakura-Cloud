@@ -2,4 +2,25 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sakura.base.mapper.SysOperationLogMapper">
 
+    <select id="getSysOperationLogList" resultType="com.sakura.base.vo.SysOperationLogVo">
+        select id, request_id, user_id, user_name, name, ip, area, operator, path, module,
+        class_name, method_name, request_method, content_type, request_body, param, token,
+        type, success, code, message, exception_name, exception_message, browser_name,
+        browser_version, engine_name, engine_version, os_name, platform_name, mobile,
+        device_name, device_model, remark, create_time, update_time
+        from t_sys_operation_log
+        <where>
+            <if test="param.userId != null and param.userId != ''">
+                AND user_id = #{param.name,jdbcType=VARCHAR}
+            </if>
+            <if test="param.userName != null and param.userName != ''">
+                AND user_name LIKE CONCAT('%',#{param.userName,jdbcType=VARCHAR},'%')
+            </if>
+            <if test="param.name != null and param.name != ''">
+                AND name LIKE CONCAT('%',#{param.name,jdbcType=VARCHAR},'%')
+            </if>
+        </where>
+        order by create_time desc
+    </select>
+
 </mapper>

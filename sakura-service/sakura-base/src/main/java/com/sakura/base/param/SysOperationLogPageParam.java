@@ -1,6 +1,7 @@
 package com.sakura.base.param;
 
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -20,4 +21,13 @@ import com.sakura.common.pagination.BasePageOrderParam;
 @ApiModel(value = "分页参数")
 public class SysOperationLogPageParam extends BasePageOrderParam {
     private static final long serialVersionUID = 1L;
+
+    @ApiModelProperty("用户ID")
+    private String userId;
+
+    @ApiModelProperty("用户名称")
+    private String userName;
+
+    @ApiModelProperty("日志名称")
+    private String name;
 }

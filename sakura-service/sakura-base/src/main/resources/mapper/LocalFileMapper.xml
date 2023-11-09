@@ -3,6 +3,7 @@
 <mapper namespace="com.sakura.base.mapper.LocalFileMapper">
     <select id="getFileList" resultType="com.sakura.base.vo.FileVo">
         select code, name, type, domain, path, suffix,
+            concat(#{localFilePath,jdbcType=VARCHAR}, code) as url,
             source, size, user_id, create_dt
         from t_file
         <where>

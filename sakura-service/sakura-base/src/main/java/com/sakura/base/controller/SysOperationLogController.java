@@ -2,6 +2,7 @@ package com.sakura.base.controller;
 
 import com.sakura.base.entity.SysOperationLog;
 import com.sakura.base.service.SysOperationLogService;
+import com.sakura.base.vo.SysOperationLogVo;
 import lombok.extern.slf4j.Slf4j;
 import com.sakura.base.param.SysOperationLogPageParam;
 import com.sakura.common.base.BaseController;
@@ -40,21 +41,21 @@ public class SysOperationLogController extends BaseController {
      * 获取详情
      */
     @GetMapping("/info/{id}")
-    @OperationLog(name = "详情", type = OperationLogType.INFO)
-    @ApiOperation(value = "详情", response = SysOperationLog.class)
-    public ApiResult<SysOperationLog> getSysOperationLog(@PathVariable("id") Long id) throws Exception {
-        SysOperationLog sysOperationLog = sysOperationLogService.getById(id);
-        return ApiResult.ok(sysOperationLog);
+    //@OperationLog(name = "详情", type = OperationLogType.INFO)
+    @ApiOperation(value = "详情", response = SysOperationLogVo.class)
+    public ApiResult<SysOperationLogVo> getSysOperationLog(@PathVariable("id") Long id) throws Exception {
+        SysOperationLogVo sysOperationLogVo = sysOperationLogService.getSysOperationLog(id);
+        return ApiResult.ok(sysOperationLogVo);
     }
 
     /**
      * 分页列表
      */
     @PostMapping("/getPageList")
-    @OperationLog(name = "分页列表", type = OperationLogType.PAGE)
-    @ApiOperation(value = "分页列表", response = SysOperationLog.class)
-    public ApiResult<Paging<SysOperationLog>> getSysOperationLogPageList(@Validated @RequestBody SysOperationLogPageParam sysOperationLogPageParam) throws Exception {
-        Paging<SysOperationLog> paging = sysOperationLogService.getSysOperationLogPageList(sysOperationLogPageParam);
+    //@OperationLog(name = "分页列表", type = OperationLogType.PAGE)
+    @ApiOperation(value = "分页列表", response = SysOperationLogVo.class)
+    public ApiResult<Paging<SysOperationLogVo>> getSysOperationLogPageList(@Validated @RequestBody SysOperationLogPageParam sysOperationLogPageParam) throws Exception {
+        Paging<SysOperationLogVo> paging = sysOperationLogService.getSysOperationLogPageList(sysOperationLogPageParam);
         return ApiResult.ok(paging);
     }
 
