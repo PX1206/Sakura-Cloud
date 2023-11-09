@@ -4,8 +4,8 @@ server:
 logging:
   config: classpath:logback-spring.xml
   level:
-    com.sakura.order.feign: debug # 这里我们可以单独配置feign的日志级别
-    com.sakura.order.mapper: debug # 使用logging方式打印SQL日志，方便查看logid
+    com.sakura.product.feign: debug # 这里我们可以单独配置feign的日志级别
+    com.sakura.product.mapper: debug # 使用logging方式打印SQL日志，方便查看logid
 
 spring:
   profiles:
@@ -55,10 +55,10 @@ rocketmq:
     send-message-timeout: 6000
 
 seata:
-  tx-service-group: order-tx-group
+  tx-service-group: product-tx-group
   service:
     vgroupMapping:
-      order-tx-group: default
+      product-tx-group: default
   config:
     type: nacos
     nacos:
@@ -87,7 +87,7 @@ mybatis-plus:
       logic-delete-value: "Y" # 逻辑已删除值(默认为 Y)
       logic-not-delete-value: "N" #逻辑未删除值(默认为 N)
   mapper-locations: classpath*:mapper/*.xml
-  type-aliases-package: com.sakura.order.entity
+  type-aliases-package: com.sakura.product.entity
 
 feign:
   sentinel:

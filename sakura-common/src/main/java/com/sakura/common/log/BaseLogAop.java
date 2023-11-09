@@ -344,7 +344,7 @@ public abstract class BaseLogAop {
     protected String formatRequestInfo(RequestInfo requestInfo) {
         String requestInfoString = null;
         try {
-            requestInfoString = "\n" + Jackson.toJsonStringNonNull(requestInfo, true);
+            requestInfoString = "\n" + Jackson.toJsonStringNonNull(requestInfo, false);
         } catch (Exception e) {
             log.error("格式化请求信息日志异常", e);
         }
@@ -360,7 +360,7 @@ public abstract class BaseLogAop {
     protected String formatResponseResult(ApiResult<?> apiResult) {
         String responseResultString = "responseResult:";
         try {
-            responseResultString += "\n" + Jackson.toJsonString(apiResult, true);
+            responseResultString += "\n" + Jackson.toJsonString(apiResult, false);
         } catch (Exception e) {
             log.error("格式化响应日志异常", e);
         }
@@ -632,7 +632,7 @@ public abstract class BaseLogAop {
                         .setExceptionName(exception.getClass().getName());
             }
             // 保存日志到数据库
-            log.info("日志信息：" + Jackson.toJsonStringNonNull(sysOperationLog, true));
+            log.info("日志信息：" + Jackson.toJsonStringNonNull(sysOperationLog, false));
             // 通过MQ异步去处理扣减库存操作，加快下单响应速度
             rocketMQTemplate.asyncSend(RocketMqConstant.SAVE_OPERATION_LOG_TOPIC, JSON.toJSONString(sysOperationLog), new SendCallback() {
                 @Override

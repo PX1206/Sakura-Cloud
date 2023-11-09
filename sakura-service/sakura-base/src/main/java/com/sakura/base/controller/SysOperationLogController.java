@@ -29,44 +29,12 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/sysOperationLog")
 @Module("base")
-@Api(value = "API", tags = {""})
+@Api(value = "系统日志管理API", tags = {"系统日志管理"})
 public class SysOperationLogController extends BaseController {
 
     @Autowired
     private SysOperationLogService sysOperationLogService;
 
-    /**
-     * 添加
-     */
-    @PostMapping("/add")
-    @OperationLog(name = "添加", type = OperationLogType.ADD)
-    @ApiOperation(value = "添加", response = ApiResult.class)
-    public ApiResult<Boolean> addSysOperationLog(@Validated(Add.class) @RequestBody SysOperationLog sysOperationLog) throws Exception {
-        boolean flag = sysOperationLogService.saveSysOperationLog(sysOperationLog);
-        return ApiResult.result(flag);
-    }
-
-    /**
-     * 修改
-     */
-    @PostMapping("/update")
-    @OperationLog(name = "修改", type = OperationLogType.UPDATE)
-    @ApiOperation(value = "修改", response = ApiResult.class)
-    public ApiResult<Boolean> updateSysOperationLog(@Validated(Update.class) @RequestBody SysOperationLog sysOperationLog) throws Exception {
-        boolean flag = sysOperationLogService.updateSysOperationLog(sysOperationLog);
-        return ApiResult.result(flag);
-    }
-
-    /**
-     * 删除
-     */
-    @PostMapping("/delete/{id}")
-    @OperationLog(name = "删除", type = OperationLogType.DELETE)
-    @ApiOperation(value = "删除", response = ApiResult.class)
-    public ApiResult<Boolean> deleteSysOperationLog(@PathVariable("id") Long id) throws Exception {
-        boolean flag = sysOperationLogService.deleteSysOperationLog(id);
-        return ApiResult.result(flag);
-    }
 
     /**
      * 获取详情
