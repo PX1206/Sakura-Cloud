@@ -2,4 +2,28 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sakura.user.mapper.AdminRolePermissionMapper">
 
+    <select id="findPermissionIdByRoleId" resultType="java.lang.Integer">
+        SELECT permission_id FROM t_admin_role_permission WHERE role_id = #{roleId,jdbcType=INTEGER}
+    </select>
+
+    <update id="deleteByPermissionsId">
+        UPDATE t_admin_role_permission
+        SET status = 0,
+        update_dt = NOW()
+        WHERE role_id = #{roleId,jdbcType=INTEGER}
+        AND permission_id IN
+        <foreach collection="permissionIds" item="permissionId" index="index" separator="," open="(" close=")">
+            #{permissionId,jdbcType=INTEGER}
+        </foreach>
+    </update>
+
+    <insert id="saveAdminRolePermission">
+        insert into t_admin_role_permission (role_id, permission_id, status)
+        values
+        <foreach collection="permissionIds" item="permissionId" index="index"
+                 separator=",">
+            (#{roleId,jdbcType=INTEGER}, #{permissionId,jdbcType=INTEGER}, 1)
+        </foreach>
+    </insert>
+
 </mapper>

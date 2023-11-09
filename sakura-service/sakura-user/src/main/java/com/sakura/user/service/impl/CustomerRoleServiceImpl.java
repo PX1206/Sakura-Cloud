@@ -87,6 +87,9 @@ public class CustomerRoleServiceImpl extends BaseServiceImpl<CustomerRoleMapper,
         }
 
         CustomerRole customerRole = customerRoleMapper.selectById(deleteCustomerRoleParam.getId());
+        if (customerRole == null || customerRole.getStatus() != 1) {
+            throw new BusinessException(500, "角色信息异常");
+        }
         customerRole.setStatus(0);
         customerRole.setUpdateDt(new Date());
         customerRoleMapper.updateById(customerRole);
@@ -97,7 +100,7 @@ public class CustomerRoleServiceImpl extends BaseServiceImpl<CustomerRoleMapper,
     @Override
     public CustomerRoleVo getCustomerRole(Long id) throws Exception {
         CustomerRole customerRole = customerRoleMapper.selectById(id);
-        if (customerRole == null) {
+        if (customerRole == null || customerRole.getStatus() != 1) {
             throw new BusinessException(500, "角色信息异常");
         }
 

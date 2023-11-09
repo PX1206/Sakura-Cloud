@@ -1,9 +1,10 @@
 package com.sakura.user.service;
 
 import com.sakura.user.entity.AdminRolePermission;
-import com.sakura.user.param.AdminRolePermissionPageParam;
 import com.sakura.common.base.BaseService;
-import com.sakura.common.pagination.Paging;
+import com.sakura.user.param.AdminRolePermissionParam;
+
+import java.util.Set;
 
 /**
  * admin角色权限表 服务类
@@ -16,38 +17,19 @@ public interface AdminRolePermissionService extends BaseService<AdminRolePermiss
     /**
      * 保存
      *
-     * @param adminRolePermission
+     * @param adminRolePermissionParam
      * @return
      * @throws Exception
      */
-    boolean saveAdminRolePermission(AdminRolePermission adminRolePermission) throws Exception;
+    boolean addAdminRolePermission(AdminRolePermissionParam adminRolePermissionParam) throws Exception;
 
     /**
-     * 修改
+     * 获取角色权限ID
      *
-     * @param adminRolePermission
+     * @param roleId
      * @return
      * @throws Exception
      */
-    boolean updateAdminRolePermission(AdminRolePermission adminRolePermission) throws Exception;
-
-    /**
-     * 删除
-     *
-     * @param id
-     * @return
-     * @throws Exception
-     */
-    boolean deleteAdminRolePermission(Long id) throws Exception;
-
-
-    /**
-     * 获取分页对象
-     *
-     * @param adminRolePermissionPageParam
-     * @return
-     * @throws Exception
-     */
-    Paging<AdminRolePermission> getAdminRolePermissionPageList(AdminRolePermissionPageParam adminRolePermissionPageParam) throws Exception;
+    Set<Integer> getAdminrRolePermissionId(Integer roleId);
 
 }

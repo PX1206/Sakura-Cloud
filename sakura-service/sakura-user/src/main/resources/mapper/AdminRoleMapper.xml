@@ -2,4 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sakura.user.mapper.AdminRoleMapper">
 
+    <select id="findAdminRoles" resultType="com.sakura.user.vo.AdminRoleVo">
+        SELECT id, name, description, create_dt
+        FROM t_admin_role
+        <where>
+            <if test="param.name != null and param.name != ''">
+                AND name LIKE CONCAT('%',#{param.name,jdbcType=VARCHAR},'%')
+            </if>
+            AND status = 1
+        </where>
+    </select>
+
 </mapper>
