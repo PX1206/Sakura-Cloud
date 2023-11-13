@@ -48,7 +48,7 @@ public class CustomerUserRoleController extends BaseController {
     @PostMapping("/delete")
     @OperationLog(name = "删除用户角色", type = OperationLogType.DELETE)
     @ApiOperation(value = "删除用户角色", response = ApiResult.class)
-    public ApiResult<Boolean> deleteCustomerUserRole(@RequestBody CustomerUserRoleParam customerUserRoleParam) throws Exception {
+    public ApiResult<Boolean> deleteCustomerUserRole(@Validated @RequestBody CustomerUserRoleParam customerUserRoleParam) throws Exception {
         boolean flag = customerUserRoleService.deleteCustomerUserRole(customerUserRoleParam);
         return ApiResult.result(flag);
     }

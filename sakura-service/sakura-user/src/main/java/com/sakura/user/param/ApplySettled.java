@@ -25,12 +25,12 @@ public class ApplySettled extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty("商户名称")
-    @NotBlank(message = "商户名称")
-    private String merchantNo;
+    @NotBlank(message = "商户名称不能为空")
+    private String merchantName;
 
-    @ApiModelProperty("姓名")
-    @NotBlank(message = "姓名不能为空")
-    private String name;
+    @ApiModelProperty("用户姓名")
+    @NotBlank(message = "用户姓名不能为空")
+    private String userName;
 
     @ApiModelProperty("手机号（该手机号为超级管理员账号），前端从getSalt()接口获取盐使用AES加密传输")
     @NotBlank(message = "手机号不能为空")

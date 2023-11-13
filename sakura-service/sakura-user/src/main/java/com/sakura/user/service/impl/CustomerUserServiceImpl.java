@@ -256,6 +256,9 @@ public class CustomerUserServiceImpl extends BaseServiceImpl<CustomerUserMapper,
         customerUser.setUpdateDt(new Date());
         customerUserMapper.updateById(customerUser);
 
+        // 退出当前账号所有登录信息
+        LoginUtil.logoutAll(customerUser.getUserId());
+
         return true;
     }
 
@@ -330,8 +333,8 @@ public class CustomerUserServiceImpl extends BaseServiceImpl<CustomerUserMapper,
         customerUser.setUpdateDt(new Date());
         customerUserMapper.updateById(customerUser);
 
-        // 清除当前登录用户token（此处存在一个问题，如果当前账号在多个地方登录，其它地方未退出，待完善！！！！！！！！！）
-        redisUtil.del(TokenUtil.getToken());
+        // 退出当前账号所有登录信息
+        LoginUtil.logoutAll(customerUser.getUserId());
 
         return true;
     }
@@ -357,6 +360,9 @@ public class CustomerUserServiceImpl extends BaseServiceImpl<CustomerUserMapper,
         customerUser.setStatus(0);
         customerUser.setUpdateDt(new Date());
         customerUserMapper.updateById(customerUser);
+
+        // 退出当前账号所有登录信息
+        LoginUtil.logoutAll(customerUser.getUserId());
 
         return false;
     }

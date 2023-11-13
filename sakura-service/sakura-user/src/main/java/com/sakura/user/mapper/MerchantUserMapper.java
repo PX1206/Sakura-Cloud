@@ -41,5 +41,9 @@ public interface MerchantUserMapper extends BaseMapper<MerchantUser> {
     // xml内部调用方法
     Set<String> findMerchantUserPermissionCodes(@Param("userId") String userId);
 
+    int deleteMerchantUserByMerchantNo(@Param("merchantNo") String merchantNo);
+
+    List<String> findMerchantUserId(@Param("merchantNo") String merchantNo);
+
 
 }

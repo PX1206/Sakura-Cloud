@@ -20,6 +20,7 @@ import com.sakura.common.pagination.PageInfo;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.sakura.order.utils.OrderUtil;
 import io.seata.spring.annotation.GlobalLock;
 import io.seata.spring.annotation.GlobalTransactional;
 import org.apache.http.client.utils.DateUtils;
@@ -62,6 +63,8 @@ public class OrderServiceImpl extends BaseServiceImpl<OrderMapper, Order> implem
     ProductFeignService productFeignService;
     @Autowired
     StockFeignService stockFeignService;
+    @Autowired
+    private OrderUtil orderUtil;
 
     @Override
     @GlobalLock
@@ -77,6 +80,8 @@ public class OrderServiceImpl extends BaseServiceImpl<OrderMapper, Order> implem
             throw new BusinessException(500, "重复提交");
         }
         redisUtil.sSetAndTime("order-add", 1, "10001");
+
+        orderUtil.Ayn();
 
 
         // 先去查询商品库存信息

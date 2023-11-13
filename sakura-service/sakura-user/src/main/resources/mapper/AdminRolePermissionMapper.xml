@@ -11,6 +11,7 @@
         SET status = 0,
         update_dt = NOW()
         WHERE role_id = #{roleId,jdbcType=INTEGER}
+        AND status = 1
         AND permission_id IN
         <foreach collection="permissionIds" item="permissionId" index="index" separator="," open="(" close=")">
             #{permissionId,jdbcType=INTEGER}

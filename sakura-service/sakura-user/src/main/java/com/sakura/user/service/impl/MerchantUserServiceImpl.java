@@ -128,6 +128,9 @@ public class MerchantUserServiceImpl extends BaseServiceImpl<MerchantUserMapper,
         merchantUser.setUpdateDt(new Date());
         merchantUserMapper.updateById(merchantUser);
 
+        // 退出当前用户所有登录信息
+        LoginUtil.logoutAll(merchantUser.getUserId());
+
         return true;
     }
 

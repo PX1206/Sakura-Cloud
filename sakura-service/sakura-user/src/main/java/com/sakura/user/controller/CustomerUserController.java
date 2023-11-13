@@ -117,7 +117,7 @@ public class CustomerUserController extends BaseController {
     @PostMapping("/unfreezeAccount")
     @OperationLog(name = "账号解冻", type = OperationLogType.UPDATE)
     @ApiOperation(value = "账号解冻 Admin", response = ApiResult.class)
-    public ApiResult<Boolean> unfreezeAccount(@RequestBody FreezeAccountParam freezeAccountParam) throws Exception {
+    public ApiResult<Boolean> unfreezeAccount(@Validated @RequestBody FreezeAccountParam freezeAccountParam) throws Exception {
         boolean flag = customerUserService.unfreezeAccount(freezeAccountParam);
         return ApiResult.result(flag);
     }
@@ -128,7 +128,7 @@ public class CustomerUserController extends BaseController {
     @PostMapping("/freezeAccount")
     @OperationLog(name = "账号冻结", type = OperationLogType.UPDATE)
     @ApiOperation(value = "账号冻结 Admin", response = ApiResult.class)
-    public ApiResult<Boolean> freezeAccount(@RequestBody FreezeAccountParam freezeAccountParam) throws Exception {
+    public ApiResult<Boolean> freezeAccount(@Validated @RequestBody FreezeAccountParam freezeAccountParam) throws Exception {
         boolean flag = customerUserService.freezeAccount(freezeAccountParam);
         return ApiResult.result(flag);
     }

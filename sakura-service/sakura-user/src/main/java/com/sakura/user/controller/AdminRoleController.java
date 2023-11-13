@@ -64,7 +64,7 @@ public class AdminRoleController extends BaseController {
     @PostMapping("/delete")
     @OperationLog(name = "删除角色", type = OperationLogType.DELETE)
     @ApiOperation(value = "删除角色", response = ApiResult.class)
-    public ApiResult<Boolean> deleteAdminRole(@RequestBody DeleteAdminRoleParam deleteAdminRoleParam) throws Exception {
+    public ApiResult<Boolean> deleteAdminRole(@Validated @RequestBody DeleteAdminRoleParam deleteAdminRoleParam) throws Exception {
         boolean flag = adminRoleService.deleteAdminRole(deleteAdminRoleParam);
         return ApiResult.result(flag);
     }

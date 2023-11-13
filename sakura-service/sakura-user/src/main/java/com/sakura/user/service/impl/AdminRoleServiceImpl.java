@@ -75,6 +75,7 @@ public class AdminRoleServiceImpl extends BaseServiceImpl<AdminRoleMapper, Admin
 
         AdminRole adminRole = new AdminRole();
         BeanUtils.copyProperties(adminRoleParam, adminRole);
+        adminRole.setUpdateDt(new Date());
         adminRoleMapper.updateById(adminRole);
 
         return true;

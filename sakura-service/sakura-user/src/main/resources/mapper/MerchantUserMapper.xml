@@ -135,5 +135,20 @@
            OR (tmur.user_id = #{userId,jdbcType=VARCHAR} AND tmr.status = 1)
     </select>
 
+    <update id="deleteMerchantUserByMerchantNo">
+        UPDATE t_merchant_user
+        SET status = 0,
+        update_dt = NOW()
+        WHERE merchant_no = #{merchantNo,jdbcType=VARCHAR}
+        AND status != 0
+    </update>
+
+    <select id="findMerchantUserId" resultType="java.lang.String">
+        SELECT user_id
+        FROM t_merchant_user
+        WHERE merchant_no = #{merchantNo,jdbcType=VARCHAR}
+        AND status != 0
+    </select>
+
 
 </mapper>

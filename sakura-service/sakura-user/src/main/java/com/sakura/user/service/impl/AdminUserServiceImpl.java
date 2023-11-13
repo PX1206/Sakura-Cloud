@@ -107,6 +107,7 @@ public class AdminUserServiceImpl extends BaseServiceImpl<AdminUserMapper, Admin
             throw new BusinessException(500, "用户信息异常");
         }
         BeanUtils.copyProperties(updateAdminUserParam, adminUser);
+        adminUser.setUpdateDt(new Date());
 
         return super.updateById(adminUser);
     }
@@ -127,6 +128,9 @@ public class AdminUserServiceImpl extends BaseServiceImpl<AdminUserMapper, Admin
         adminUser.setStatus(0);
         adminUser.setUpdateDt(new Date());
         adminUserMapper.updateById(adminUser);
+
+        // 退出当前用户所有登录信息
+        LoginUtil.logoutAll(adminUser.getUserId());
 
         return true;
     }

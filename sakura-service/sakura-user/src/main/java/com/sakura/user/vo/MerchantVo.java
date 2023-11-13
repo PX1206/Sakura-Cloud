@@ -1,19 +1,21 @@
-package com.sakura.user.entity;
+package com.sakura.user.vo;
 
-import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
-import com.sakura.common.base.BaseEntity;
-import java.util.Date;
-import com.baomidou.mybatisplus.annotation.Version;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.sakura.common.api.Update;
+import com.sakura.common.base.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import com.sakura.common.api.Update;
+import java.util.Date;
 
 /**
  * 商户表
@@ -25,16 +27,10 @@ import com.sakura.common.api.Update;
 @Accessors(chain = true)
 @EqualsAndHashCode(callSuper = true)
 @TableName("t_merchant")
-@ApiModel(value = "Merchant对象")
-public class Merchant extends BaseEntity {
+@ApiModel(value = "商户信息")
+public class MerchantVo extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
-    @NotNull(message = "id不能为空", groups = {Update.class})
-    @ApiModelProperty("自增id")
-    @TableId(value = "id", type = IdType.AUTO)
-    private Integer id;
-
-    @NotBlank(message = "商户号不能为空")
     @ApiModelProperty("商户号")
     private String merchantNo;
 
@@ -51,9 +47,13 @@ public class Merchant extends BaseEntity {
     private String unifiedCreditCode;
 
     @ApiModelProperty("营业执照有效期开始日期")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date effectiveStartDt;
 
     @ApiModelProperty("营业执照有效期结束日期")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date effectiveEndDt;
 
     @ApiModelProperty("法人")
@@ -75,12 +75,8 @@ public class Merchant extends BaseEntity {
     private Integer checkStatus;
 
     @ApiModelProperty("创建日期")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createDt;
-
-    @ApiModelProperty("修改日期")
-    private Date updateDt;
-
-    @ApiModelProperty("状态：0注销 1正常  2冻结")
-    private Integer status;
 
 }

@@ -48,7 +48,7 @@ public class AdminUserRoleController extends BaseController {
     @PostMapping("/delete")
     @OperationLog(name = "删除用户角色", type = OperationLogType.DELETE)
     @ApiOperation(value = "删除用户角色", response = ApiResult.class)
-    public ApiResult<Boolean> deleteAdminUserRole(@RequestBody AdminUserRoleParam adminUserRoleParam) throws Exception {
+    public ApiResult<Boolean> deleteAdminUserRole(@Validated @RequestBody AdminUserRoleParam adminUserRoleParam) throws Exception {
         boolean flag = adminUserRoleService.deleteAdminUserRole(adminUserRoleParam);
         return ApiResult.result(flag);
     }
