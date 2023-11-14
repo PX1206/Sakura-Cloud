@@ -4,6 +4,8 @@ import com.sakura.common.vo.LoginUserInfoVo;
 import com.sakura.user.entity.MerchantUser;
 import com.sakura.user.param.*;
 import com.sakura.user.service.MerchantUserService;
+import com.sakura.user.vo.ChooseMerchantUserVo;
+import com.sakura.user.vo.LoginMerchantUserInfoVo;
 import com.sakura.user.vo.MerchantUserInfoVo;
 import lombok.extern.slf4j.Slf4j;
 import com.sakura.common.base.BaseController;
@@ -17,6 +19,8 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * 商户用户表 控制器
@@ -93,11 +97,22 @@ public class MerchantUserController extends BaseController {
      * 用户登录
      */
     @PostMapping("/login")
-    @OperationLog(name = "用户登录", type = OperationLogType.ADD)
-    @ApiOperation(value = "用户登录 merchantUser", response = LoginUserInfoVo.class)
-    public ApiResult<LoginUserInfoVo> login(@Validated @RequestBody LoginParam loginParam) throws Exception {
-        LoginUserInfoVo loginUserInfoVo = merchantUserService.login(loginParam);
-        return ApiResult.ok(loginUserInfoVo);
+    @OperationLog(name = "用户登录", type = OperationLogType.OTHER)
+    @ApiOperation(value = "用户登录 merchantUser", response = ChooseMerchantUserVo.class)
+    public ApiResult<List<ChooseMerchantUserVo>> login(@Validated @RequestBody LoginParam loginParam) throws Exception {
+        List<ChooseMerchantUserVo> chooseMerchantUserVos = merchantUserService.login(loginParam);
+        return ApiResult.ok(chooseMerchantUserVos);
+    }
+
+    /**
+     * 用户登录，选择要登录的商户
+     */
+    @PostMapping("/choose")
+    @OperationLog(name = "选择登录商户", type = OperationLogType.OTHER)
+    @ApiOperation(value = "选择登录商户 merchantUser", response = LoginMerchantUserInfoVo.class)
+    public ApiResult<LoginMerchantUserInfoVo> chooseMerchant(@Validated @RequestBody ChooseMerchantParam chooseMerchantParam) throws Exception {
+        LoginMerchantUserInfoVo loginMerchantUserInfoVo = merchantUserService.chooseMerchant(chooseMerchantParam);
+        return ApiResult.ok(loginMerchantUserInfoVo);
     }
 
 }

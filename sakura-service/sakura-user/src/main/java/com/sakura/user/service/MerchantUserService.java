@@ -1,11 +1,14 @@
 package com.sakura.user.service;
 
-import com.sakura.common.vo.LoginUserInfoVo;
 import com.sakura.user.entity.MerchantUser;
 import com.sakura.user.param.*;
 import com.sakura.common.base.BaseService;
 import com.sakura.common.pagination.Paging;
+import com.sakura.user.vo.ChooseMerchantUserVo;
+import com.sakura.user.vo.LoginMerchantUserInfoVo;
 import com.sakura.user.vo.MerchantUserInfoVo;
+
+import java.util.List;
 
 /**
  * 商户用户表 服务类
@@ -66,6 +69,15 @@ public interface MerchantUserService extends BaseService<MerchantUser> {
      * @return
      * @throws Exception
      */
-    LoginUserInfoVo login(LoginParam loginParam) throws Exception;
+    List<ChooseMerchantUserVo> login(LoginParam loginParam) throws Exception;
+
+    /**
+     * 用户登录，选择要登录的商户
+     *
+     * @param chooseMerchantParam
+     * @return
+     * @throws Exception
+     */
+    LoginMerchantUserInfoVo chooseMerchant(ChooseMerchantParam chooseMerchantParam) throws Exception;
 
 }

@@ -27,7 +27,7 @@ public class SmsCodeParam extends BaseEntity {
     //@Pattern(regexp = "^$|^((13[0-9])|(15[^4])|(18[0-9])|(17[0-8])|(16[0-8])|(147))\\d{8}$", message = "手机号码格式错误")
     private String mobile;
 
-    @ApiModelProperty("key")
+    @ApiModelProperty("图片验证码key")
     @NotBlank(message = "图片验证码key不能为空")
     private String key;
 
@@ -35,7 +35,7 @@ public class SmsCodeParam extends BaseEntity {
     @NotBlank(message = "图片验证码不能为空")
     private String pictureCode;
 
-    @ApiModelProperty("盐key值，前端从getSalt()接口获取")
+    @ApiModelProperty("加密盐key，前端从getSalt()接口获取")
     @NotBlank(message = "saltKey不能为空")
     private String saltKey;
 

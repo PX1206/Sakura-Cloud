@@ -133,7 +133,8 @@ public interface CommonConstant {
     String MERCHANT_NO_TOKEN = "merchant_no_token_";
 
     String[] EXCLUDE_PATH = {"/user/register", "/merchant/applySettled",
-            "/customerUser/login", "/adminUser/login", "/merchantUser/login",
+            "/customerUser/login", "/adminUser/login",
+            "/merchantUser/login", "/merchantUser/choose",
             "/captcha/getPictureCode",
             "/encryption/getSalt", "/sms/getCode", "/feign/**", "/file/{code}",
             "/swagger-resources/**", "/webjars/**", "/v2/**", "/swagger-ui.html/**", "/doc.html/**",

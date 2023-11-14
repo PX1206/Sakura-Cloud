@@ -5,8 +5,9 @@ import com.sakura.common.constant.CommonConstant;
 import com.sakura.common.exception.BusinessException;
 import com.sakura.common.redis.RedisUtil;
 import com.sakura.common.tool.*;
-import com.sakura.common.vo.LoginUserInfoVo;
+import com.sakura.user.entity.Merchant;
 import com.sakura.user.entity.MerchantUser;
+import com.sakura.user.mapper.MerchantMapper;
 import com.sakura.user.mapper.MerchantUserMapper;
 import com.sakura.user.param.*;
 import com.sakura.user.service.MerchantUserService;
@@ -17,6 +18,8 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.sakura.user.utils.AliyunSmsUtil;
+import com.sakura.user.vo.ChooseMerchantUserVo;
+import com.sakura.user.vo.LoginMerchantUserInfoVo;
 import com.sakura.user.vo.MerchantUserInfoVo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Value;
@@ -25,7 +28,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -49,6 +54,8 @@ public class MerchantUserServiceImpl extends BaseServiceImpl<MerchantUserMapper,
     RedisUtil redisUtil;
     @Autowired
     private AliyunSmsUtil aliyunSmsUtil;
+    @Autowired
+    private MerchantMapper merchantMapper;
 
     @Transactional(rollbackFor = Exception.class)
     @Override
@@ -147,58 +154,109 @@ public class MerchantUserServiceImpl extends BaseServiceImpl<MerchantUserMapper,
     }
 
     @Override
-    public LoginUserInfoVo login(LoginParam loginParam) throws Exception {
+    public List<ChooseMerchantUserVo> login(LoginParam loginParam) throws Exception {
         // 获取真实手机号
         String mobile = commonUtil.getDecryptStr(loginParam.getMobile(), loginParam.getSaltKey(), false);
         // 获取用户真实密码
         String password = commonUtil.getDecryptStr(loginParam.getPassword(), loginParam.getSaltKey(), null);
 
+        // 考虑到当前允许同一手机号在多商户任职，所以登录的时候需要校验账号在不同商户的密码
+        // 当前逻辑是如果手机号存在多个商户那么只返回密码正确的商户供用户选择
+        // 前端进行判断，如果只有一个默认直接登录，如果返回多个让用户手动选择
         // 获取当前登录用户信息
-        MerchantUser merchantUser = merchantUserMapper.selectOne(Wrappers.<MerchantUser>lambdaQuery()
+        List<MerchantUser> merchantUsers = merchantUserMapper.selectList(Wrappers.<MerchantUser>lambdaQuery()
                 .eq(MerchantUser::getMobile, mobile)
                 .ne(MerchantUser::getStatus, 0));
-        if (merchantUser == null || !merchantUser.getPassword().equals(SHA256Util.getSHA256Str(password + merchantUser.getSalt()))) {
-            // 添加逻辑，当天输入密码错误冻结用户
-            if (merchantUser != null && merchantUser.getStatus() == 1) {
-                // 用户每天输错密码不得超过最大限制数
-                long errorNum = redisUtil.incr(CommonConstant.PASSWORD_ERROR_NUM + merchantUser.getUserId(), 1);
-                if (errorNum > PASSWORD_ERROR_NUM) {
 
-                    // 密码多次错误冻结用户账号，保护账号安全，可次日自动解冻也可由管理员手动解冻
-                    merchantUser.setStatus(3); // 临时冻结
-                    merchantUser.setUpdateDt(new Date());
-                    merchantUserMapper.updateById(merchantUser);
+        // 记录能成功登录的商户信息
+        List<ChooseMerchantUserVo> chooseMerchantUserVos = new ArrayList<>();
+        for (MerchantUser merchantUser:merchantUsers) {
+            if (merchantUser.getPassword().equals(SHA256Util.getSHA256Str(password + merchantUser.getSalt()))) {
 
-                    throw new BusinessException(500, "密码输入错误次数过多账号已冻结，次日将自动解除");
+                // 获取商户信息
+                Merchant merchant = merchantMapper.selectOne(
+                        Wrappers.<Merchant>lambdaQuery()
+                                .eq(Merchant::getMerchantNo, merchantUser.getMerchantNo())
+                                .ne(Merchant::getStatus, 0));
+                if (merchant != null) {
+                    ChooseMerchantUserVo chooseMerchantUserVo = new ChooseMerchantUserVo();
+                    chooseMerchantUserVo.setMerchantName(merchant.getName());
+                    // 生成一个key并将这个key放入Redis,5分钟有效
+                    chooseMerchantUserVo.setKey(UUID.randomUUID().toString());
+                    redisUtil.set(chooseMerchantUserVo.getKey(), merchantUser.getUserId(), 5*60);
+
+                    chooseMerchantUserVos.add(chooseMerchantUserVo);
                 }
-                // 设置当前计数器有效期,当前日期到晚上23：59:59
-                redisUtil.expire(CommonConstant.PASSWORD_ERROR_NUM +  merchantUser.getUserId(), DateUtil.timeToMidnight());
             }
+        }
+
+        if (chooseMerchantUserVos.isEmpty()) {
+            // 用户每天输错密码不得超过最大限制数
+            long errorNum = redisUtil.incr(CommonConstant.PASSWORD_ERROR_NUM + mobile, 1);
+            if (errorNum > PASSWORD_ERROR_NUM) {
+                // 因存在同一个手机多商户，所以这里无法冻结账号，只能锁定当前手机号
+                // 当手机号锁定后用户可改为使用验证码的方式登录
+                // 密码多次错误冻结用户账号，保护账号安全，可次日自动解冻也可由管理员手动解冻
+                throw new BusinessException(500, "密码输入错误次数过多账号已冻结，请重置密码或次日自行解冻");
+            }
+            // 设置当前计数器有效期,当前日期到晚上23：59:59
+            redisUtil.expire(CommonConstant.PASSWORD_ERROR_NUM +  mobile, DateUtil.timeToMidnight());
+
             throw new BusinessException(500, "用户名或密码错误"); // 此处写法固定，防止有人用脚本尝试账号
         }
-        if (merchantUser.getStatus() != 1) {
+
+        return chooseMerchantUserVos;
+    }
+
+    @Override
+    public LoginMerchantUserInfoVo chooseMerchant(ChooseMerchantParam chooseMerchantParam) throws Exception {
+        // 校验key是否存在
+        if (!redisUtil.hasKey(chooseMerchantParam.getKey())) {
+            throw new BusinessException(500, "key已失效，请重新登录");
+        }
+
+        // 获取登录用户ID
+        String userId = redisUtil.get(chooseMerchantParam.getKey()).toString();
+
+        // 用完删除
+        redisUtil.del(chooseMerchantParam.getKey());
+
+        // 获取用户详细信息
+        LoginMerchantUserInfoVo loginMerchantUserInfoVo = merchantUserMapper.findLoginMerchantUserInfoVoById(userId);
+
+        if (loginMerchantUserInfoVo.getStatus() != 1) {
             throw new BusinessException(500, "账号状态异常，请联系管理员");
         }
 
-        // 获取用户详细信息
-        LoginUserInfoVo loginUserInfoVo = merchantUserMapper.findLoginMerchantUserInfoVoById(merchantUser.getUserId());
+        // 商户用户还需要校验商户状态
+        Merchant merchant = merchantMapper.selectOne(
+                Wrappers.<Merchant>lambdaQuery()
+                        .eq(Merchant::getMerchantNo, loginMerchantUserInfoVo.getMerchantNo())
+                        .ne(Merchant::getStatus, 0));
+        if (merchant == null) {
+            throw new BusinessException(500, "数据异常，请联系管理员");
+        }
+
+        if (merchant.getStatus() == 2) {
+            throw new BusinessException(500, "商户已被冻结");
+        }
 
         // 登录成功保存token信息
         String token = UUID.randomUUID().toString();
-        loginUserInfoVo.setToken(token);
+        loginMerchantUserInfoVo.setToken(token);
 
-        loginUserInfoVo.setType(2);
+        loginMerchantUserInfoVo.setType(2);
 
         // 将信息放入Redis，有效时间2小时
-        redisUtil.set(token, loginUserInfoVo, 2 * 60 * 60);
+        redisUtil.set(token, loginMerchantUserInfoVo, 2 * 60 * 60);
 
         // 商户用户需要记录当前用户merchantNo
-        redisUtil.set(CommonConstant.MERCHANT_NO_TOKEN + token, merchantUser.getMerchantNo());
+        redisUtil.set(CommonConstant.MERCHANT_NO_TOKEN + token, loginMerchantUserInfoVo.getMerchantNo());
 
         // 记录用户登录token
-        LoginUtil.saveUserLoginToken(merchantUser.getUserId(), token);
+        LoginUtil.saveUserLoginToken(loginMerchantUserInfoVo.getUserId(), token);
 
-        return loginUserInfoVo;
+        return loginMerchantUserInfoVo;
     }
 
 }

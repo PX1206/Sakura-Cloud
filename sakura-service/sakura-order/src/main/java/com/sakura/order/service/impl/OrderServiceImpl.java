@@ -88,7 +88,7 @@ public class OrderServiceImpl extends BaseServiceImpl<OrderMapper, Order> implem
         // 优先去Redis里面去查，通过increment保证线程安全，如果Redis里面的库存显示不足则去刷新数据库库存
         long stockNum = redisUtil.decr("stock-num" + addOrderParam.getProductNo(), addOrderParam.getNum());
         // 如果Redis库存为空则去数据库获取新的库存信息
-        if (stockNum < 1) {
+        if (stockNum < 0) {
             // 通过Redisson配置分布式全局锁保证数据安全性
             RLock stockLock = redissonClient.getLock("GetProductNum" + addOrderParam.getProductNo());
             try {

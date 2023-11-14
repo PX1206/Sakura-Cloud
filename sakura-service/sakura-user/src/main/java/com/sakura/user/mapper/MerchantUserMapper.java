@@ -1,9 +1,9 @@
 package com.sakura.user.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.sakura.common.vo.LoginUserInfoVo;
 import com.sakura.common.vo.RoleVo;
 import com.sakura.user.entity.MerchantUser;
+import com.sakura.user.vo.LoginMerchantUserInfoVo;
 import com.sakura.user.param.MerchantUserPageParam;
 
 import com.sakura.user.vo.MerchantUserInfoVo;
@@ -33,7 +33,7 @@ public interface MerchantUserMapper extends BaseMapper<MerchantUser> {
     IPage<MerchantUserInfoVo> getMerchantUserList(@Param("page") Page page, @Param("merchantNo") String merchantNo,
                                                   @Param("param") MerchantUserPageParam merchantUserPageParam);
 
-    LoginUserInfoVo findLoginMerchantUserInfoVoById(@Param("userId") String userId);
+    LoginMerchantUserInfoVo findLoginMerchantUserInfoVoById(@Param("userId") String userId);
 
     // xml内部调用方法
     List<RoleVo> findMerchantUserRole(@Param("userId") String userId);

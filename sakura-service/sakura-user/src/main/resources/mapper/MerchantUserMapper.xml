@@ -3,8 +3,7 @@
 <mapper namespace="com.sakura.user.mapper.MerchantUserMapper">
 
     <sql id="Base_Column_List">
-        user_id
-        , name, sex, age, birthday, mobile, address, head_img, create_dt, status
+        user_id, merchant_no, name, sex, age, birthday, mobile, address, head_img, create_dt, status
     </sql>
 
     <resultMap id="InfoDetailsMap" type="com.sakura.user.vo.MerchantUserInfoVo">
@@ -88,8 +87,9 @@
         </where>
     </select>
 
-    <resultMap id="LoginInfoDetailsMap" type="com.sakura.common.vo.LoginUserInfoVo">
+    <resultMap id="LoginInfoDetailsMap" type="com.sakura.user.vo.LoginMerchantUserInfoVo">
         <id column="user_id" property="userId"/>
+        <result column="merchant_no" property="merchantNo"/>
         <result column="name" property="name"/>
         <result column="sex" property="sex"/>
         <result column="age" property="age"/>
