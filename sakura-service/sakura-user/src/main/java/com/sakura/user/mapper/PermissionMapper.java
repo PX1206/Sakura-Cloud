@@ -22,7 +22,7 @@ public interface PermissionMapper extends BaseMapper<Permission> {
 
     Set<String> findPermissionCodeByUrl(@Param("url") String url);
 
-    List<PermissionVo> findAllPermission();
+    List<PermissionVo> findAllPermission(@Param("classify") Integer classify);
 
 
 }

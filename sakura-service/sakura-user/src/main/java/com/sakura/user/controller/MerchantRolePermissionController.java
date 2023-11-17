@@ -1,22 +1,20 @@
 package com.sakura.user.controller;
 
-import com.sakura.user.entity.MerchantRolePermission;
+import com.sakura.user.param.MerchantRolePermissionParam;
 import com.sakura.user.service.MerchantRolePermissionService;
 import lombok.extern.slf4j.Slf4j;
-import com.sakura.user.param.MerchantRolePermissionPageParam;
 import com.sakura.common.base.BaseController;
 import com.sakura.common.api.ApiResult;
-import com.sakura.common.pagination.Paging;
 import com.sakura.common.log.Module;
 import com.sakura.common.log.OperationLog;
 import com.sakura.common.enums.OperationLogType;
-import com.sakura.common.api.Add;
-import com.sakura.common.api.Update;
 import org.springframework.validation.annotation.Validated;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Set;
 
 /**
  * 商户角色权限表 控制器
@@ -35,58 +33,25 @@ public class MerchantRolePermissionController extends BaseController {
     private MerchantRolePermissionService merchantRolePermissionService;
 
     /**
-     * 添加商户角色权限表
+     * 添加角色权限
      */
     @PostMapping("/add")
-    @OperationLog(name = "添加商户角色权限表", type = OperationLogType.ADD)
-    @ApiOperation(value = "添加商户角色权限表", response = ApiResult.class)
-    public ApiResult<Boolean> addMerchantRolePermission(@Validated(Add.class) @RequestBody MerchantRolePermission merchantRolePermission) throws Exception {
-        boolean flag = merchantRolePermissionService.saveMerchantRolePermission(merchantRolePermission);
+    @OperationLog(name = "添加角色权限", type = OperationLogType.ADD)
+    @ApiOperation(value = "添加角色权限", response = ApiResult.class)
+    public ApiResult<Boolean> addMerchantRolePermission(@Validated @RequestBody MerchantRolePermissionParam merchantRolePermissionParam) throws Exception {
+        boolean flag = merchantRolePermissionService.addMerchantRolePermission(merchantRolePermissionParam);
         return ApiResult.result(flag);
     }
 
     /**
-     * 修改商户角色权限表
+     * 获取角色权限ID
      */
-    @PostMapping("/update")
-    @OperationLog(name = "修改商户角色权限表", type = OperationLogType.UPDATE)
-    @ApiOperation(value = "修改商户角色权限表", response = ApiResult.class)
-    public ApiResult<Boolean> updateMerchantRolePermission(@Validated(Update.class) @RequestBody MerchantRolePermission merchantRolePermission) throws Exception {
-        boolean flag = merchantRolePermissionService.updateMerchantRolePermission(merchantRolePermission);
-        return ApiResult.result(flag);
-    }
-
-    /**
-     * 删除商户角色权限表
-     */
-    @PostMapping("/delete/{id}")
-    @OperationLog(name = "删除商户角色权限表", type = OperationLogType.DELETE)
-    @ApiOperation(value = "删除商户角色权限表", response = ApiResult.class)
-    public ApiResult<Boolean> deleteMerchantRolePermission(@PathVariable("id") Long id) throws Exception {
-        boolean flag = merchantRolePermissionService.deleteMerchantRolePermission(id);
-        return ApiResult.result(flag);
-    }
-
-    /**
-     * 获取商户角色权限表详情
-     */
-    @GetMapping("/info/{id}")
-    @OperationLog(name = "商户角色权限表详情", type = OperationLogType.INFO)
-    @ApiOperation(value = "商户角色权限表详情", response = MerchantRolePermission.class)
-    public ApiResult<MerchantRolePermission> getMerchantRolePermission(@PathVariable("id") Long id) throws Exception {
-        MerchantRolePermission merchantRolePermission = merchantRolePermissionService.getById(id);
-        return ApiResult.ok(merchantRolePermission);
-    }
-
-    /**
-     * 商户角色权限表分页列表
-     */
-    @PostMapping("/getPageList")
-    @OperationLog(name = "商户角色权限表分页列表", type = OperationLogType.PAGE)
-    @ApiOperation(value = "商户角色权限表分页列表", response = MerchantRolePermission.class)
-    public ApiResult<Paging<MerchantRolePermission>> getMerchantRolePermissionPageList(@Validated @RequestBody MerchantRolePermissionPageParam merchantRolePermissionPageParam) throws Exception {
-        Paging<MerchantRolePermission> paging = merchantRolePermissionService.getMerchantRolePermissionPageList(merchantRolePermissionPageParam);
-        return ApiResult.ok(paging);
+    @GetMapping("/getMerchantRolePermissionId/{roleId}")
+    @OperationLog(name = "获取角色权限ID", type = OperationLogType.QUERY)
+    @ApiOperation(value = "获取角色权限ID", response = ApiResult.class)
+    public ApiResult<Set<Integer>> getMerchantRolePermissionId(@PathVariable("roleId") Integer roleId) throws Exception {
+        Set<Integer> permissionIds = merchantRolePermissionService.getMerchantRolePermissionId(roleId);
+        return ApiResult.ok(permissionIds);
     }
 
 }

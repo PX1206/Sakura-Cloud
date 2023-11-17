@@ -11,16 +11,16 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 /**
- * admin用户角色表
+ * 商户用户角色
  *
  * @author Sakura
- * @since 2023-08-17
+ * @since 2023-09-14
  */
 @Data
 @Accessors(chain = true)
 @EqualsAndHashCode(callSuper = true)
-@ApiModel(value = "admin用户角色参数")
-public class AdminUserRoleParam extends BaseEntity {
+@ApiModel(value = "商户用户角色参数")
+public class MerchantUserRoleParam extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty("用户id")

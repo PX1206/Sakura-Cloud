@@ -27,7 +27,7 @@ public class PermissionVo extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
     @NotNull(message = "id不能为空", groups = {Update.class})
-    @ApiModelProperty("自增ID")
+    @ApiModelProperty("权限ID")
     private Integer id;
 
     @ApiModelProperty("父ID，顶层为0")

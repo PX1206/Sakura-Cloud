@@ -34,7 +34,7 @@ public class MerchantPermission extends BaseEntity {
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
-    @ApiModelProperty("商户号（100001为公共商户权限）")
+    @ApiModelProperty("商户号")
     private String merchantNo;
 
     @ApiModelProperty("权限id")

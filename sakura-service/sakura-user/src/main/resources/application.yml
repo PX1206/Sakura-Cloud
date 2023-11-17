@@ -117,5 +117,5 @@ aliyun:
     send-max-num: 5
     register: # 发送密码信息模版
       sign-name: Sakura-Cloud
-      template-code: SMS_1376337794
+      template-code: SMS_1376337793
       template-param: password # 阿里云短信模板参数名

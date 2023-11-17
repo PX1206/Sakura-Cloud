@@ -2,17 +2,22 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sakura.user.mapper.PermissionMapper">
 
-    <select id="findPermissionCodeByUrl" resultType="java.lang.String" >
+    <select id="findPermissionCodeByUrl" resultType="java.lang.String">
         SELECT DISTINCT(code)
         FROM t_permission
-        -- 处理Restful风格url权限校验问题
+             -- 处理Restful风格url权限校验问题
         WHERE #{url,jdbcType=VARCHAR} LIKE url
     </select>
 
-    <select id="findAllPermission" resultType="com.sakura.user.vo.PermissionVo" >
+    <select id="findAllPermission" resultType="com.sakura.user.vo.PermissionVo">
         SELECT id, parent_id, code, name, url, type, description, classify, create_dt
         FROM t_permission
-        WHERE status = 1
+        <where>
+            status = 1
+            <if test="classify != null">
+                AND classify = #{classify,jdbcType=INTEGER}
+            </if>
+        </where>
     </select>
 
 </mapper>

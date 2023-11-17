@@ -2,4 +2,29 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sakura.user.mapper.MerchantTypePermissionMapper">
 
+    <select id="findPermissionIdByTypeId" resultType="java.lang.Integer">
+        SELECT permission_id FROM t_merchant_type_permission WHERE type_id = #{typeId,jdbcType=INTEGER}
+    </select>
+
+    <update id="deleteByPermissionsId">
+        UPDATE t_merchant_type_permission
+        SET status = 0,
+        update_dt = NOW()
+        WHERE type_id = #{typeId,jdbcType=INTEGER}
+        AND status = 1
+        AND permission_id IN
+        <foreach collection="permissionIds" item="permissionId" index="index" separator="," open="(" close=")">
+            #{permissionId,jdbcType=INTEGER}
+        </foreach>
+    </update>
+
+    <insert id="saveMerchantTypePermission">
+        insert into t_merchant_type_permission (type_id, permission_id, status)
+        values
+        <foreach collection="permissionIds" item="permissionId" index="index"
+                 separator=",">
+            (#{typeId,jdbcType=INTEGER}, #{permissionId,jdbcType=INTEGER}, 1)
+        </foreach>
+    </insert>
+
 </mapper>

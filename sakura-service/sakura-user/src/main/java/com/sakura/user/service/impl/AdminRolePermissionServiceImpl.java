@@ -37,14 +37,14 @@ public class AdminRolePermissionServiceImpl extends BaseServiceImpl<AdminRolePer
             Set<Integer> newAddPermissions = adminRolePermissionParam.getPermissionIds().stream()
                     .filter(element -> !permissionIds.contains(element))
                     .collect(Collectors.toSet());
-            if (newAddPermissions != null && newAddPermissions.size() > 0) {
+            if (newAddPermissions.size() > 0) {
                 adminRolePermissionMapper.saveAdminRolePermission(adminRolePermissionParam.getRoleId(), newAddPermissions);
             }
             // 找出删除的权限
             Set<Integer> deletePermissions = permissionIds.stream()
                     .filter(element -> !adminRolePermissionParam.getPermissionIds().contains(element))
                     .collect(Collectors.toSet());
-            if (deletePermissions != null && deletePermissions.size() > 0) {
+            if (deletePermissions.size() > 0) {
                 adminRolePermissionMapper.deleteByPermissionsId(adminRolePermissionParam.getRoleId(), deletePermissions);
             }
         } else {
@@ -55,7 +55,7 @@ public class AdminRolePermissionServiceImpl extends BaseServiceImpl<AdminRolePer
     }
 
     @Override
-    public Set<Integer> getAdminrRolePermissionId(Integer roleId) {
+    public Set<Integer> getAdminRolePermissionId(Integer roleId) {
         return adminRolePermissionMapper.findPermissionIdByRoleId(roleId);
     }
 

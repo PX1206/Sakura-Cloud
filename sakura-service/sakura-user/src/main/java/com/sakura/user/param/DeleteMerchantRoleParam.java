@@ -11,24 +11,28 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 /**
- * admin用户角色表
+ * 用户表
  *
  * @author Sakura
- * @since 2023-08-17
+ * @since 2023-11-13
  */
 @Data
 @Accessors(chain = true)
 @EqualsAndHashCode(callSuper = true)
-@ApiModel(value = "admin用户角色参数")
-public class AdminUserRoleParam extends BaseEntity {
+@ApiModel(value = "删除商户角色参数")
+public class DeleteMerchantRoleParam extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty("用户id")
-    @NotBlank(message = "用户id不能为空")
-    private String userId;
+    @ApiModelProperty("key")
+    @NotBlank(message = "图片验证码key不能为空")
+    private String key;
 
-    @ApiModelProperty("角色id")
-    @NotNull(message = "角色id不能为空")
-    private Integer roleId;
+    @ApiModelProperty("图片验证码")
+    @NotBlank(message = "图片验证码不能为空")
+    private String pictureCode;
+
+    @ApiModelProperty("角色ID")
+    @NotNull(message = "角色ID不能为空")
+    private Integer id;
 
 }

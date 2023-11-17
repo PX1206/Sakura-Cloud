@@ -1,9 +1,10 @@
 package com.sakura.user.service;
 
 import com.sakura.user.entity.MerchantRolePermission;
-import com.sakura.user.param.MerchantRolePermissionPageParam;
 import com.sakura.common.base.BaseService;
-import com.sakura.common.pagination.Paging;
+import com.sakura.user.param.MerchantRolePermissionParam;
+
+import java.util.Set;
 
 /**
  * 商户角色权限表 服务类
@@ -16,38 +17,19 @@ public interface MerchantRolePermissionService extends BaseService<MerchantRoleP
     /**
      * 保存
      *
-     * @param merchantRolePermission
+     * @param merchantRolePermissionParam
      * @return
      * @throws Exception
      */
-    boolean saveMerchantRolePermission(MerchantRolePermission merchantRolePermission) throws Exception;
+    boolean addMerchantRolePermission(MerchantRolePermissionParam merchantRolePermissionParam) throws Exception;
 
     /**
-     * 修改
+     * 获取角色权限ID
      *
-     * @param merchantRolePermission
+     * @param roleId
      * @return
      * @throws Exception
      */
-    boolean updateMerchantRolePermission(MerchantRolePermission merchantRolePermission) throws Exception;
-
-    /**
-     * 删除
-     *
-     * @param id
-     * @return
-     * @throws Exception
-     */
-    boolean deleteMerchantRolePermission(Long id) throws Exception;
-
-
-    /**
-     * 获取分页对象
-     *
-     * @param merchantRolePermissionPageParam
-     * @return
-     * @throws Exception
-     */
-    Paging<MerchantRolePermission> getMerchantRolePermissionPageList(MerchantRolePermissionPageParam merchantRolePermissionPageParam) throws Exception;
+    Set<Integer> getMerchantRolePermissionId(Integer roleId);
 
 }

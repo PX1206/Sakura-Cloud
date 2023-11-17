@@ -2,4 +2,69 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sakura.user.mapper.MerchantPermissionMapper">
 
+    <select id="findPermissionIdByMerchantNo" resultType="java.lang.Integer">
+        SELECT permission_id
+        FROM t_merchant_permission
+        WHERE merchant_no = #{merchantNo,jdbcType=VARCHAR}
+    </select>
+
+    <update id="deleteByPermissionsId">
+        UPDATE t_merchant_permission
+        SET status = 0,
+        update_dt = NOW()
+        WHERE merchant_no = #{merchantNo,jdbcType=VARCHAR}
+        AND status = 1
+        AND permission_id IN
+        <foreach collection="permissionIds" item="permissionId" index="index" separator="," open="(" close=")">
+            #{permissionId,jdbcType=INTEGER}
+        </foreach>
+    </update>
+
+    <insert id="saveMerchantPermission">
+        insert into t_merchant_permission (merchant_no, permission_id, status)
+        values
+        <foreach collection="permissionIds" item="permissionId" index="index"
+                 separator=",">
+            (#{merchantNo,jdbcType=VARCHAR}, #{permissionId,jdbcType=INTEGER}, 1)
+        </foreach>
+    </insert>
+
+    <update id="deleteMerchantPermission">
+        UPDATE t_merchant_permission
+        SET status    = 0,
+            update_dt = NOW()
+        WHERE merchant_no = #{merchantNo,jdbcType=VARCHAR}
+          AND status = 1
+    </update>
+
+    <select id="findMerchantPermission" resultType="com.sakura.user.vo.MerchantPermissionVo">
+        SELECT tp.id, IF(tmp.id IS NULL, 1, 0) AS type
+        FROM t_permission tp
+        LEFT JOIN t_merchant_type_permission ttp ON tp.id = ttp.permission_id AND ttp.`status` = 1
+        LEFT JOIN t_merchant tm ON ttp.type_id = tm.type_id
+        LEFT JOIN t_merchant_permission tmp ON tp.id = tmp.permission_id AND tmp.`status` = 1
+        WHERE tp.`status` = 1
+          AND (tp.classify = 0 OR tm.merchant_no = #{merchantNo,jdbcType=VARCHAR} OR tmp.merchant_no = #{merchantNo,jdbcType=VARCHAR})
+    </select>
+
+    <select id="findMerchantPermissionTree" resultType="com.sakura.user.vo.MerchantPermissionTreeVo">
+        SELECT tp.id, tp.parent_id, tp.code, tp.name
+        FROM t_permission tp
+                 LEFT JOIN t_merchant_type_permission ttp ON tp.id = ttp.permission_id AND ttp.`status` = 1
+                 LEFT JOIN t_merchant tm ON ttp.type_id = tm.type_id
+                 LEFT JOIN t_merchant_permission tmp ON tp.id = tmp.permission_id AND tmp.`status` = 1
+        WHERE tp.`status` = 1
+          AND (tp.classify = 0 OR tm.merchant_no = #{merchantNo,jdbcType=VARCHAR} OR tmp.merchant_no = #{merchantNo,jdbcType=VARCHAR})
+    </select>
+
+    <select id="findAllMerchantPermissionId" resultType="java.lang.Integer">
+        SELECT tp.id
+        FROM t_permission tp
+                 LEFT JOIN t_merchant_type_permission ttp ON tp.id = ttp.permission_id AND ttp.`status` = 1
+                 LEFT JOIN t_merchant tm ON ttp.type_id = tm.type_id
+                 LEFT JOIN t_merchant_permission tmp ON tp.id = tmp.permission_id AND tmp.`status` = 1
+        WHERE tp.`status` = 1
+          AND (tp.classify = 0 OR tm.merchant_no = #{merchantNo,jdbcType=VARCHAR} OR tmp.merchant_no = #{merchantNo,jdbcType=VARCHAR})
+    </select>
+
 </mapper>

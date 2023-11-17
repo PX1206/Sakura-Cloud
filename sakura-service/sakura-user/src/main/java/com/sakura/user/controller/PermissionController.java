@@ -4,6 +4,8 @@ import com.sakura.user.param.PermissionParam;
 import com.sakura.user.service.PermissionService;
 import com.sakura.user.vo.PermissionTreeVo;
 import com.sakura.user.vo.PermissionVo;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import lombok.extern.slf4j.Slf4j;
 import com.sakura.common.base.BaseController;
 import com.sakura.common.api.ApiResult;
@@ -41,7 +43,7 @@ public class PermissionController extends BaseController {
      */
     @PostMapping("/add")
     @OperationLog(name = "添加权限", type = OperationLogType.ADD)
-    @ApiOperation(value = "添加权限", response = ApiResult.class)
+    @ApiOperation(value = "添加权限 admin", response = ApiResult.class)
     public ApiResult<Boolean> addPermission(@Validated(Add.class) @RequestBody PermissionParam permissionParam) throws Exception {
         boolean flag = permissionService.savePermission(permissionParam);
         return ApiResult.result(flag);
@@ -52,7 +54,7 @@ public class PermissionController extends BaseController {
      */
     @PostMapping("/update")
     @OperationLog(name = "修改权限", type = OperationLogType.UPDATE)
-    @ApiOperation(value = "修改权限", response = ApiResult.class)
+    @ApiOperation(value = "修改权限 admin", response = ApiResult.class)
     public ApiResult<Boolean> updatePermission(@Validated(Update.class) @RequestBody PermissionParam permissionParam) throws Exception {
         boolean flag = permissionService.updatePermission(permissionParam);
         return ApiResult.result(flag);
@@ -63,7 +65,7 @@ public class PermissionController extends BaseController {
      */
     @PostMapping("/delete/{id}")
     @OperationLog(name = "删除权限", type = OperationLogType.DELETE)
-    @ApiOperation(value = "删除权限", response = ApiResult.class)
+    @ApiOperation(value = "删除权限 admin", response = ApiResult.class)
     public ApiResult<Boolean> deletePermission(@PathVariable("id") Long id) throws Exception {
         boolean flag = permissionService.deletePermission(id);
         return ApiResult.result(flag);
@@ -74,20 +76,23 @@ public class PermissionController extends BaseController {
      */
     @GetMapping("/info/{id}")
     @OperationLog(name = "权限详情", type = OperationLogType.INFO)
-    @ApiOperation(value = "权限详情", response = PermissionVo.class)
+    @ApiOperation(value = "权限详情 admin", response = PermissionVo.class)
     public ApiResult<PermissionVo> getPermission(@PathVariable("id") Long id) throws Exception {
         PermissionVo permissionVo = permissionService.getPermission(id);
         return ApiResult.ok(permissionVo);
     }
 
     /**
-     * 权限表分页列表
+     * 权限树
      */
-    @GetMapping("/tree/{parentId}")
+    @GetMapping(value = {"/tree", "/tree/{classify}"})
     @OperationLog(name = "权限树", type = OperationLogType.QUERY)
-    @ApiOperation(value = "权限树 顶层parentId为0", response = PermissionTreeVo.class)
-    public ApiResult<List<PermissionTreeVo>> getPermissionTree(@PathVariable("parentId") Integer parentId) throws Exception {
-        List<PermissionTreeVo> permissionTreeVos = permissionService.getPermissionTree(parentId);
+    @ApiOperation(value = "权限树 admin", response = PermissionTreeVo.class)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "classify", value = "权限归类（classify，不传查询全部）：0公共 1客户 2商户 3admin")
+    })
+    public ApiResult<List<PermissionTreeVo>> getPermissionTree(@PathVariable(value = "classify", required = false) Integer classify) throws Exception {
+        List<PermissionTreeVo> permissionTreeVos = permissionService.getPermissionTree(classify);
         return ApiResult.ok(permissionTreeVos);
     }
 

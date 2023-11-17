@@ -10,6 +10,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.ibatis.annotations.Param;
 import java.io.Serializable;
+import java.util.Set;
 
 /**
  * 商户类型权限表 Mapper 接口
@@ -19,6 +20,12 @@ import java.io.Serializable;
  */
 @Mapper
 public interface MerchantTypePermissionMapper extends BaseMapper<MerchantTypePermission> {
+
+    Set<Integer> findPermissionIdByTypeId(@Param("typeId") Integer typeId);
+
+    int saveMerchantTypePermission(@Param("typeId") Integer typeId, @Param("permissionIds") Set<Integer> permissionIds);
+
+    int deleteByPermissionsId(@Param("roleId") Integer roleId, @Param("permissionIds") Set<Integer> permissionIds);
 
 
 }

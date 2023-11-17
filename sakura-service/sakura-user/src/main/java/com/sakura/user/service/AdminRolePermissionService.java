@@ -30,6 +30,6 @@ public interface AdminRolePermissionService extends BaseService<AdminRolePermiss
      * @return
      * @throws Exception
      */
-    Set<Integer> getAdminrRolePermissionId(Integer roleId);
+    Set<Integer> getAdminRolePermissionId(Integer roleId);
 
 }

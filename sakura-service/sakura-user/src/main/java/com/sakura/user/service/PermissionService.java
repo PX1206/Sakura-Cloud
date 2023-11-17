@@ -57,11 +57,11 @@ public interface PermissionService extends BaseService<Permission> {
     /**
      * 获取权限树
      *
-     * @param parentId
+     * @param classify
      * @return
      * @throws Exception
      */
-    List<PermissionTreeVo> getPermissionTree(Integer parentId) throws Exception;
+    List<PermissionTreeVo> getPermissionTree(Integer classify) throws Exception;
 
     Set<String> getCodeByUrl(String strJson) throws Exception;
 

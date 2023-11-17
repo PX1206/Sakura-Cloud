@@ -18,16 +18,15 @@ import java.util.List;
  * 权限表
  *
  * @author Sakura
- * @since 2023-08-28
+ * @since 2023-11-16
  */
 @Data
 @Accessors(chain = true)
 @EqualsAndHashCode(callSuper = true)
-@ApiModel(value = "权限树信息")
-public class PermissionTreeVo extends BaseEntity {
+@ApiModel(value = "商户权限树信息")
+public class MerchantPermissionTreeVo extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
-    @NotNull(message = "id不能为空", groups = {Update.class})
     @ApiModelProperty("权限ID")
     private Integer id;
 
@@ -40,24 +39,7 @@ public class PermissionTreeVo extends BaseEntity {
     @ApiModelProperty("权限名称")
     private String name;
 
-    @ApiModelProperty("请求url")
-    private String url;
-
-    @ApiModelProperty("类型：菜单menu 按钮button")
-    private String type;
-
-    @ApiModelProperty("描述")
-    private String description;
-
-    @ApiModelProperty("权限归类：0公共 1客户 2商户 3admin 默认0")
-    private Integer classify;
-
-    @ApiModelProperty("创建时间")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date createDt;
-
     @ApiModelProperty("子权限")
-    private List<PermissionTreeVo> childList;
+    private List<MerchantPermissionTreeVo> childList;
 
 }

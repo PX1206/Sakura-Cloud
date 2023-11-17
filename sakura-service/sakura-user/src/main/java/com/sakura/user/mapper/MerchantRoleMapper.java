@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.sakura.user.entity.MerchantRole;
 import com.sakura.user.param.MerchantRolePageParam;
 
+import com.sakura.user.vo.MerchantRoleVo;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -19,6 +20,9 @@ import java.io.Serializable;
  */
 @Mapper
 public interface MerchantRoleMapper extends BaseMapper<MerchantRole> {
+
+    IPage<MerchantRoleVo> findMerchantRoles(@Param("page") Page page, @Param("merchantNo") String merchantNo,
+                                            @Param("param") MerchantRolePageParam param);
 
 
 }

@@ -37,14 +37,14 @@ public class CustomerRolePermissionServiceImpl extends BaseServiceImpl<CustomerR
             Set<Integer> newAddPermissions = customerRolePermissionParam.getPermissionIds().stream()
                     .filter(element -> !permissionIds.contains(element))
                     .collect(Collectors.toSet());
-            if (newAddPermissions != null && newAddPermissions.size() > 0) {
+            if (newAddPermissions.size() > 0) {
                 customerRolePermissionMapper.saveCustomerRolePermission(customerRolePermissionParam.getRoleId(), newAddPermissions);
             }
             // 找出删除的权限
             Set<Integer> deletePermissions = permissionIds.stream()
                     .filter(element -> !customerRolePermissionParam.getPermissionIds().contains(element))
                     .collect(Collectors.toSet());
-            if (deletePermissions != null && deletePermissions.size() > 0) {
+            if (deletePermissions.size() > 0) {
                 customerRolePermissionMapper.deleteByPermissionsId(customerRolePermissionParam.getRoleId(), deletePermissions);
             }
         } else {

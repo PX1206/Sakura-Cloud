@@ -7,28 +7,29 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.Set;
 
 /**
- * admin用户角色表
+ * 角色权限表
  *
  * @author Sakura
- * @since 2023-08-17
+ * @since 2023-11-14
  */
 @Data
 @Accessors(chain = true)
 @EqualsAndHashCode(callSuper = true)
-@ApiModel(value = "admin用户角色参数")
-public class AdminUserRoleParam extends BaseEntity {
+@ApiModel(value = "商户权限参数")
+public class MerchantPermissionParam extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty("用户id")
-    @NotBlank(message = "用户id不能为空")
-    private String userId;
+    @ApiModelProperty("商户号")
+    @NotNull(message = "商户号不能为空")
+    private String merchantNo;
 
-    @ApiModelProperty("角色id")
-    @NotNull(message = "角色id不能为空")
-    private Integer roleId;
+    @ApiModelProperty("权限id")
+    @NotEmpty(message = "权限ID不能为空")
+    private Set<Integer> permissionIds;
 
 }

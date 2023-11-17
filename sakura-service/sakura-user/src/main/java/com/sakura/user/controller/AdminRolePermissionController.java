@@ -35,9 +35,9 @@ public class AdminRolePermissionController extends BaseController {
     /**
      * 添加角色权限
      */
-    @PostMapping("/add")
-    @OperationLog(name = "添加角色权限", type = OperationLogType.ADD)
-    @ApiOperation(value = "添加角色权限", response = ApiResult.class)
+    @PostMapping("/save")
+    @OperationLog(name = "保存角色权限", type = OperationLogType.ADD)
+    @ApiOperation(value = "保存角色权限", response = ApiResult.class)
     public ApiResult<Boolean> addAdminRolePermission(@Validated @RequestBody AdminRolePermissionParam adminRolePermissionParam) throws Exception {
         boolean flag = adminRolePermissionService.addAdminRolePermission(adminRolePermissionParam);
         return ApiResult.result(flag);
@@ -46,11 +46,11 @@ public class AdminRolePermissionController extends BaseController {
     /**
      * 获取角色权限ID
      */
-    @GetMapping("/getAdminrRolePermissionId/{roleId}")
+    @GetMapping("/getAdminRolePermissionId/{roleId}")
     @OperationLog(name = "获取角色权限ID", type = OperationLogType.QUERY)
     @ApiOperation(value = "获取角色权限ID", response = ApiResult.class)
     public ApiResult<Set<Integer>> getAdminRolePermissionId(@PathVariable("roleId") Integer roleId) throws Exception {
-        Set<Integer> permissionIds = adminRolePermissionService.getAdminrRolePermissionId(roleId);
+        Set<Integer> permissionIds = adminRolePermissionService.getAdminRolePermissionId(roleId);
         return ApiResult.ok(permissionIds);
     }
 

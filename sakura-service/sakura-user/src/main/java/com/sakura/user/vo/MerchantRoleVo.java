@@ -1,38 +1,42 @@
-package com.sakura.user.param;
+package com.sakura.user.vo;
 
-import com.sakura.common.api.Update;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.sakura.common.base.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import java.util.Date;
 
 /**
  * admin角色表
  *
  * @author Sakura
- * @since 2023-11-09
+ * @since 2023-11-13
  */
 @Data
 @Accessors(chain = true)
 @EqualsAndHashCode(callSuper = true)
-@ApiModel(value = "Admin用户角色参数")
-public class AdminRoleParam extends BaseEntity {
+@ApiModel(value = "商户角色信息")
+public class MerchantRoleVo extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
-    @NotNull(message = "id不能为空", groups = {Update.class})
     @ApiModelProperty("自增ID")
     private Integer id;
 
     @ApiModelProperty("角色名称")
-    @NotBlank(message = "角色名称不能为空")
     private String name;
 
     @ApiModelProperty("描述")
     private String description;
+
+    @ApiModelProperty("创建日期")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date createDt;
+
 
 }

@@ -1,5 +1,6 @@
 package com.sakura.user.param;
 
+import com.sakura.common.api.Update;
 import com.sakura.common.base.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -11,24 +12,27 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 /**
- * admin用户角色表
+ * admin角色表
  *
  * @author Sakura
- * @since 2023-08-17
+ * @since 2023-11-13
  */
 @Data
 @Accessors(chain = true)
 @EqualsAndHashCode(callSuper = true)
-@ApiModel(value = "admin用户角色参数")
-public class AdminUserRoleParam extends BaseEntity {
+@ApiModel(value = "商户用户角色参数")
+public class MerchantRoleParam extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty("用户id")
-    @NotBlank(message = "用户id不能为空")
-    private String userId;
+    @NotNull(message = "id不能为空", groups = {Update.class})
+    @ApiModelProperty("自增ID")
+    private Integer id;
 
-    @ApiModelProperty("角色id")
-    @NotNull(message = "角色id不能为空")
-    private Integer roleId;
+    @ApiModelProperty("角色名称")
+    @NotBlank(message = "角色名称不能为空")
+    private String name;
+
+    @ApiModelProperty("描述")
+    private String description;
 
 }

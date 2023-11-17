@@ -114,12 +114,12 @@ public class PermissionServiceImpl extends BaseServiceImpl<PermissionMapper, Per
     }
 
     @Override
-    public List<PermissionTreeVo> getPermissionTree(Integer parentId) throws Exception {
+    public List<PermissionTreeVo> getPermissionTree(Integer classify) throws Exception {
         // 先获取所有的权限
-        List<PermissionVo> permissionVos = permissionMapper.findAllPermission();
+        List<PermissionVo> permissionVos = permissionMapper.findAllPermission(classify);
         // 递归遍历所有权限信息
         int num = 0; // 添加一个遍历层数，防止数据异常导致递归死循环
-        List<PermissionTreeVo> permissionTreeVos = getChildPermissions(parentId, permissionVos, num);
+        List<PermissionTreeVo> permissionTreeVos = getChildPermissions(0, permissionVos, num);
         return permissionTreeVos;
     }
 
