@@ -1,9 +1,10 @@
 package com.sakura.user.service;
 
 import com.sakura.user.entity.MerchantTypePermission;
-import com.sakura.user.param.MerchantTypePermissionPageParam;
 import com.sakura.common.base.BaseService;
-import com.sakura.common.pagination.Paging;
+import com.sakura.user.param.MerchantTypePermissionParam;
+
+import java.util.Set;
 
 /**
  * 商户类型权限表 服务类
@@ -16,38 +17,19 @@ public interface MerchantTypePermissionService extends BaseService<MerchantTypeP
     /**
      * 保存
      *
-     * @param merchantTypePermission
+     * @param merchantTypePermissionParam
      * @return
      * @throws Exception
      */
-    boolean saveMerchantTypePermission(MerchantTypePermission merchantTypePermission) throws Exception;
+    boolean addMerchantTypePermission(MerchantTypePermissionParam merchantTypePermissionParam) throws Exception;
 
     /**
-     * 修改
+     * 获取角色权限ID
      *
-     * @param merchantTypePermission
+     * @param typeId
      * @return
      * @throws Exception
      */
-    boolean updateMerchantTypePermission(MerchantTypePermission merchantTypePermission) throws Exception;
-
-    /**
-     * 删除
-     *
-     * @param id
-     * @return
-     * @throws Exception
-     */
-    boolean deleteMerchantTypePermission(Long id) throws Exception;
-
-
-    /**
-     * 获取分页对象
-     *
-     * @param merchantTypePermissionPageParam
-     * @return
-     * @throws Exception
-     */
-    Paging<MerchantTypePermission> getMerchantTypePermissionPageList(MerchantTypePermissionPageParam merchantTypePermissionPageParam) throws Exception;
+    Set<Integer> getMerchantTypePermissionId(Integer typeId);
 
 }

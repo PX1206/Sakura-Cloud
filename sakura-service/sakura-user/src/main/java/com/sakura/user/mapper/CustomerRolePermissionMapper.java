@@ -24,4 +24,6 @@ public interface CustomerRolePermissionMapper extends BaseMapper<CustomerRolePer
 
     int deleteByPermissionsId(@Param("roleId") Integer roleId, @Param("permissionIds") Set<Integer> permissionIds);
 
+    int deleteByRoleId(@Param("roleId") Integer roleId);
+
 }

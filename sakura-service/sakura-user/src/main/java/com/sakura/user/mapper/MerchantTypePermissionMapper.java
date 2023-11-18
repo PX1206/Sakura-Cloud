@@ -25,7 +25,8 @@ public interface MerchantTypePermissionMapper extends BaseMapper<MerchantTypePer
 
     int saveMerchantTypePermission(@Param("typeId") Integer typeId, @Param("permissionIds") Set<Integer> permissionIds);
 
-    int deleteByPermissionsId(@Param("roleId") Integer roleId, @Param("permissionIds") Set<Integer> permissionIds);
+    int deleteByPermissionsId(@Param("typeId") Integer typeId, @Param("permissionIds") Set<Integer> permissionIds);
 
+    int deleteByTypeId(@Param("typeId") Integer typeId);
 
 }

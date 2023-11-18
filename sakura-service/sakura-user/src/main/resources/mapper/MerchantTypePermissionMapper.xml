@@ -27,4 +27,12 @@
         </foreach>
     </insert>
 
+    <update id="deleteByTypeId">
+        UPDATE t_merchant_type_permission
+        SET status = 0,
+        update_dt = NOW()
+        WHERE type_id = #{typeId,jdbcType=INTEGER}
+        AND status = 1
+    </update>
+
 </mapper>

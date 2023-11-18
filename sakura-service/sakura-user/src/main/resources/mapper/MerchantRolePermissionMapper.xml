@@ -27,4 +27,12 @@
         </foreach>
     </insert>
 
+    <update id="deleteByRoleId">
+        UPDATE t_merchant_role_permission
+        SET status = 0,
+        update_dt = NOW()
+        WHERE role_id = #{roleId,jdbcType=INTEGER}
+        AND status = 1
+    </update>
+
 </mapper>

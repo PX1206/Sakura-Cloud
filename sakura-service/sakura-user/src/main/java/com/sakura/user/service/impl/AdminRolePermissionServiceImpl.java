@@ -29,6 +29,12 @@ public class AdminRolePermissionServiceImpl extends BaseServiceImpl<AdminRolePer
     @Transactional(rollbackFor = Exception.class)
     @Override
     public boolean addAdminRolePermission(AdminRolePermissionParam adminRolePermissionParam) throws Exception {
+        // 如果权限为空则表示清空权限
+        if (adminRolePermissionParam.getPermissionIds() == null || adminRolePermissionParam.getPermissionIds().size() < 1) {
+            adminRolePermissionMapper.deleteByRoleId(adminRolePermissionParam.getRoleId());
+            return true;
+        }
+
         // 先获取角色原有权限信息
         Set<Integer> permissionIds = adminRolePermissionMapper.findPermissionIdByRoleId(adminRolePermissionParam.getRoleId());
         // 如果角色原先就有权限则先处理原有权限

@@ -52,6 +52,13 @@ public class MerchantPermissionServiceImpl extends BaseServiceImpl<MerchantPermi
         if (merchant == null) {
             throw new BusinessException(500, "商户信息异常");
         }
+
+        // 权限为空则表示清空商户权限
+        if (merchantPermissionParam.getPermissionIds() == null || merchantPermissionParam.getPermissionIds().size() < 1) {
+            merchantPermissionMapper.deleteMerchantPermission(merchantPermissionParam.getMerchantNo());
+            return true;
+        }
+
         // 根据商户类型获取基础权限
         Set<Integer> typePermissionIds = merchantTypePermissionMapper.findPermissionIdByTypeId(merchant.getTypeId());
         // 排除里面的基础权限获取商户特殊权限

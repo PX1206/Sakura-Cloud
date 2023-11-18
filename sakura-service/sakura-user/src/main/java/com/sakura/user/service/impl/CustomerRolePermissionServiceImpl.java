@@ -29,6 +29,11 @@ public class CustomerRolePermissionServiceImpl extends BaseServiceImpl<CustomerR
     @Transactional(rollbackFor = Exception.class)
     @Override
     public boolean saveCustomerRolePermission(CustomerRolePermissionParam customerRolePermissionParam) throws Exception {
+        // 如果权限为空则表示情况权限
+        if (customerRolePermissionParam.getPermissionIds() == null || customerRolePermissionParam.getPermissionIds().size() < 1) {
+            customerRolePermissionMapper.deleteByRoleId(customerRolePermissionParam.getRoleId());
+            return true;
+        }
         // 先获取角色原有权限信息
         Set<Integer> permissionIds = customerRolePermissionMapper.findPermissionIdByRoleId(customerRolePermissionParam.getRoleId());
         // 如果角色原先就有权限则先处理原有权限

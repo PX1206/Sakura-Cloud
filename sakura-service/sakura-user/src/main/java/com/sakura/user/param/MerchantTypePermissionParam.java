@@ -12,21 +12,21 @@ import javax.validation.constraints.NotNull;
 import java.util.Set;
 
 /**
- * 角色权限表
+ * 商户类型权限
  *
  * @author Sakura
- * @since 2023-11-14
+ * @since 2023-11-17
  */
 @Data
 @Accessors(chain = true)
 @EqualsAndHashCode(callSuper = true)
-@ApiModel(value = "商户角色权限参数")
-public class MerchantRolePermissionParam extends BaseEntity {
+@ApiModel(value = "商户类型权限参数")
+public class MerchantTypePermissionParam extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty("角色id")
-    @NotNull(message = "角色ID不能为空")
-    private Integer roleId;
+    @ApiModelProperty("商户类型id")
+    @NotNull(message = "商户类型ID不能为空")
+    private Integer typeId;
 
     @ApiModelProperty("权限id，为空则表示清空权限")
     //@NotEmpty(message = "权限ID不能为空")

@@ -28,8 +28,8 @@ public class MerchantPermissionParam extends BaseEntity {
     @NotNull(message = "商户号不能为空")
     private String merchantNo;
 
-    @ApiModelProperty("权限id")
-    @NotEmpty(message = "权限ID不能为空")
+    @ApiModelProperty("权限id，为空则表示清空权限")
+    //@NotEmpty(message = "权限ID不能为空")
     private Set<Integer> permissionIds;
 
 }

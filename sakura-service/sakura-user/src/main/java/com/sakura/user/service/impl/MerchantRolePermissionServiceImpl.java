@@ -50,6 +50,13 @@ public class MerchantRolePermissionServiceImpl extends BaseServiceImpl<MerchantR
             throw new BusinessException(500, "角色信息异常");
         }
 
+        // 如果权限为空表示清空权限
+        if (merchantRolePermissionParam.getPermissionIds() == null || merchantRolePermissionParam.getPermissionIds().size() < 1) {
+            // 清空权限退出
+            merchantRolePermissionMapper.deleteByRoleId(merchantRolePermissionParam.getRoleId());
+            return true;
+        }
+
         // 还需要校验权限ID是否为商户所有，防止越级赋权
         // 获取商户所有权限
         Set<Integer> allMerchantPermissionId = merchantPermissionMapper.findAllMerchantPermissionId(LoginUtil.getMerchantNo());

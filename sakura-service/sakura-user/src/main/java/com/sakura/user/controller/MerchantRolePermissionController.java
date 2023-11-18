@@ -35,9 +35,9 @@ public class MerchantRolePermissionController extends BaseController {
     /**
      * 添加角色权限
      */
-    @PostMapping("/add")
-    @OperationLog(name = "添加角色权限", type = OperationLogType.ADD)
-    @ApiOperation(value = "添加角色权限", response = ApiResult.class)
+    @PostMapping("/save")
+    @OperationLog(name = "保存角色权限", type = OperationLogType.ADD)
+    @ApiOperation(value = "保存角色权限", response = ApiResult.class)
     public ApiResult<Boolean> addMerchantRolePermission(@Validated @RequestBody MerchantRolePermissionParam merchantRolePermissionParam) throws Exception {
         boolean flag = merchantRolePermissionService.addMerchantRolePermission(merchantRolePermissionParam);
         return ApiResult.result(flag);

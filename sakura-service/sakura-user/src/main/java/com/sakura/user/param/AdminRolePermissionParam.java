@@ -28,8 +28,8 @@ public class AdminRolePermissionParam extends BaseEntity {
     @NotNull(message = "角色ID不能为空")
     private Integer roleId;
 
-    @ApiModelProperty("权限id")
-    @NotEmpty(message = "权限ID不能为空")
+    @ApiModelProperty("权限id，为空则表示情况权限")
+    //@NotEmpty(message = "权限ID不能为空")
     private Set<Integer> permissionIds;
 
 }

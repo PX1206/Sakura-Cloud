@@ -24,5 +24,7 @@ public interface AdminRolePermissionMapper extends BaseMapper<AdminRolePermissio
 
     int deleteByPermissionsId(@Param("roleId") Integer roleId, @Param("permissionIds") Set<Integer> permissionIds);
 
+    int deleteByRoleId(@Param("roleId") Integer roleId);
+
 
 }
